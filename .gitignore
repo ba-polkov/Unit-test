@@ -1,0 +1,7 @@
+.venv
+.idea
+.build
+.target
+.gitignore
+__pycache__gi
+.pytest_cache
