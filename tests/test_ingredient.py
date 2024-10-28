@@ -1,12 +1,6 @@
 import pytest
-
+from helpers.helpers import IngredientTestData as TestData
 from praktikum.ingredient import Ingredient
-
-
-class TestData:
-    type = "green"
-    name = 'onion'
-    price = 3.3
 
 
 class TestIngredient:

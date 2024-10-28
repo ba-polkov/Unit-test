@@ -1,10 +1,6 @@
 import pytest
 from praktikum.bun import Bun
-
-
-class TestData:
-    name = 'slim'
-    price = 11.1
+from helpers.helpers import BunTestData as TestData
 
 
 class TestBun:
