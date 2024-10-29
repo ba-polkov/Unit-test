@@ -2,12 +2,13 @@ import pytest
 from praktikum.bun import Bun
 
 
-def test_get_name(default_bun):
-    assert default_bun.get_name() == "Стандартная булочка", "Название булочки не соответствует ожидаемому"
+class TestBun:
 
+    def test_get_name(self, default_bun):
+        assert default_bun.get_name() == "Стандартная булочка", "Название булочки не соответствует ожидаемому"
 
-def test_get_price(default_bun):
-    assert default_bun.get_price() == 1.0, "Цена булочки не соответствует ожидаемой"
+    def test_get_price(self, default_bun):
+        assert default_bun.get_price() == 1.0, "Цена булочки не соответствует ожидаемой"
 
 
 @pytest.mark.parametrize("name, price", [
