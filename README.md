@@ -1,3 +1,14 @@
+##Ссылки на GitHub
+
+Задание 1: https://github.com/Yandex-Practicum/qa-python-diplom/pull/259
+
+Задание 2: https://github.com/probyfalcon-s/Diplom_2
+
+Задание 3: https://github.com/probyfalcon-s/Diplom_3
+Комментарий для ревьюера
+
+Здесь можно написать пояснения к своей работе
+
 ## Дипломный проект. Задание 1: Юнит-тесты
 
 ### Автотесты для проверки программы, которая помогает заказать бургер в Stellar Burgers
