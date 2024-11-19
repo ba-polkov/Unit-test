@@ -1,0 +1,7 @@
+[coverage:run]
+branch = True
+source = praktikum
+omit =
+    praktikum/ingredient_types.py
+    praktikum/praktikum.py
+    praktikum/__init__.py
