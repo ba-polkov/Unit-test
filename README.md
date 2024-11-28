@@ -4,9 +4,24 @@
 
 ### Реализованные сценарии
 
-Созданы юнит-тесты, покрывающие классы `Bun`, `Burger`, `Ingredient`, `Database`
+Отчет о покрытии
+Созданы юнит-тесты
 
-Процент покрытия 100% (отчет: `htmlcov/index.html`)
+Процент покрытия 91% (отчет: `htmlcov/index.html`)
+
+
+Name                        Stmts   Miss  Cover
+-----------------------------------------------
+bun.py                          8      0   100%
+burger.py                      27      0   100%
+conftest.py                    44      0   100%
+data.py                        16      0   100%
+ingredient.py                  11      0   100%
+tests\test_bun.py              12      0   100%
+tests\test_burger.py          128     24    81%
+tests\test_ingridients.py      16      0   100%
+-----------------------------------------------
+TOTAL                         262     24    91%
 
 ### Структура проекта
 
