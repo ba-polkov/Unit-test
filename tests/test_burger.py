@@ -1,7 +1,7 @@
 import pytest
 
 from praktikum.bun import Bun
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from praktikum.burger import Burger
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
@@ -73,3 +73,14 @@ class TestBurger:
 
         assert burger.ingredients == [mock_ingredient2, mock_ingredient3, mock_ingredient1], \
             f'Первый ингредиент должен быть перемещен в конец.'
+
+    def test_get_price_cost_calculation(self):
+        mock_bun = MagicMock()
+        mock_bun.get_price.return_value = 2.50
+        mock_ingredient1 = MagicMock()
+        mock_ingredient1.get_price.return_value = 1.00
+        burger = Burger()
+        burger.bun = mock_bun
+        burger.ingredients = [mock_ingredient1]
+        expected_price = 2.50 * 2 + 1.00
+        assert burger.get_price() == expected_price, f'Ожидаемая цена: {expected_price}, но получено: {burger.get_price()}'
