@@ -1,77 +1,66 @@
 import pytest
 
+from data import TEST_BURGER, TEST_ADD_INGREDIENTS, TEST_REMOVE_INGREDIENTS, TEST_MOVE_INGREDIENTS, TEST_RECEIPT_DATA
 from praktikum.bun import Bun
 from unittest.mock import patch, MagicMock
 from praktikum.burger import Burger
-from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 
 class TestBurger:
     def test_set_buns_bun_is_set(self):
-        bun = Bun('Гранд', 150.0)
+        bun_data = TEST_BURGER[0]
+        mock_bun = MagicMock(spec=Bun)
+        mock_bun.get_name.return_value = bun_data['name']
+        mock_bun.get_price.return_value = bun_data['price']
         burger = Burger()
-        burger.set_buns(bun)
+        burger.set_buns(mock_bun)
 
-        assert burger.bun == bun, f'Метод set_buns не установил булочку.'
+        assert burger.bun == mock_bun, f'Метод "set_buns" не установил булочку.'
 
     @pytest.mark.parametrize(
-        'ingredient_type, name, price', [
-            (INGREDIENT_TYPE_SAUCE, 'Кетчуп', 30.0),
-            (INGREDIENT_TYPE_FILLING, 'Катлета', 80.0)
-        ]
+        'ingredient_data', TEST_ADD_INGREDIENTS
     )
     @patch('praktikum.ingredient.Ingredient')
-    def test_add_ingredient_check_addition_of_ingredients_to_list(self, mockIngredient, ingredient_type, name, price):
+    def test_add_ingredient_check_addition_of_ingredients_to_list(self, mockIngredient, ingredient_data):
         mock_ingredient = mockIngredient.return_value
-        mock_ingredient.get_type.return_value = ingredient_type
-        mock_ingredient.get_name.return_value = name
-        mock_ingredient.get_price.return_value = price
+        mock_ingredient.get_type.return_value = ingredient_data['ingredient_type']
+        mock_ingredient.get_name.return_value = ingredient_data['name']
+        mock_ingredient.get_price.return_value = ingredient_data['price']
         burger = Burger()
         burger.add_ingredient(mock_ingredient)
 
-        assert burger.ingredients == [mock_ingredient], f'Ингредиенты должены быть добавлены в список.'
+        assert burger.ingredients == [
+            mock_ingredient], f'Ингредиенты должны быть добавлены в список, но получили {burger.ingredients}'
 
+    @pytest.mark.parametrize(
+        'ingredient_data', TEST_REMOVE_INGREDIENTS
+    )
     @patch('praktikum.ingredient.Ingredient')
-    def test_remove_ingredient_removing_ingredients_from_list(self, mockIngredient):
-        mock_ingredient1 = mockIngredient.return_value
-        mock_ingredient1.get_type.return_value = INGREDIENT_TYPE_SAUCE
-        mock_ingredient1.get_name.return_value = 'Чили'
-        mock_ingredient1.get_price.return_value = 5.0
-        mock_ingredient2 = mockIngredient.return_value
-        mock_ingredient2.get_type.return_value = INGREDIENT_TYPE_FILLING
-        mock_ingredient2.get_name.return_value = 'Катлета'
-        mock_ingredient2.get_price.return_value = 10.0
+    def test_remove_ingredient_removing_ingredients_from_list(self, mockingredient, ingredient_data):
+        mock_ingredient = mockingredient.return_value
+        mock_ingredient.get_type.return_value = ingredient_data['ingredient_type']
+        mock_ingredient.get_name.return_value = ingredient_data['name']
+        mock_ingredient.get_price.return_value = ingredient_data['price']
         burger = Burger()
-        burger.add_ingredient(mock_ingredient1)
-        burger.add_ingredient(mock_ingredient2)
+        burger.add_ingredient(mock_ingredient)
         burger.remove_ingredient(0)
 
-        assert burger.ingredients == [mock_ingredient2], f'Ингредиенты должны быть удалены по индексу из списка.'
+        assert burger.ingredients == [], f'Ингредиенты должны быть удалены по индексу из списка.'
 
+    @pytest.mark.parametrize(
+        'ingredient_data', TEST_MOVE_INGREDIENTS
+    )
     @patch('praktikum.ingredient.Ingredient')
-    def test_move_ingredient_first_to_last(self, mockIngredient):
-        mock_ingredient1 = mockIngredient.return_value
-        mock_ingredient1.get_type.return_value = INGREDIENT_TYPE_SAUCE
-        mock_ingredient1.get_name.return_value = 'Майонез'
-        mock_ingredient1.get_price.return_value = 5.0
-
-        mock_ingredient2 = mockIngredient.return_value
-        mock_ingredient2.get_type.return_value = INGREDIENT_TYPE_FILLING
-        mock_ingredient2.get_name.return_value = 'Катлета'
-        mock_ingredient2.get_price.return_value = 100.0
-
-        mock_ingredient3 = mockIngredient.return_value
-        mock_ingredient3.get_type.return_value = INGREDIENT_TYPE_SAUCE
-        mock_ingredient3.get_name.return_value = 'Чили'
-        mock_ingredient3.get_price.return_value = 8.0
-
+    def test_move_ingredient_first_to_last(self, mockingredient, ingredient_data):
+        mock_ingredient = mockingredient.return_value
+        mock_ingredient.get_type.return_value = ingredient_data['ingredient_type']
+        mock_ingredient.get_name.return_value = ingredient_data['name']
+        mock_ingredient.get_price.return_value = ingredient_data['price']
         burger = Burger()
-        burger.add_ingredient(mock_ingredient1)
-        burger.add_ingredient(mock_ingredient2)
-        burger.add_ingredient(mock_ingredient3)
+        burger.add_ingredient(mock_ingredient)
         burger.move_ingredient(0, 2)
 
-        assert burger.ingredients == [mock_ingredient2, mock_ingredient3, mock_ingredient1], \
+        assert burger.ingredients == [mock_ingredient], \
             f'Первый ингредиент должен быть перемещен в конец.'
 
     def test_get_price_cost_calculation(self):
@@ -83,6 +72,22 @@ class TestBurger:
         burger.bun = mock_bun
         burger.ingredients = [mock_ingredient1]
         expected_price = 2.50 * 2 + 1.00
+
         assert burger.get_price() == expected_price, f'Ожидаемая цена: {expected_price}, но получено: {burger.get_price()}'
 
+    def test_get_receipt(self):
+        data = TEST_RECEIPT_DATA[0]
+        mock_bun = MagicMock()
+        mock_bun.get_name.return_value = data['bun_name']
+        mock_ingredient = MagicMock()
+        mock_ingredient.get_name.return_value = data['ingredient_name']
+        mock_ingredient.get_type.return_value = data['ingredient_type']
+        burger = Burger()
+        burger.bun = mock_bun
+        burger.ingredients = [mock_ingredient]
+        burger.get_price = MagicMock(return_value=data['price'])
+        receipt = burger.get_receipt()
 
+        assert data['bun_name'] in receipt and data[
+            'ingredient_name'] in receipt and f'Price: {data["price"]}' in receipt, \
+            f'Ожидалось, что чек будет содержать "{data["bun_name"]}", "{data["ingredient_name"]}" и "Price: {data["price"]}", но получено: {receipt}'
