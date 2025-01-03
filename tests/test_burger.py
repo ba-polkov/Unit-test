@@ -84,3 +84,5 @@ class TestBurger:
         burger.ingredients = [mock_ingredient1]
         expected_price = 2.50 * 2 + 1.00
         assert burger.get_price() == expected_price, f'Ожидаемая цена: {expected_price}, но получено: {burger.get_price()}'
+
+
