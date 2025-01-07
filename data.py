@@ -1,18 +1,18 @@
-# Константы для тестирования класса Bun
-BUN_NAME = 'Космос'
-BUN_PRICE = 20.00
+#Bun
+BUN_NAME = 'КосмоБулка'
+BUN_PRICE = 55.00
 
-# Константы для тестирования класса Ingredient
-INGREDIENT_NAME = 'Картошка'
-INGREDIENT_TYPE = 'Начинка'
-INGREDIENT_PRICE = 25.00
+#Ingredient
+INGREDIENT_NAME = 'Шницель'
+INGREDIENT_TYPE = 'Телопше'
+INGREDIENT_PRICE = 65.00
 
-INGREDIENT_NAME_NEXT = 'Пармеджано'
 INGREDIENT_TYPE_NEXT = 'Соус'
-INGREDIENT_PRICE_NEXT = 50.00
+INGREDIENT_NAME_NEXT = 'Чесночный'
+INGREDIENT_PRICE_NEXT = 20.00
 
-# Константы для тестирования класса Burger
+#Burger
 BURGER_NAME = 'Супер Бургер'
 
-# Константы для тестирования класса Database
+#Database
 DATABASE_PATH = 'database.db'
