@@ -1,11 +1,16 @@
-from unittest.mock import Mock
 
 import pytest
+from praktikum.bun import Bun
+from praktikum.ingredient import Ingredient
 
 
 @pytest.fixture()
 def mock_bun():
-    mock_bun = Mock()
-    mock_bun.name = 'name'
-    mock_bun.price = 1.1
+    mock_bun = Bun("Булка", 3)
     return mock_bun
+
+@pytest.fixture()
+def mock_ingredients():
+    mock_ingredients = Ingredient('Тип', 'Имя', 100)
+    return mock_ingredients
+
