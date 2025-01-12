@@ -1,6 +1,8 @@
 from unittest.mock import patch
 
+from data import Data
 from praktikum.burger import Burger
+
 
 class TestBurger:
     def test_create_burger(self):
@@ -20,7 +22,7 @@ class TestBurger:
         assert len(burger.ingredients) == 1 and burger.ingredients[0] == mock_ingredient
 
     @patch('praktikum.ingredient.Ingredient')
-    def test_remove_ingredient_when_ingredients_is_not_empty(self, mock_ingredient):
+    def test_remove_ingredient(self, mock_ingredient):
         burger = Burger()
         burger.ingredients.append(mock_ingredient)
         burger.remove_ingredient(0)
@@ -75,11 +77,7 @@ class TestBurger:
         burger.ingredients.append(mock_ingredient)
 
         actual_receipt = burger.get_receipt()
-        expected_receipt = (f'(==== Призрачная булка ====)\n'
-                            f'= основная начинка Бекон =\n'
-                            f'(==== Призрачная булка ====)\n'
-                            f'\n'
-                            f'Price: 8.4')
+        expected_receipt = Data.RECEIPT
 
         assert actual_receipt == expected_receipt
 
