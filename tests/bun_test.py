@@ -1,6 +1,6 @@
-from practicum.bun import Bun
+from praktikum.bun import Bun
 
-class TestStellarBurgers:
+class TestBun:
 
     def test_get_name(self):
         name = 'Улетная булка'
@@ -10,7 +10,6 @@ class TestStellarBurgers:
         expected_name = name
 
         assert actual_name == expected_name, f"Имя булки {actual_name} не соответствует ожидаемому {expected_name}"
-
 
     def test_get_price(self):
         name = 'Улетная булка'

@@ -21,4 +21,7 @@
 
 **Запуск автотестов и создание HTML-отчета о покрытии**
 
->  `$ pytest --cov=praktikum --cov-report=html`
+>  `$ coverage run --source=practicum -m pytest tests`
+> 
+>  `$ coverage html`
+
