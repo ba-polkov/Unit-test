@@ -29,7 +29,13 @@ TEST_RECEIPT_DATA = [
         'bun_name': 'Булочка',
         'ingredient_name': 'Майонез',
         'ingredient_type': 'FILLING',
-        'price': 10.99
+        'price': 10.99,
+        'expected_receipt': (
+            "(==== Булочка ====)\n"
+            "= filling Майонез =\n"
+            "(==== Булочка ====)\n"
+            "\nPrice: 10.99"
+        )
     }
 ]
 

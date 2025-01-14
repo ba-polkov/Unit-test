@@ -52,15 +52,23 @@ class TestBurger:
     )
     @patch('praktikum.ingredient.Ingredient')
     def test_move_ingredient_first_to_last(self, mockingredient, ingredient_data):
-        mock_ingredient = mockingredient.return_value
-        mock_ingredient.get_type.return_value = ingredient_data['ingredient_type']
-        mock_ingredient.get_name.return_value = ingredient_data['name']
-        mock_ingredient.get_price.return_value = ingredient_data['price']
+        mock_ingredient_1 = mockingredient.return_value
+        mock_ingredient_1.get_type.return_value = ingredient_data['ingredient_type']
+        mock_ingredient_1.get_name.return_value = ingredient_data['name']
+        mock_ingredient_1.get_price.return_value = ingredient_data['price']
+
+        mock_ingredient_2 = mockingredient.return_value
+        mock_ingredient_2.get_type.return_value = ingredient_data['ingredient_type']
+        mock_ingredient_2.get_name.return_value = ingredient_data['name']
+        mock_ingredient_2.get_price.return_value = ingredient_data['price']
+
         burger = Burger()
-        burger.add_ingredient(mock_ingredient)
+        burger.add_ingredient(mock_ingredient_1)
+        burger.add_ingredient(mock_ingredient_2)
+
         burger.move_ingredient(0, 2)
 
-        assert burger.ingredients == [mock_ingredient], \
+        assert burger.ingredients == [mock_ingredient_2, mock_ingredient_1], \
             f'Первый ингредиент должен быть перемещен в конец.'
 
     def test_get_price_cost_calculation(self):
@@ -88,6 +96,5 @@ class TestBurger:
         burger.get_price = MagicMock(return_value=data['price'])
         receipt = burger.get_receipt()
 
-        assert data['bun_name'] in receipt and data[
-            'ingredient_name'] in receipt and f'Price: {data["price"]}' in receipt, \
-            f'Ожидалось, что чек будет содержать "{data["bun_name"]}", "{data["ingredient_name"]}" и "Price: {data["price"]}", но получено: {receipt}'
+        assert receipt == data['expected_receipt'], \
+            f'Ожидалось, что чек будет: {data["expected_receipt"]}, но получено: {receipt}'
