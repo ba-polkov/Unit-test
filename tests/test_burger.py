@@ -52,30 +52,6 @@ class TestBurger:
         burger.add_ingredient(ingredient_mock)
         assert burger.get_price() == bun_price * 2 + ingredient_price
 
-    # def test_get_receipt_bun(self):
-        # burger = Burger()
-        # bun = Bun(data.bun_data[0], data.bun_data[1])
-        # burger.set_buns(bun)
-        # assert burger.bun.get_name() in burger.get_receipt()
-
-    # @pytest.mark.parametrize("index", [0, 1])
-    # def test_get_receipt_ingredient(self, index):
-        # burger = Burger()
-        # bun = Bun(data.bun_data[0], data.bun_data[1])
-        # ingredient_1 = Ingredient(data.ingredients[0][0], data.ingredients[0][1], data.ingredients[0][2])
-        # ingredient_2 = Ingredient(data.ingredients[3][0], data.ingredients[3][1], data.ingredients[3][2])
-        # burger.set_buns(bun)
-        # burger.add_ingredient(ingredient_1)
-        # burger.add_ingredient(ingredient_2)
-        # assert burger.ingredients[index].get_name() in burger.get_receipt()
-
-    # def test_get_receipt_price(self):
-        # burger = Burger()
-        # bun = Bun(data.bun_data[0], data.bun_data[1])
-        # ingredient = Ingredient(data.ingredients[1][0], data.ingredients[1][1], data.ingredients[1][2])
-        # burger.set_buns(bun)
-        # burger.add_ingredient(ingredient)
-        # assert str(burger.get_price()) in burger.get_receipt()
     def test_get_receipt(self):
         bun = Bun(data.bun_data[0], data.bun_data[1])
         ingredient_1 = Ingredient(data.ingredients[0][0], data.ingredients[0][1], data.ingredients[0][2])
