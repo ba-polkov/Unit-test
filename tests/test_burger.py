@@ -3,7 +3,7 @@ from unittest.mock import Mock
 from praktikum.burger import Burger
 from praktikum.bun import Bun
 from praktikum.ingredient import Ingredient
-from data import BUN_NAME, BUN_PRICE, INGREDIENT_NAME, INGREDIENT_TYPE, INGREDIENT_PRICE
+from data import TestData
 
 class TestBurger:
     @pytest.fixture
@@ -25,11 +25,16 @@ class TestBurger:
         assert ingredient in burger.ingredients
 
     def test_get_price(self, burger):
-        bun = Bun(BUN_NAME, BUN_PRICE)
-        ingredient = Ingredient(INGREDIENT_TYPE, INGREDIENT_NAME, INGREDIENT_PRICE)
+        bun = Bun(TestData.BUN_NAME, TestData.BUN_PRICE)
+        ingredient1 = Ingredient(TestData.INGREDIENT_TYPE, TestData.INGREDIENT_NAME, TestData.INGREDIENT_PRICE)
+        ingredient2 = Ingredient(TestData.INGREDIENT_TYPE_NEXT, TestData.INGREDIENT_NAME_NEXT, TestData.INGREDIENT_PRICE_NEXT)
+
         burger.set_buns(bun)
-        burger.add_ingredient(ingredient)
-        assert burger.get_price() == BUN_PRICE * 2 + INGREDIENT_PRICE
+        burger.add_ingredient(ingredient1)
+        burger.add_ingredient(ingredient2)
+
+        expected_price = TestData.BUN_PRICE * 2 + TestData.INGREDIENT_PRICE + TestData.INGREDIENT_PRICE_NEXT
+        assert burger.get_price() == expected_price
 
     def test_remove_ingredient(self, burger):
         ingredient1 = Mock(spec=Ingredient)
@@ -52,20 +57,32 @@ class TestBurger:
 
     def test_get_receipt(self, burger):
         bun = Mock(spec=Bun)
-        bun.get_name.return_value = BUN_NAME
-        bun.get_price.return_value = BUN_PRICE
-        ingredient = Mock(spec=Ingredient)
-        ingredient.get_name.return_value = INGREDIENT_NAME
-        ingredient.get_type.return_value = INGREDIENT_TYPE
-        ingredient.get_price.return_value = INGREDIENT_PRICE
+        bun.get_name.return_value = TestData.BUN_NAME
+        bun.get_price.return_value = TestData.BUN_PRICE
+
+        ingredient1 = Mock(spec=Ingredient)
+        ingredient1.get_name.return_value = TestData.INGREDIENT_NAME
+        ingredient1.get_type.return_value = TestData.INGREDIENT_TYPE
+        ingredient1.get_price.return_value = TestData.INGREDIENT_PRICE
+
+        ingredient2 = Mock(spec=Ingredient)
+        ingredient2.get_name.return_value = TestData.INGREDIENT_NAME_NEXT
+        ingredient2.get_type.return_value = TestData.INGREDIENT_TYPE_NEXT
+        ingredient2.get_price.return_value = TestData.INGREDIENT_PRICE_NEXT
+
         burger.set_buns(bun)
-        burger.add_ingredient(ingredient)
+        burger.add_ingredient(ingredient1)
+        burger.add_ingredient(ingredient2)
+
         expected_receipt = (
-            f'(==== {BUN_NAME} ====)\n'
-            f'= {INGREDIENT_TYPE.lower()} {INGREDIENT_NAME} =\n'
-            f'(==== {BUN_NAME} ====)\n\n'
-            f'Price: {BUN_PRICE * 2 + INGREDIENT_PRICE}'
+            f'(==== {TestData.BUN_NAME} ====)\n'
+            f'= {TestData.INGREDIENT_TYPE.lower()} {TestData.INGREDIENT_NAME} =\n'
+            f'= {TestData.INGREDIENT_TYPE_NEXT.lower()} {TestData.INGREDIENT_NAME_NEXT} =\n'
+            f'(==== {TestData.BUN_NAME} ====)\n\n'
+            f'Price: {TestData.BUN_PRICE * 2 + TestData.INGREDIENT_PRICE + TestData.INGREDIENT_PRICE_NEXT}'
         )
+
         assert burger.get_receipt() == expected_receipt
+
 
 
