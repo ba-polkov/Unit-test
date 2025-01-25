@@ -5,7 +5,7 @@ class TestData:
 
     # Ingredient
     INGREDIENT_NAME = 'Шницель'
-    INGREDIENT_TYPE = 'Телопше'
+    INGREDIENT_TYPE = 'Начинка'
     INGREDIENT_PRICE = 65.00
 
     INGREDIENT_TYPE_NEXT = 'Соус'
@@ -15,14 +15,3 @@ class TestData:
     # Burger
     BURGER_NAME = 'Супер Бургер'
 
-    # Database
-    DATABASE_PATH = 'database.db'
-
-    # Available buns in database
-    AVAILABLE_BUNS = ['black bun', 'white bun', 'red bun']
-
-    # Available ingredients in database
-    AVAILABLE_INGREDIENTS = [
-        'hot sauce', 'sour cream', 'chili sauce',
-        'cutlet', 'dinosaur', 'sausage'
-    ]

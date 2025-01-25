@@ -1,21 +1,23 @@
+import pytest
 from praktikum.database import Database
-from helpers import Helpers
-from data import TestData
 
 class TestDatabase:
-    def setup_method(self):
+    @pytest.fixture(autouse=True)
+    def setup(self):
         self.db = Database()
 
     def test_available_buns(self):
         available_buns = self.db.available_buns()
-        expected_result = TestData.AVAILABLE_BUNS
-        bun_names_list = Helpers.get_bun_names(available_buns)
-        assert set(expected_result) == set(bun_names_list)
+        expected_names = ["black bun", "white bun", "red bun"]
+        assert [bun.get_name() for bun in available_buns] == expected_names
 
     def test_available_ingredients(self):
         available_ingredients = self.db.available_ingredients()
-        expected_result = TestData.AVAILABLE_INGREDIENTS  #
-        ingredient_name_list = Helpers.get_ingredient_names(available_ingredients)
-        assert set(expected_result) == set(ingredient_name_list)
+        expected_names = [
+            "hot sauce", "sour cream", "chili sauce",
+            "cutlet", "dinosaur", "sausage"
+        ]
+        assert [ingredient.get_name() for ingredient in available_ingredients] == expected_names
+
 
 
