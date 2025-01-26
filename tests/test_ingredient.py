@@ -20,14 +20,14 @@ class TestIngredient(unittest.TestCase):
     def test_get_price(self):
         ingredient = Ingredient(Burger1().sauce_type, Burger1().sauce_name, Burger1().sauce_price)
         ingredient.get_price()
-        assert ingredient.price == 80.0 and type(ingredient.price) == float
+        assert ingredient.get_price() == 80.0 and type(ingredient.get_price()) == float
 
     def test_get_name(self):
         ingredient = Ingredient(Burger1().sauce_type, Burger1().sauce_name, Burger1().sauce_price)
         ingredient.get_name()
-        assert ingredient.name == 'Соус фирменный Space Sauce' and type(ingredient.name) == str
+        assert ingredient.get_name() == 'Соус фирменный Space Sauce' and type(ingredient.get_name()) == str
 
     def test_get_type(self):
         ingredient = Ingredient(Burger1().sauce_type, Burger1().sauce_name, Burger1().sauce_price)
         ingredient.get_type()
-        assert ingredient.type == INGREDIENT_TYPE_SAUCE and type(ingredient.type) == str
+        assert ingredient.get_type() == INGREDIENT_TYPE_SAUCE and type(ingredient.get_type()) == str

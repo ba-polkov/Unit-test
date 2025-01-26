@@ -16,9 +16,9 @@ class TestBun(unittest.TestCase):
     def test_get_name(self):
         bun = Bun(Burger1().bun_name, Burger1().bun_price)
         bun.get_name()
-        assert bun.name == 'Краторная булка N-200i' and type(bun.name) == str
+        assert bun.get_name() == 'Краторная булка N-200i' and type(bun.get_name()) == str
 
     def test_get_price(self):
         bun = Bun(Burger1().bun_name, Burger1().bun_price)
         bun.get_price()
-        assert bun.price == 1255.0 and type(bun.price) == float
+        assert bun.get_price() == 1255.0 and type(bun.get_price()) == float
