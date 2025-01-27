@@ -1,5 +1,3 @@
-from praktikum import database
-
 class TestDatabase:
     def test_available_buns(self, database):
         available_buns = database.available_buns()
