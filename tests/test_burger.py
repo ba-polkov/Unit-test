@@ -1,11 +1,4 @@
-import pytest
-from praktikum.burger import Burger
-
 class TestBurger:
-    @pytest.fixture
-    def burger(self):
-        return Burger()
-
     def test_burger_initialization(self, burger):
         assert burger.bun is None
         assert burger.ingredients == []
