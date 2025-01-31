@@ -6,7 +6,7 @@
 
 Созданы юнит-тесты, покрывающие классы `Bun`, `Burger`, `Ingredient`, `Database`
 
-Процент покрытия 100% (отчет: `htmlcov/index.html`)
+Процент покрытия 100%, [отчет](htmlcov/index.html)
 
 ### Структура проекта
 
@@ -17,8 +17,19 @@
 
 **Установка зависимостей**
 
-> `$ pip install -r requirements.txt`
+``` shell
+    pip install -r requirements.txt
+```
 
-**Запуск автотестов и создание HTML-отчета о покрытии**
+**Запуск автотестов и создание [HTML-отчета](htmlcov/index.html) о покрытии**
 
->  `$ pytest --cov=praktikum --cov-report=html`
+``` shell
+    pytest --cov=praktikum --cov-report=html --alluredir=allure_results
+``` 
+
+**Посмотреть отчет allure**
+
+``` shell
+    allure serve allure_results
+``` 
+
