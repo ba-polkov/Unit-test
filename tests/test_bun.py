@@ -1,6 +1,6 @@
 from praktikum.bun import Bun
 
-# Тестируем булочки
+# Тестируем класс булочек
 class TestsClassBun:
     # Тест получения имени булочки
     def test_get_name_create_bun_get_name_bun(self):
