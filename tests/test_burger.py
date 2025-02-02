@@ -21,12 +21,12 @@ class TestClassBurger:
     def test_add_ingredient_add_two_mock_ingredient_successful_add(self):
         mock_ingredient1 = Mock()
         mock_ingredient1.type = INGREDIENT_TYPE_SAUCE
-        mock_ingredient1.name = 'Соус Spicy-X'
-        mock_ingredient1.price = 90
+        mock_ingredient1.name = Data.INGREDIENT_SPICE
+        mock_ingredient1.price = Data.SPICE_PRICE
         mock_ingredient2 = Mock()
         mock_ingredient2.type = INGREDIENT_TYPE_FILLING
-        mock_ingredient2.name = 'Говяжий метеорит (отбивная)'
-        mock_ingredient2.price = 300
+        mock_ingredient2.name = Data.INGREDIENT_METEORIT
+        mock_ingredient2.price = Data.METEORIT_PRICE
         burger = Burger()
         burger.add_ingredient(mock_ingredient1)
         burger.add_ingredient(mock_ingredient2)
@@ -69,11 +69,11 @@ class TestClassBurger:
         burger.set_buns(database.available_buns()[0])
         burger.add_ingredient(database.available_ingredients()[0])
         burger.add_ingredient(database.available_ingredients()[3])
-        expected_result = "(==== black bun ====)\n"\
-                          "= sauce hot sauce =\n"\
-                          "= filling cutlet =\n"\
-                          "(==== black bun ====)\n\n"\
-                          "Price: 400"
+        expected_result = '(==== black bun ====)\n'\
+                          '= sauce hot sauce =\n'\
+                          '= filling cutlet =\n'\
+                          '(==== black bun ====)\n\n'\
+                          'Price: 400'
         assert expected_result == burger.get_receipt()
 
 
