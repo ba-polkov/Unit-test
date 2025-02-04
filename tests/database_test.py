@@ -17,7 +17,6 @@ class TestDataBase:
         ingredient = Mock()
         ingredient1 = Mock()
         ingredient2 = Mock()
-
         database.ingredients = [ingredient, ingredient1, ingredient2]
 
         assert database.available_ingredients() == database.ingredients
