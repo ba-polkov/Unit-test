@@ -64,4 +64,4 @@ class TestBurger:
         ingredient.get_type.return_value = 'yammi sauce'
         burger.ingredients = [ingredient]
 
-        assert burger.get_receipt() == '(==== yammi_bun_name ====)\n= yammi sauce ketchup ingredient =\n(==== yammi_bun_name ====)\n\nPrice: 21.5'
+        assert burger.get_receipt() == f'(==== {bun.get_name.return_value} ====)\n= {ingredient.get_type.return_value} {ingredient.get_name.return_value} =\n(==== {bun.get_name.return_value} ====)\n\nPrice: {bun.get_price.return_value*2+ingredient.get_price.return_value}'
