@@ -1,11 +1,37 @@
 class BunData:
-    bun_name = 'Булочка с кунжутом'
-    bun_price = 50.0
+    data = [
+        ('Булочка с кунжутом', 50.0),
+        ('Булочка без кунжута', 45.0),
+        ('Булочка со специями', 60.0)
+    ]
 
 class IngredientSauceData:
-    sauce_name = 'Кетчуп'
-    sauce_price = 10.0
+    data = [
+        ('Кетчуп', 10.0),
+        ('Майонез', 12.0),
+        ('Сырный соус', 20.0)
+    ]
 
 class IngredientFillingData:
-    filling_name = 'Ветчина'
-    filling_price = 35.0
+    data = [
+        ('Ветчина', 35.0),
+        ('Сыр', 30.0),
+        ('Котлета', 40.0)
+    ]
+
+class ExpectedBunNames:
+    data = [
+        ['black bun', 'white bun', 'red bun']
+        ]
+
+class ExpectedIngredientNames:
+    data = [
+        [
+        "hot sauce",
+        "sour cream",
+        "chili sauce",
+        "cutlet",
+        "dinosaur",
+        "sausage"
+        ]
+    ]
