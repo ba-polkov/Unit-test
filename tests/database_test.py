@@ -49,4 +49,3 @@ class TestDatabase:
         expected_filling_types = [INGREDIENT_TYPE_FILLING] * 3
         actual_filling_types = [ingredient.get_type() for ingredient in database.ingredients[3:]]
         assert actual_filling_types == expected_filling_types
-        
