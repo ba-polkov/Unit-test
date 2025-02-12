@@ -8,7 +8,6 @@ class TestBun:
     def test_get_name_bun(self, name_bun):
         bun = Bun(name_bun, 99.9)
         assert bun.get_name() == name_bun
-        bun.get_price()
 
     @pytest.mark.parametrize("price_bun", [99.9, 100, 1000000.1, 1.000001])
     def test_get_price_bun(self, price_bun):
