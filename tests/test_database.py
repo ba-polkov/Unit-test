@@ -28,6 +28,7 @@ class TestDatabase:
         assert [filling.get_name() for filling in fillings] == IngredientsData.DB_FILLINGS
 
     def test_mocked_buns(self, db):
+        # подмена класса Bun моком
         with patch('praktikum.bun.Bun') as MockBun:
             MockBun.return_value.get_name.return_value = "db mock bun"
             MockBun.return_value.get_price.return_value = 123
@@ -40,6 +41,7 @@ class TestDatabase:
             assert all(bun.get_price() == 123 for bun in buns)
 
     def test_mocked_ingredients(self, db):
+        # подмена класса Ingredient моком
         with patch('praktikum.ingredient.Ingredient') as MockIngredient:
             MockIngredient.return_value.get_type.return_value = INGREDIENT_TYPE_SAUCE
             MockIngredient.return_value.get_name.return_value = "mock sauce"

@@ -6,6 +6,8 @@ from data.burger_data import IngredientsData as ingredients
 
 
 class TestBurger:
+    # в классе TestBurger используются моки для того, чтобы сделать проверки класса Burger
+    # независимыми от классов Bun и Ingredient
 
     @pytest.mark.parametrize(("bun_name", "bun_price"), [buns.BUN_1, buns.BUN_2, buns.BUN_3])
     def test_set_buns(self, burger, bun_name, bun_price):

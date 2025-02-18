@@ -27,17 +27,19 @@ def ingredient(ing_type=ingredients.SAUCE_1[0], name=ingredients.SAUCE_1[1], pri
     ingredient = Ingredient(ing_type, name, price)
     return ingredient
 
+
 @pytest.fixture()
 def db():
     db = Database()
     return db
 
 
+# фикстуры, создающие моки
 @pytest.fixture
 def mock_bun():
     bun = Mock()
-    bun.get_name.return_value = 'Mock Bun'
-    bun.get_price.return_value = 2.5
+    bun.get_name.return_value = buns.BUN_1[0]
+    bun.get_price.return_value = buns.BUN_1[1]
     return bun
 
 
@@ -57,11 +59,6 @@ def mock_ingredient_filling():
     ingredient.get_name.return_value = ingredients.FILLING_1[1]
     ingredient.get_price.return_value = ingredients.FILLING_1[2]
     return ingredient
-
-
-
-
-
 
 
 @pytest.fixture
