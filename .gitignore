@@ -1,5 +1,4 @@
 /venv/
-/resources/drivers/
 /.idea/
 /.mypy_cache/
 /.pytest_cache/
