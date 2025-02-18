@@ -35,7 +35,11 @@ class TestBurger:
         burger.add_ingredient(mock_ingredient_filling)
         burger.add_ingredient(mock_ingredient_sauce)
         receipt = burger.get_receipt()
-        assert (f'(==== {mock_bun.get_name()} ====)' in receipt
-        and f'= filling {mock_ingredient_filling.get_name()} =' in receipt
-        and f'= sauce {mock_ingredient_sauce.get_name()} =' in receipt
-        and f'Price: {burger.get_price()}' in receipt)
+        expected_receipt = (
+            f'(==== {mock_bun.get_name()} ====)\n'
+            f'= filling {mock_ingredient_filling.get_name()} =\n'
+            f'= sauce {mock_ingredient_sauce.get_name()} =\n'
+            f'(==== {mock_bun.get_name()} ====)\n\n'
+            f'Price: {burger.get_price()}'
+        )
+        assert receipt == expected_receipt
