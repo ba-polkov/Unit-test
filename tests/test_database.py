@@ -1,9 +1,6 @@
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 
-from praktikum.database import Database
-
-from data.burger_data import BunsData
-from data.burger_data import IngredientsData
+from data.burger_data import BurgerData
 from data.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 
@@ -12,8 +9,8 @@ class TestDatabase:
     def test_database_available_buns(self, db):
         buns = db.available_buns()
         assert len(buns) == 3
-        assert [bun.get_name() for bun in buns] == IngredientsData.DB_BUNS_NAMES
-        assert [bun.get_price() for bun in buns] == IngredientsData.DB_BUNS_PRICES
+        assert [bun.get_name() for bun in buns] == BurgerData.DB_BUNS_NAMES
+        assert [bun.get_price() for bun in buns] == BurgerData.DB_BUNS_PRICES
 
     def test_database_available_ingredients(self, db):
         available_ingredients = db.available_ingredients()
@@ -23,11 +20,10 @@ class TestDatabase:
         assert len(sauces) == 3
         assert len(fillings) == 3
         assert len(available_ingredients) == 6
+        assert [sauce.get_name() for sauce in sauces] == BurgerData.DB_SAUCES
+        assert [filling.get_name() for filling in fillings] == BurgerData.DB_FILLINGS
 
-        assert [sauce.get_name() for sauce in sauces] == IngredientsData.DB_SAUCES
-        assert [filling.get_name() for filling in fillings] == IngredientsData.DB_FILLINGS
-
-    def test_mocked_buns(self, db):
+    def test_db_with_mocked_buns(self, db):
         # подмена класса Bun моком
         with patch('praktikum.bun.Bun') as MockBun:
             MockBun.return_value.get_name.return_value = "db mock bun"
@@ -35,10 +31,7 @@ class TestDatabase:
 
             db.buns = [MockBun(), MockBun()]
             buns = db.available_buns()
-
-            assert len(buns) == 2
-            assert all(bun.get_name() == "db mock bun" for bun in buns)
-            assert all(bun.get_price() == 123 for bun in buns)
+            assert buns == [MockBun(), MockBun()]
 
     def test_mocked_ingredients(self, db):
         # подмена класса Ingredient моком
@@ -49,9 +42,5 @@ class TestDatabase:
 
             db.ingredients = [MockIngredient(), MockIngredient()]
             ingredients = db.available_ingredients()
-
-            assert len(ingredients) == 2
-            assert all(ing.get_type() == INGREDIENT_TYPE_SAUCE for ing in ingredients)
-            assert all(ing.get_name() == "mock sauce" for ing in ingredients)
-            assert all(ing.get_price() == 99 for ing in ingredients)
+            assert ingredients == [MockIngredient(), MockIngredient()]
 
