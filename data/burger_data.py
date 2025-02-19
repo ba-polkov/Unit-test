@@ -21,13 +21,6 @@ class BurgerData:
     BUN_2 = ("Булка с кунжутом", 10)
     BUN_3 = ("Best Bun", 0.5)
 
-    MOCK_RECEIPT = "(==== BIG BUN ====)\n" \
-                   "= sauce Ketchup =\n" \
-                   "= sauce Ketchup =\n" \
-                   "= filling CHEESE =\n" \
-                   "(==== BIG BUN ====)\n\n" \
-                   "Price: 6.7"
-
 
 class MockData:
     mock_bun = Mock()
