@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import Mock
 
 from data import DataOne, DataTwo
+from praktikum.database import Database
 
 
 @pytest.fixture()
@@ -34,11 +35,25 @@ def mock_sauce_two():
     mock_sauce_2.get_type.return_value = DataTwo.SAUCE_TYPE
     return mock_sauce_2
 
+@pytest.fixture
+def mock_filling_one():
+    mock_filling = Mock()
+    mock_filling.get_name.return_value = DataOne.FILLING_NAME
+    mock_filling.get_price.return_value = DataOne.FILLING_PRICE
+    mock_filling.get_type.return_value = DataOne.FILLING_TYPE
+    return mock_filling
 
+@pytest.fixture
+def mock_filling_two():
+    mock_filling_2 = Mock()
+    mock_filling_2.get_name.return_value = DataTwo.FILLING_NAME
+    mock_filling_2.get_price.return_value = DataTwo.FILLING_PRICE
+    mock_filling_2.get_type.return_value = DataTwo.FILLING_TYPE
+    return mock_filling_2
 
-
-
-
+@pytest.fixture
+def data_base():
+    return Database()
 
 
 
