@@ -6,7 +6,7 @@
 
 Созданы юнит-тесты, покрывающие классы `Bun`, `Burger`, `Ingredient`, `Database`
 
-Процент покрытия 100% (отчет: `htmlcov/index.html`)
+Процент покрытия 98% (отчет: `htmlcov/index.html`)
 
 ### Структура проекта
 
@@ -17,7 +17,7 @@
 
 **Установка зависимостей**
 
-> `$ pip install -r requirements.txt`
+> `$ pip install -r pip3 freeze > requirements.txt`
 
 **Запуск автотестов и создание HTML-отчета о покрытии**
 
