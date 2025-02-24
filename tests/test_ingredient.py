@@ -1,6 +1,6 @@
 import pytest
-from Diplom_1.praktikum.ingredient import Ingredient
-from Diplom_1.praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
+from praktikum.ingredient import Ingredient
+from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 test_ingredient_data = [
     (INGREDIENT_TYPE_SAUCE, "hot sauce", 100),

@@ -1,5 +1,5 @@
 import pytest
-from Diplom_1.praktikum.bun import Bun
+from praktikum.bun import Bun
 
 bun_test_data = [
     ("blue bun", 100),
