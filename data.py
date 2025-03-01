@@ -1,3 +1,17 @@
+class DataAvailable:
+    AVAILABLE_BUNS_NAMES = ["black bun", "white bun", "red bun"]
+    AVAILABLE_BUNS_PRICES = [100, 200, 300]
+    AVAILABLE_INGREDIENTS_NAMES = ["hot sauce", "sour cream", "chili sauce", "cutlet", "dinosaur", "sausage"]
+    AVAILABLE_INGREDIENTS_PRICES = [100, 200, 300, 100, 200, 300]
+
+class DataReceipt:
+    BURGER_RECEIPT = (
+            '(==== fluorescent bun ====)\n'
+            '= filling Cheese with asteroid mold =\n'
+            '(==== fluorescent bun ====)\n\n'
+            'Price: 6118'
+        )
+
 class DataBun:
     BUN_FIRST = 'fluorescent bun'
     BUN_SECOND = 'kratornaya bun'

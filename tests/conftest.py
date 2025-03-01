@@ -4,30 +4,8 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from bun import Bun
 from ingredient import Ingredient
-from database import Database
-from burger import Burger
 from unittest.mock import Mock
 
-
-@pytest.fixture
-def bun(name, price):
-    bun = Bun(name, price)
-    return bun
-
-@pytest.fixture
-def ingredient(ingredient_type, name, price):
-    ingredient = Ingredient(ingredient_type, name, price)
-    return ingredient
-
-@pytest.fixture
-def db():
-    db = Database()
-    return db
-
-@pytest.fixture
-def burger():
-    burger = Burger()
-    return burger
 
 @pytest.fixture
 def mock_bun():
