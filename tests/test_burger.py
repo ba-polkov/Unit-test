@@ -49,6 +49,6 @@ class TestBurger:
         burger.add_ingredient(mock_filling)
         receipt = burger.get_receipt()
         assert "(==== bun ====)" in receipt
-        assert "= sauce hot sauce =" in receipt
+        assert "= hot sauce =" in receipt
         assert "= filling cutlet =" in receipt
         assert "Price: 600" in receipt
