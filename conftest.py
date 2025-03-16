@@ -4,7 +4,6 @@ from praktikum.database import Database
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 
-# Фикстура для булки
 @pytest.fixture()
 def mock_bun():
     mock = Mock()
@@ -13,7 +12,6 @@ def mock_bun():
     return mock
 
 
-# Фикстура для ингредиента типа соус
 @pytest.fixture()
 def mock_sauce():
     mock = Mock()
@@ -23,7 +21,6 @@ def mock_sauce():
     return mock
 
 
-# Фикстура для ингредиента типа начинка
 @pytest.fixture()
 def mock_filling():
     mock = Mock()
@@ -33,7 +30,6 @@ def mock_filling():
     return mock
 
 
-# фикстура для объекта database
 @pytest.fixture()
 def mock_database():
     db = Database()
