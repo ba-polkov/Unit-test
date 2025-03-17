@@ -1,18 +1,17 @@
 from praktikum.bun import Bun
+from data import BunData
 import pytest
 
 
 class TestBun:
-    bun_name = 'Крафтовая булка'
-    bun_price = 2.55
 
     def test_get_name(self):
-        bun_obj = Bun(self.bun_name, self.bun_price)
-        assert bun_obj.get_name() == self.bun_name
+        bun_obj = Bun(BunData.bun_name, BunData.bun_price)
+        assert bun_obj.get_name() == BunData.bun_name
 
     def test_get_price(self):
-        bun_obj = Bun(self.bun_name, self.bun_price)
-        assert bun_obj.get_price() == self.bun_price
+        bun_obj = Bun(BunData.bun_name, BunData.bun_price)
+        assert bun_obj.get_price() == BunData.bun_price
 
     @pytest.mark.skip(reason="Валидация данных в классе не реализована.")
     @pytest.mark.parametrize('bun_name, bun_price', [[123, 2.55], ['Крафтовая булка', '2,55']])

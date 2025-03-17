@@ -1,23 +1,21 @@
 from praktikum.ingredient import Ingredient
+from data import IngredientData
 import pytest
 
 
 class TestIngredient:
-    ing_type = 'SAUCE'
-    ing_name = 'Неизвестная жидкость'
-    ing_price = 100.33
 
     def test_get_price(self):
-        ingredient = Ingredient(self.ing_type, self.ing_name, self.ing_price)
-        assert ingredient.get_price() == self.ing_price
+        ingredient = Ingredient(IngredientData.ing_type, IngredientData.ing_name, IngredientData.ing_price)
+        assert ingredient.get_price() == IngredientData.ing_price
 
     def test_get_name(self):
-        ingredient = Ingredient(self.ing_type, self.ing_name, self.ing_price)
-        assert ingredient.get_name() == self.ing_name
+        ingredient = Ingredient(IngredientData.ing_type, IngredientData.ing_name, IngredientData.ing_price)
+        assert ingredient.get_name() == IngredientData.ing_name
 
     def test_get_type(self):
-        ingredient = Ingredient(self.ing_type, self.ing_name, self.ing_price)
-        assert ingredient.get_type() == self.ing_type
+        ingredient = Ingredient(IngredientData.ing_type, IngredientData.ing_name, IngredientData.ing_price)
+        assert ingredient.get_type() == IngredientData.ing_type
 
     @pytest.mark.skip(reason="Валидация данных в классе не реализована.")
     @pytest.mark.parametrize('ing_type, ing_name, ing_price', [[123, 'Неизвестная жидкость', 100.33], ['SAUCE', 123, 100.33], ['SAUCE', 'Неизвестная жидкость', '100.33']])

@@ -1,17 +1,9 @@
 from unittest.mock import Mock
 from praktikum.burger import Burger
+from data import BurgerData
 
 
 class TestBurger:
-    bun = {'name':"white bun", 'price': 200}
-    ing_1 = {'type': 'SAUCE', 'name': "hot sauce", 'price': 100}
-    ing_2 = {'type': 'FILLING', 'name': "cutlet", 'price': 100}
-    total_price = bun.get('price') * 2 + ing_1.get('price') + ing_2.get('price')
-    list = [f'(==== {bun.get('name')} ====)',
-            f'= {ing_1.get('type').lower()} {ing_1.get('name')} =',
-            f'= {ing_2.get('type').lower()} {ing_2.get('name')} =',
-            f'(==== {bun.get('name')} ====)\n',
-            f'Price: {str(total_price)}']
 
     def test_set_buns(self):
         bun_mock = Mock()
@@ -45,31 +37,31 @@ class TestBurger:
 
     def test_get_price(self):
         bun_mock = Mock()
-        bun_mock.get_price.return_value = self.bun.get('price')
+        bun_mock.get_price.return_value = BurgerData.bun.get('price')
         ing_mock_1 = Mock()
-        ing_mock_1.get_price.return_value = self.ing_1.get('price')
+        ing_mock_1.get_price.return_value = BurgerData.ing_1.get('price')
         ing_mock_2 = Mock()
-        ing_mock_2.get_price.return_value = self.ing_2.get('price')
+        ing_mock_2.get_price.return_value = BurgerData.ing_2.get('price')
         burger = Burger()
         burger.set_buns(bun_mock)
         burger.add_ingredient(ing_mock_1)
         burger.add_ingredient(ing_mock_2)
         actual_price = burger.get_price()
-        assert actual_price == self.total_price
+        assert actual_price == BurgerData.total_price
 
     def test_get_receipt(self):
         bun_mock = Mock()
-        bun_mock.get_price.return_value = self.bun.get('price')
-        bun_mock.get_name.return_value = self.bun.get('name')
+        bun_mock.get_price.return_value = BurgerData.bun.get('price')
+        bun_mock.get_name.return_value = BurgerData.bun.get('name')
         ing_mock_1 = Mock()
-        ing_mock_1.get_price.return_value = self.ing_1.get('price')
-        ing_mock_1.get_type.return_value = self.ing_1.get('type')
-        ing_mock_1.get_name.return_value = self.ing_1.get('name')
+        ing_mock_1.get_price.return_value = BurgerData.ing_1.get('price')
+        ing_mock_1.get_type.return_value = BurgerData.ing_1.get('type')
+        ing_mock_1.get_name.return_value = BurgerData.ing_1.get('name')
         ing_mock_2 = Mock()
-        ing_mock_2.get_price.return_value = self.ing_2.get('price')
-        ing_mock_2.get_type.return_value = self.ing_2.get('type')
-        ing_mock_2.get_name.return_value = self.ing_2.get('name')
-        expected_receipt = '\n'.join(self.list)
+        ing_mock_2.get_price.return_value = BurgerData.ing_2.get('price')
+        ing_mock_2.get_type.return_value = BurgerData.ing_2.get('type')
+        ing_mock_2.get_name.return_value = BurgerData.ing_2.get('name')
+        expected_receipt = '\n'.join(BurgerData.receipt_model)
         burger = Burger()
         burger.set_buns(bun_mock)
         burger.add_ingredient(ing_mock_1)
