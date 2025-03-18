@@ -48,4 +48,8 @@ class TestBurger:
         burger.add_ingredient(mock_sauce)
         burger.add_ingredient(mock_filling)
         expected_receipt = "(==== bun ====)\n= sauce hot sauce =\n= filling cutlet =\n(==== bun ====)\n\nPrice: 600"
+<<<<<<< HEAD
         assert burger.get_receipt() == expected_receipt
+=======
+        assert burger.get_receipt() == expected_receipt
+>>>>>>> 2beffb3143605b308510d8ad139bd4a3aa1b980b
