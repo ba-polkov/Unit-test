@@ -1,0 +1,7 @@
+.idea
+.pytest_cache
+.venv2
+__pycache__/**
+.coverage
+.tests/pytest_cache
+.tests/__pycache__
