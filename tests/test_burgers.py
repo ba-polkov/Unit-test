@@ -1,57 +1,58 @@
 import pytest
 from Diplom_1.burger import Burger
-from Diplom_1.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
-from unittest.mock import Mock
+from helpers import get_ingredient_indexes
+
 class TestBurger:
-    create_bun = ('Краторная булка N-200i', 1255)
-    create_sauce  = (INGREDIENT_TYPE_SAUCE,'Соус Spicy-X', 90)
-    create_filling = (INGREDIENT_TYPE_FILLING,'Мясо бессмертных моллюсков Protostomia', 1337)
-    mock_bun = Mock()
-    mock_bun.get.return_value = create_bun
-    mock_sauce = Mock()
-    mock_sauce.get.return_value = create_sauce
-    mock_filling = Mock()
-    mock_filling.get.return_value = create_filling
-    def test_set_buns(self):
-      BurgerForTest=Burger()
-      BunForTest = self.mock_bun
-      BurgerForTest.set_buns(BunForTest)
-      assert BurgerForTest.bun == BunForTest
+    def test_set_buns(self, mock_bun):
+        burger_for_test = Burger()
+        burger_for_test.set_buns(mock_bun)
+        assert burger_for_test.bun == mock_bun
+
     @pytest.mark.parametrize(
-    'ingridients', [
-        mock_sauce,
-        mock_filling
-    ])
-    def test_add_ingredient(self, ingridients):
-        BurgerForTest = Burger()
-        BurgerForTest.add_ingredient(ingridients)
-        assert ingridients in BurgerForTest.ingredients
-    def test_remove_ingredient(self):
-        BurgerForTest = Burger()
-        BurgerForTest.add_ingredient(self.mock_sauce)
-        BurgerForTest.remove_ingredient(0)
-        assert len(BurgerForTest.ingredients) == 0
-    def test_move_ingredient(self):
-       BurgerForTest = Burger()
-       BurgerForTest.add_ingredient(self.mock_sauce)
-       BurgerForTest.add_ingredient(self.mock_filling)
-       BurgerForTest.move_ingredient(0,3)
-       indexes = [index for index, _ in enumerate(BurgerForTest.ingredients)]
-       assert indexes  == [1,3]
+        'ingredient_fixture', [
+            'mock_sauce',
+            'mock_filling'
+        ]
+    )
+    def test_add_ingredient(self, ingredient_fixture, request):
+        ingredient = request.getfixturevalue(ingredient_fixture)
+        burger_for_test = Burger()
+        burger_for_test.add_ingredient(ingredient)
+        assert ingredient in burger_for_test.ingredients
+    def test_remove_ingredient(self,mock_sauce):
+        burger_for_test = Burger()
+        burger_for_test.add_ingredient(mock_sauce)
+        burger_for_test.remove_ingredient(0)
+        assert len(burger_for_test.ingredients) == 0
+    def test_move_ingredient(self, mock_sauce, mock_filling):
+       burger_for_test = Burger()
+       burger_for_test.add_ingredient(mock_sauce)
+       burger_for_test.add_ingredient(mock_filling)
+       burger_for_test.move_ingredient(0,1)
+       indexes = get_ingredient_indexes(burger_for_test)
+       assert burger_for_test.ingredients[0] == mock_filling
+       assert burger_for_test.ingredients[1] == mock_sauce
 
     def test_get_price(self, create_sauce, create_filling, create_bun):
-        BurgerForTest = Burger()
-        BurgerForTest.add_ingredient(create_sauce)
-        BurgerForTest.add_ingredient(create_filling)
-        BunForTest = create_bun
-        BurgerForTest.set_buns(BunForTest)
-        price = BurgerForTest.get_price()
+        burger_for_test = Burger()
+        burger_for_test.add_ingredient(create_sauce)
+        burger_for_test.add_ingredient(create_filling)
+        bun_for_test = create_bun
+        burger_for_test.set_buns(bun_for_test)
+        price = burger_for_test.get_price()
         assert price == 2772
     def test_get_receipt(self, create_sauce, create_filling, create_bun, capsys):
-        BurgerForTest = Burger()
-        BurgerForTest.add_ingredient(create_sauce)
-        BurgerForTest.add_ingredient(create_filling)
-        BunForTest = create_bun
-        BurgerForTest.set_buns(BunForTest)
-        BurgerForTest.get_receipt()
-        assert 'Краторная булка N-200i' in BurgerForTest.get_receipt()
+        burger_for_test = Burger()
+        burger_for_test.add_ingredient(create_sauce)
+        burger_for_test.add_ingredient(create_filling)
+        bun_for_test = create_bun
+        burger_for_test.set_buns(bun_for_test)
+        receipt = burger_for_test.get_receipt()
+        expected_receipt = (
+            "(==== Краторная булка N-200i ====)\n"
+            "= sauce Соус Spicy-X =\n"
+            "= filling Мясо бессмертных моллюсков Protostomia =\n"
+            "(==== Краторная булка N-200i ====)\n"
+            f"Price: {burger_for_test.get_price()}"
+        )
+        assert receipt == expected_receipt
