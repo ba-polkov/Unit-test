@@ -1,18 +1,13 @@
-import pytest
+from conftest import ingredient
+from data import ingredient1_test
 
-from praktikum.ingredient import Ingredient
-
-
-@pytest.fixture
-def ingredient():
-    return Ingredient('FILLING', 'Говяжий метеорит (отбивная)', 3000.0)
 
 class TestIngredient:
     def test_get_type(self, ingredient):
-        assert ingredient.get_type() == 'FILLING'
+        assert ingredient.get_type() == ingredient1_test["type"]
 
     def test_get_name(self, ingredient):
-        assert ingredient.get_name() == 'Говяжий метеорит (отбивная)'
+        assert ingredient.get_name() == ingredient1_test["name"]
 
     def test_get_price(self, ingredient):
-        assert ingredient.get_price() == 3000.0
+        assert ingredient.get_price() == ingredient1_test["price"]

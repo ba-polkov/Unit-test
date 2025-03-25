@@ -1,15 +1,10 @@
-import pytest
+from conftest import bun
+from data import bun_test
 
-from praktikum.bun import Bun
-
-
-@pytest.fixture
-def bun():
-    return Bun(name='Краторная булка', price=1255.0)
 
 class TestBun:
     def test_get_name(self, bun):
-        assert bun.get_name() == 'Краторная булка'
+        assert bun.get_name() == bun_test["name"]
 
     def test_get_price(self, bun):
-         assert bun.get_price() == 1255.0
+         assert bun.get_price() == bun_test["price"]
