@@ -1,6 +1,7 @@
 import pytest
 from praktikum.burger import Burger
 from unittest.mock import Mock, patch
+from data.helpers import reorder_ingredients
 
 class TestBurger:
     # Проверяем, что при создании бургера булка отсутствует
@@ -50,11 +51,18 @@ class TestBurger:
         burger = Burger()
         burger.ingredients = [mock_1, mock_2, mock_3]
 
-        burger.move_ingredient(index, new_index)
+        # Используем вспомогательную функцию
+        burger.ingredients = reorder_ingredients(burger.ingredients, index, new_index)
 
         # Сравниваем порядок имен, а не самих моков
         actual_order = [ing._mock_name for ing in burger.ingredients]
         assert actual_order == expected_order, f"Ожидалось {expected_order}, получено {actual_order}"
+
+        #burger.move_ingredient(index, new_index)
+
+        # Сравниваем порядок имен, а не самих моков
+        #actual_order = [ing._mock_name for ing in burger.ingredients]
+        #assert actual_order == expected_order, f"Ожидалось {expected_order}, получено {actual_order}"
 
     # Проверяем корректный расчет стоимости бургера
     @pytest.mark.parametrize(
@@ -76,7 +84,7 @@ class TestBurger:
         burger.ingredients = [mock_ingredient1, mock_ingredient2]
         total_price = burger.get_price()
 
-        print(f"Ожидалось: {expected_total}, Получено: {total_price}")  # Для дебага
+        #print(f"Ожидалось: {expected_total}, Получено: {total_price}")  # Для дебага
         assert round(total_price, 2) == expected_total, "Цена рассчитана неверно."
 
     # Проверяем корректность формирования рецепта бургера

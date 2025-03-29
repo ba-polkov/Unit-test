@@ -1,6 +1,7 @@
 from unittest.mock import patch
-from data.Data import Data
+from data.data import Data
 from praktikum.database import Database
+from data.helpers import compare_buns, compare_ingredients
 
 class TestDatabase:
     # Проверяем, что при инициализации БД создается 3 булки и 6 ингредиентов
@@ -15,20 +16,25 @@ class TestDatabase:
     @patch("praktikum.bun.Bun")
     def test_database_buns_have_correct_name_and_price(self, mock_bun):
         database = Database()
-        for index, bun_data in enumerate(Data.buns):
-            bun = database.buns[index]
-            assert bun.name == bun_data["name"]
-            assert bun.price == bun_data["price"]
+        success, error_message = compare_buns(database, Data.buns)
+        assert success, error_message
+
+        #for index, bun_data in enumerate(Data.buns):
+        #    bun = database.buns[index]
+        #    assert bun.name == bun_data["name"]
+        #    assert bun.price == bun_data["price"]
 
     # Проверяем, что ингредиенты добавляются с правильными типами, названиями и ценами
     @patch("praktikum.ingredient.Ingredient")
     def test_database_ingredients_have_correct_attributes(self, mock_ingredient):
         database = Database()
-        for index, ing_data in enumerate(Data.ingredients):
-            ingredient = database.ingredients[index]
-            assert ingredient.type == ing_data["type"]
-            assert ingredient.name == ing_data["name"]
-            assert ingredient.price == ing_data["price"]
+        success, error_message = compare_ingredients(database, Data.ingredients)
+        assert success, error_message
+        #for index, ing_data in enumerate(Data.ingredients):
+            #ingredient = database.ingredients[index]
+            #assert ingredient.type == ing_data["type"]
+            #assert ingredient.name == ing_data["name"]
+            #assert ingredient.price == ing_data["price"]
 
     # Проверяем, что метод возвращает ровно 3 доступные булки
     @patch("praktikum.bun.Bun")

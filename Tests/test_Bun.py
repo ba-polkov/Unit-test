@@ -1,5 +1,5 @@
 from praktikum.bun import Bun
-from data.Data import Data
+from data.data import Data
 
 class TestBun:
     # Проверка: метод должен возвращать корректное название булки

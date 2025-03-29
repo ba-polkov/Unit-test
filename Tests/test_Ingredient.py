@@ -1,4 +1,4 @@
-from data.Data import Data
+from data.data import Data
 from praktikum.ingredient import Ingredient
 
 class TestIngredient:
