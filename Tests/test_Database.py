@@ -19,22 +19,12 @@ class TestDatabase:
         success, error_message = compare_buns(database, Data.buns)
         assert success, error_message
 
-        #for index, bun_data in enumerate(Data.buns):
-        #    bun = database.buns[index]
-        #    assert bun.name == bun_data["name"]
-        #    assert bun.price == bun_data["price"]
-
     # Проверяем, что ингредиенты добавляются с правильными типами, названиями и ценами
     @patch("praktikum.ingredient.Ingredient")
     def test_database_ingredients_have_correct_attributes(self, mock_ingredient):
         database = Database()
         success, error_message = compare_ingredients(database, Data.ingredients)
         assert success, error_message
-        #for index, ing_data in enumerate(Data.ingredients):
-            #ingredient = database.ingredients[index]
-            #assert ingredient.type == ing_data["type"]
-            #assert ingredient.name == ing_data["name"]
-            #assert ingredient.price == ing_data["price"]
 
     # Проверяем, что метод возвращает ровно 3 доступные булки
     @patch("praktikum.bun.Bun")

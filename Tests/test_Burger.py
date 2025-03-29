@@ -58,12 +58,6 @@ class TestBurger:
         actual_order = [ing._mock_name for ing in burger.ingredients]
         assert actual_order == expected_order, f"Ожидалось {expected_order}, получено {actual_order}"
 
-        #burger.move_ingredient(index, new_index)
-
-        # Сравниваем порядок имен, а не самих моков
-        #actual_order = [ing._mock_name for ing in burger.ingredients]
-        #assert actual_order == expected_order, f"Ожидалось {expected_order}, получено {actual_order}"
-
     # Проверяем корректный расчет стоимости бургера
     @pytest.mark.parametrize(
         'bun_price, ing1_price, ing2_price, expected_total',
@@ -84,7 +78,6 @@ class TestBurger:
         burger.ingredients = [mock_ingredient1, mock_ingredient2]
         total_price = burger.get_price()
 
-        #print(f"Ожидалось: {expected_total}, Получено: {total_price}")  # Для дебага
         assert round(total_price, 2) == expected_total, "Цена рассчитана неверно."
 
     # Проверяем корректность формирования рецепта бургера
