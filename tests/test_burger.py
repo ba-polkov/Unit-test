@@ -54,9 +54,9 @@ class TestBurger:
         # Используем вспомогательную функцию
         burger.ingredients = reorder_ingredients(burger.ingredients, index, new_index)
 
-        # Сравниваем порядок имен, а не самих моков
-        actual_order = [ing._mock_name for ing in burger.ingredients]
-        assert actual_order == expected_order, f"Ожидалось {expected_order}, получено {actual_order}"
+        # Сравниваем порядок имен, а не самих моков, используя map вместо списка
+        assert list(map(lambda ing: ing._mock_name, burger.ingredients)) == expected_order, \
+            f"Ожидалось {expected_order}, получено {list(map(lambda ing: ing._mock_name, burger.ingredients))}"
 
     # Проверяем корректный расчет стоимости бургера
     @pytest.mark.parametrize(
