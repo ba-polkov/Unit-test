@@ -1,5 +1,4 @@
 from praktikum.burger import Burger
-from conftest import *
 import pytest
 import allure
 

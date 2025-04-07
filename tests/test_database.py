@@ -1,5 +1,4 @@
 from data import TestDataBase
-from conftest import db
 import pytest
 import allure
 
