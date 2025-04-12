@@ -40,7 +40,9 @@ class TestBurger:
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_ingredient0)
         receipt = burger.get_receipt()
-        assert (ORDER_DATA_CORRECT[0]["bun_name"] in receipt
-                and ORDER_DATA_CORRECT[0]["ingredient_name"] in receipt
-                and ORDER_DATA_CORRECT[0]["ingredient_type"].lower() in receipt
-                and str((ORDER_DATA_CORRECT[0]["bun_price"] * 2) + ORDER_DATA_CORRECT[0]["ingredient_price"]) in receipt)
+        expected_receipt =  (f"(==== {mock_bun.get_name()} ====)"
+                             f"\n= {str(mock_ingredient0.get_type()).lower()} {mock_ingredient0.get_name()} ="
+                             f"\n(==== {mock_bun.get_name()} ====)\n"
+                             f"\nPrice: {burger.get_price()}")
+        assert receipt == expected_receipt
+
