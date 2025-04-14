@@ -1,6 +1,6 @@
 from database import Database
 from ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
-
+from helpers import get_ingredient_count_by_type, get_bun_names
 
 class TestDatabase:
 
@@ -11,7 +11,7 @@ class TestDatabase:
         actual_count = len(db.buns)
         assert actual_count == expected_count
 
-        names = [bun.name for bun in db.buns]
+        names = get_bun_names(db.buns)
         expected_names = ["black bun", "white bun", "red bun"]
         assert names == expected_names
 
@@ -22,19 +22,17 @@ class TestDatabase:
         actual_count = len(db.ingredients)
         assert actual_count == expected_count
 
-        sauce_ingredients = [ingredient for ingredient in db.ingredients if ingredient.type == INGREDIENT_TYPE_SAUCE]
-        filling_ingredients = [ingredient for ingredient in db.ingredients if
-                               ingredient.type == INGREDIENT_TYPE_FILLING]
+        sauce_count = get_ingredient_count_by_type(db.ingredients, INGREDIENT_TYPE_SAUCE)
+        filling_count = get_ingredient_count_by_type(db.ingredients, INGREDIENT_TYPE_FILLING)
 
-        assert len(sauce_ingredients) == 3
-        assert len(filling_ingredients) == 3
+        assert sauce_count == 3
+        assert filling_count == 3
 
     def test_get_all_ingredients(self):
         db = Database()
 
         count = len(db.ingredients)
         assert count == 6
-
 
     def test_available_ingredients(self):
         db = Database()
@@ -45,8 +43,8 @@ class TestDatabase:
         actual_count = len(ingredients)
         assert actual_count == expected_count
 
-        sauce_ingredients = [ingredient for ingredient in ingredients if ingredient.type == INGREDIENT_TYPE_SAUCE]
-        filling_ingredients = [ingredient for ingredient in ingredients if ingredient.type == INGREDIENT_TYPE_FILLING]
+        sauce_count = get_ingredient_count_by_type(ingredients, INGREDIENT_TYPE_SAUCE)
+        filling_count = get_ingredient_count_by_type(ingredients, INGREDIENT_TYPE_FILLING)
 
-        assert len(sauce_ingredients) == 3
-        assert len(filling_ingredients) == 3
+        assert sauce_count == 3
+        assert filling_count == 3
