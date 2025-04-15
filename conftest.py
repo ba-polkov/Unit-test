@@ -11,11 +11,3 @@ def bun():
 @pytest.fixture
 def ingredient():
     return Ingredient("SAUCE", "hot sauce", 50)
-
-@pytest.fixture
-def database():
-    return Database()
-
-@pytest.fixture
-def burger():
-    return Burger()
