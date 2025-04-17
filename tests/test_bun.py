@@ -1,5 +1,4 @@
-import pytest
-from bun import Bun
+from praktikum.praktikum import Bun
 
 
 def test_bun_creation():
