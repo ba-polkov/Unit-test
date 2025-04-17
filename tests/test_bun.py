@@ -1,4 +1,4 @@
-from praktikum.praktikum import Bun
+from praktikum.bun import Bun
 
 
 def test_bun_creation():

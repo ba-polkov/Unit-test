@@ -1,6 +1,6 @@
 # tests/test_ingredient.py
 
-from praktikum.praktikum import Ingredient
+from praktikum.ingredient import Ingredient
 
 
 def test_ingredient_get_price():
