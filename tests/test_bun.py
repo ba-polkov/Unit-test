@@ -1,9 +1,23 @@
-import data
+from praktikum.bun import Bun
+import pytest
 
 
 class TestBun:
-    def test_get_name_bun_one_bun_valid_name(self, bun):
-        assert bun.name == data.BUN_NAME_COSMOBUN
 
-    def test_get_price_bun_one_bun_valid_price(self, bun):
-        assert bun.price == data.BUN_PRICE_COSMOBUN
+    @pytest.mark.parametrize('name,price', [
+            ('Космобулка', 100000),
+            ('Космобулка', 20.5),
+            ('Космобулка', 222)
+        ])
+    def test_get_price_bun_three_bun_price_geted(self, name, price):
+        bun = Bun(name, price)
+        assert bun.get_price() == price
+
+    @pytest.mark.parametrize('name,price', [
+            ('Космобулка', 100),
+            ('BLACK BUN', 100),
+            ('', 100)
+        ])
+    def test_get_name_bun_three_bun_name_geted(self, name, price):
+        bun = Bun(name, price)
+        assert bun.get_name() == name
