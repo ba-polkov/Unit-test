@@ -2,6 +2,9 @@ from Diplom_1.praktikum.bun import Bun
 
 
 class TestBun:
+    def buns(self):
+        bun = Bun()
+        return bun
 
     @classmethod
     def setup_class(cls):

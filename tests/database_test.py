@@ -3,6 +3,9 @@ from Diplom_1.praktikum.database import Database
 
 
 class TestDatabase:
+    def database(self):
+        database = Database()
+        return database
 
     @classmethod
     def setup_class(cls):

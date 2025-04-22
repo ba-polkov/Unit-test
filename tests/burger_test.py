@@ -3,9 +3,12 @@ from Diplom_1.praktikum.bun import Bun
 from Diplom_1.praktikum.ingredient import Ingredient
 from Diplom_1.praktikum.ingredient_types import INGREDIENT_TYPE_FILLING, INGREDIENT_TYPE_SAUCE
 from unittest.mock import Mock
-
+from Diplom_1.praktikum.burger import Burger
 
 class TestBurger:
+    def burgers(self):
+        burgers = Burger()
+        return burgers
 
     def test_set_buns(self, burgers):
         mock_bun = Mock(spec=Bun)

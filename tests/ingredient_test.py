@@ -1,8 +1,19 @@
 from Diplom_1.praktikum.ingredient import Ingredient
-from Diplom_1.praktikum.ingredient_types import INGREDIENT_TYPE_FILLING
+from Diplom_1.praktikum.ingredient_types import INGREDIENT_TYPE_FILLING, INGREDIENT_TYPE_SAUCE
 
 
 class TestBun:
+    def ingredient(self):
+        ingredient = Ingredient()
+        return ingredient
+
+    def ingredient_types_one(self):
+        ingredient_types_one = INGREDIENT_TYPE_SAUCE()
+        return ingredient_types_one
+
+    def ingredient_types_two(self):
+        ingredient_types_two = INGREDIENT_TYPE_FILLING()
+        return ingredient_types_two
 
     @classmethod
     def setup_class(cls):
