@@ -1,13 +1,15 @@
 import pytest
 from ..bun import Bun
+from ..data import Data
+
 
 class TestBun():
     @pytest.mark.parametrize(
         "name, price, expected_name",
         [
-            ("black bun", 100, "black bun"),
-            ("white bun", 200, "white bun"),
-            ("red bun", 300, "red bun"),
+            (Data.bun_one, Data.price_one, Data.bun_one),
+            (Data.bun_two, Data.price_two, Data.bun_two),
+            (Data.bun_three, Data.price_three, Data.bun_three),
         ]
     )
     def test_get_name(self, name, price, expected_name):
@@ -18,9 +20,9 @@ class TestBun():
     @pytest.mark.parametrize(
         "name, price, expected_price",
         [
-            ("black bun", 100, 100),
-            ("white bun", 200, 200),
-            ("red bun", 300, 300),
+            (Data.bun_one, Data.price_one, Data.price_one),
+            (Data.bun_two, Data.price_two, Data.price_two),
+            (Data.bun_three, Data.price_three, Data.price_three),
         ]
     )
     def test_get_price(self, name, price, expected_price):
@@ -29,10 +31,10 @@ class TestBun():
         assert bun.get_price() == expected_price
 
     def test_price_type(self):
-        bun = Bun("black bun", 100.0)
+        bun = Bun(Data.bun_one, 100.0)
         assert isinstance(bun.get_price(), float)
 
 
     def test_name_type(self):
-        bun = Bun("black bun", 100)
+        bun = Bun(Data.bun_one, Data.price_one)
         assert isinstance(bun.get_name(), str)

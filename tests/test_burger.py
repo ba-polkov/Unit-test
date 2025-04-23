@@ -1,4 +1,7 @@
 import sys
+
+from Diplom_1.data import Data
+
 sys.path.append('C:\\Cygwin\\home\\user\\Diplom\\Diplom_1')
 from Diplom_1.burger import Burger
 from unittest.mock import Mock, patch
@@ -7,7 +10,7 @@ class TestBurger():
 
     def test_set_buns(self):
         mock_bun = Mock()
-        mock_bun.get_name.return_value = "black bun"
+        mock_bun.get_name.return_value = Data.bun_one
 
         burger = Burger()
         burger.set_buns(mock_bun)
@@ -17,7 +20,7 @@ class TestBurger():
 
     def test_add_ingredient(self):
         mock_ingredient = Mock()
-        mock_ingredient.get_name.return_value = "hot sauce"
+        mock_ingredient.get_name.return_value = Data.sauce_one
 
         burger = Burger()
         burger.add_ingredient(mock_ingredient)
@@ -27,10 +30,10 @@ class TestBurger():
 
     def test_remove_ingredient(self):
         mock_ingredient1 = Mock()
-        mock_ingredient1.get_name.return_value = "hot sauce"
+        mock_ingredient1.get_name.return_value = Data.sauce_one
 
         mock_ingredient2 = Mock()
-        mock_ingredient2.get_name.return_value = "sour cream"
+        mock_ingredient2.get_name.return_value = Data.sauce_two
 
         burger = Burger()
         burger.add_ingredient(mock_ingredient1)
@@ -44,10 +47,10 @@ class TestBurger():
 
     def test_move_ingredient(self):
         mock_ingredient1 = Mock()
-        mock_ingredient1.get_name.return_value = "hot sauce"
+        mock_ingredient1.get_name.return_value = Data.sauce_one
 
         mock_ingredient2 = Mock()
-        mock_ingredient2.get_name.return_value = "sour cream"
+        mock_ingredient2.get_name.return_value = Data.sauce_two
 
         burger = Burger()
         burger.add_ingredient(mock_ingredient1)
@@ -60,35 +63,35 @@ class TestBurger():
 
     def test_get_price(self):
         mock_bun = Mock()
-        mock_bun.get_price.return_value = 100
+        mock_bun.get_price.return_value = Data.price_one
 
         mock_ingredient1 = Mock()
-        mock_ingredient1.get_price.return_value = 150
+        mock_ingredient1.get_price.return_value = Data.price_one
 
         mock_ingredient2 = Mock()
-        mock_ingredient2.get_price.return_value = 200
+        mock_ingredient2.get_price.return_value = Data.price_two
 
         burger = Burger()
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_ingredient1)
         burger.add_ingredient(mock_ingredient2)
 
-        assert burger.get_price()==550
+        assert burger.get_price()==500
 
     def test_get_receipt(self):
         mock_bun = Mock()
-        mock_bun.get_name.return_value = "black bun"
-        mock_bun.get_price.return_value = 100
+        mock_bun.get_name.return_value = Data.bun_one
+        mock_bun.get_price.return_value = Data.price_one
 
         mock_ingredient1 = Mock()
-        mock_ingredient1.get_type.return_value = 'sauce'
-        mock_ingredient1.get_name.return_value = "hot sauce"
-        mock_ingredient1.get_price.return_value = 100
+        mock_ingredient1.get_type.return_value = Data.type_one
+        mock_ingredient1.get_name.return_value = Data.sauce_one
+        mock_ingredient1.get_price.return_value = Data.price_one
 
         mock_ingredient2 = Mock()
-        mock_ingredient2.get_type.return_value = 'filling'
-        mock_ingredient2.get_name.return_value = "dinosaur"
-        mock_ingredient2.get_price.return_value = 200
+        mock_ingredient2.get_type.return_value = Data.type_two
+        mock_ingredient2.get_name.return_value = Data.filling_two
+        mock_ingredient2.get_price.return_value = Data.price_two
 
         burger = Burger()
         burger.set_buns(mock_bun)

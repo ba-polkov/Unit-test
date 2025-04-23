@@ -1,4 +1,6 @@
 import pytest
+
+from Diplom_1.data import Data
 from Diplom_1.ingredient import Ingredient
 
 
@@ -6,12 +8,12 @@ class TestIngredient():
     @pytest.mark.parametrize(
         "type, name, price, expected_price",
         [
-            ('SAUCE', "hot sauce", 100, 100),
-            ('SAUCE', "sour cream", 200, 200),
-            ('SAUCE', "chili sauce", 300, 300),
-            ('FILLING', "cutlet", 100, 100),
-            ('FILLING', "dinosaur", 200, 200),
-            ('FILLING', "sausage", 300, 300)
+            (Data.one_type, Data.sauce_one, Data.price_one, Data.price_one),
+            (Data.one_type, Data.sauce_two, Data.price_two, Data.price_two),
+            (Data.one_type, Data.sauce_three, Data.price_three, Data.price_three),
+            (Data.two_type, Data.filling_one, Data.price_one, Data.price_one),
+            (Data.two_type, Data.filling_two, Data.price_two, Data.price_two),
+            (Data.two_type, Data.filling_three, Data.price_three, Data.price_three)
         ]
     )
     def test_get_price(self, type, name, price, expected_price):
@@ -23,12 +25,12 @@ class TestIngredient():
     @pytest.mark.parametrize(
         "type, name, price, expected_name",
         [
-            ('SAUCE', "hot sauce", 100, "hot sauce"),
-            ('SAUCE', "sour cream", 200, "sour cream"),
-            ('SAUCE', "chili sauce", 300, "chili sauce"),
-            ('FILLING', "cutlet", 100, "cutlet"),
-            ('FILLING', "dinosaur", 200, "dinosaur"),
-            ('FILLING', "sausage", 300, "sausage")
+            (Data.one_type, Data.sauce_one, Data.price_one, Data.sauce_one),
+            (Data.one_type, Data.sauce_two, Data.price_two, Data.sauce_two),
+            (Data.one_type, Data.sauce_three, Data.price_three, Data.sauce_three),
+            (Data.two_type, Data.filling_one, Data.price_one, Data.filling_one),
+            (Data.two_type, Data.filling_two, Data.price_two, Data.filling_two),
+            (Data.two_type, Data.filling_three, Data.price_three, Data.filling_three)
         ]
     )
     def test_get_name(self, type, name, price, expected_name):
@@ -40,12 +42,12 @@ class TestIngredient():
     @pytest.mark.parametrize(
         "type, name, price, expected_type",
         [
-            ('SAUCE', "hot sauce", 100, 'SAUCE'),
-            ('SAUCE', "sour cream", 200, 'SAUCE'),
-            ('SAUCE', "chili sauce", 300, 'SAUCE'),
-            ('FILLING', "cutlet", 100, 'FILLING'),
-            ('FILLING', "dinosaur", 200, 'FILLING'),
-            ('FILLING', "sausage", 300, 'FILLING')
+            (Data.one_type, Data.sauce_one, Data.price_one, Data.one_type),
+            (Data.one_type, Data.sauce_two, Data.price_two, Data.one_type),
+            (Data.one_type, Data.sauce_three, Data.price_three, Data.one_type),
+            (Data.two_type, Data.filling_one, Data.price_one, Data.two_type),
+            (Data.two_type, Data.filling_two, Data.price_two, Data.two_type),
+            (Data.two_type, Data.filling_three, Data.price_three, Data.two_type)
         ]
     )
     def test_get_type(self, type, name, price, expected_type):
