@@ -1,5 +1,4 @@
 import pytest
-from conftest import db
 from data import TestData
 from helper import *
 
