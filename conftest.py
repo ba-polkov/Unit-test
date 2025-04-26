@@ -1,7 +1,8 @@
 import pytest
-import  random
+import random
 from unittest.mock import Mock
 from data import *
+from praktikum.database import Database
 
 @pytest.fixture
 def mock_bun():
@@ -32,9 +33,6 @@ def mock_filling():
     filling_mock.get_type.return_value = filling_type
     return filling_mock
 
-
-
-def calculate_burger_price(ingredients, mock_bun):
-    ingredient_price = sum([ingredient.get_price() for ingredient in ingredients])
-    burger_price = ingredient_price + (mock_bun.get_price()*2)
-    return burger_price
+@pytest.fixture
+def db():
+    return Database()
