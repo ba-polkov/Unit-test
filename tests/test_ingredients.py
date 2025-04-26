@@ -1,6 +1,7 @@
-from conftest import *
+from data import *
 
 class TestIngredient:
+
     def test_get_name_sauce_success(self, mock_sauce):
         expected_name = mock_sauce.get_name()
         assert expected_name in [sauce[1] for sauce in Ingredients.sauces]
