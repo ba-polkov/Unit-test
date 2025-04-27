@@ -9,3 +9,10 @@ def mock_bun():
     mock_buns.get_price.return_value = Data.Bun_price
     return mock_buns
 
+@pytest.fixture
+def mock_sauce():
+    mock_sauces = Mock()
+    mock_sauces.get_name.return_value = Data.Sauce_name
+    mock_sauces.get_price.return_value = Data.Sauce_price
+    mock_sauces.get_type.return_value = Data.Sauce_type
+    return mock_sauce
