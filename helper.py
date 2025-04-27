@@ -1,5 +1,4 @@
-from conftest import db
-
+from data import Ingredients
 
 def get_bun_data(db):
     buns = db.available_buns()
@@ -19,3 +18,15 @@ def calculate_burger_price(ingredients, mock_bun):
     ingredient_price = sum([ingredient.get_price() for ingredient in ingredients])
     burger_price = ingredient_price + (mock_bun.get_price()*2)
     return burger_price
+
+def get_sauce_names():
+    return [sauce[1] for sauce in Ingredients.sauces]
+
+def get_filling_names():
+    return [filling[1] for filling in Ingredients.fillings]
+
+def get_sauce_prices():
+    return [sauce[2] for sauce in Ingredients.sauces]
+
+def get_filling_prices():
+    return [filling[2] for filling in Ingredients.fillings]
