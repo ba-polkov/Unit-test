@@ -1,6 +1,8 @@
 import pytest
 from unittest.mock import Mock
 from data import *
+from praktikum.database import Database
+
 
 @pytest.fixture
 def mock_bun():
@@ -24,3 +26,7 @@ def mock_filling():
     mock_fillings.get_price.return_value = Data.Filling_price
     mock_fillings.get_type.return_value = Data.Filling_type
     return mock_fillings
+
+@pytest.fixture
+def data_base_fixture():
+    return Database
