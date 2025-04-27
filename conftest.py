@@ -16,3 +16,11 @@ def mock_sauce():
     mock_sauces.get_price.return_value = Data.Sauce_price
     mock_sauces.get_type.return_value = Data.Sauce_type
     return mock_sauce
+
+@pytest.fixture
+def mock_filling():
+    mock_filling = Mock()
+    mock_filling.get_name.return_value = Data.Filling_name
+    mock_filling.get_price.return_value = Data.Filling_price
+    mock_filling.get_type.return_value = Data.Filling_type
+    return mock_filling
