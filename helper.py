@@ -1,4 +1,3 @@
-from conftest import db
 from data import *
 
 def get_bun_data(db):
