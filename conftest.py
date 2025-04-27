@@ -10,22 +10,22 @@ from data import TestBunData, TestIngredientData
 @pytest.fixture
 def test_burger():
     burger = Burger()
-    yield burger
+    return burger
 
 
 @pytest.fixture
 def test_bun():
     bun = Bun(TestBunData.name, TestBunData.price)
-    yield bun
+    return bun
 
 
 @pytest.fixture
 def test_ingredient():
     ingredient = Ingredient(TestIngredientData.ingredient_type, TestIngredientData.name, TestIngredientData.price)
-    yield ingredient
+    return ingredient
 
 
 @pytest.fixture
 def test_database():
     database = Database()
-    yield database
+    return database
