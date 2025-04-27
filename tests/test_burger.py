@@ -1,5 +1,5 @@
 from praktikum.burger import Burger
-from conftest import *
+import helper
 
 class TestBurger:
 
@@ -43,7 +43,7 @@ class TestBurger:
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_sauce)
         burger.add_ingredient(mock_filling)
-        expected_price = calculate_burger_price([mock_sauce, mock_filling],mock_bun)
+        expected_price = helper.calculate_burger_price([mock_sauce, mock_filling],mock_bun)
         assert burger.get_price() == expected_price
 
 
