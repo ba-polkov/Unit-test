@@ -23,7 +23,7 @@ class TestBurger:
         bf.add_ingredient(ingredient)
         assert bf.ingredients[0].get_name() == expected_ingredient_added_name
 
-    @allure.title('роверка метода remove_ingredient через параметризацию, путем добавления и удаления начинок')
+    @allure.title('Проверка метода remove_ingredient через параметризацию, путем добавления и удаления начинок')
     @pytest.mark.parametrize('ingredient_name, expected_ingridient_removed_name',
                              [
                                  ('mock_sauce', Data.Sauce_name),
@@ -37,3 +37,14 @@ class TestBurger:
         index = bf.ingredients.index(ingredient)
         bf.remove_ingredient(index)
         assert expected_ingridient_removed_name not in [ing.get_name() for ing in bf.ingredients]
+
+    @allure.title('Проверка метода move_ingredient. Перемещение ингридиентов в бургере')
+
+    def test_move_ingredient(self, burger_fixture, mock_sauce, mock_filling):
+        bf = burger_fixture
+        bf.add_ingredient(mock_sauce)
+        bf.add_ingredient(mock_filling)
+        assert len(bf.ingridients) == 2
+        bf.move_ingredient(0, 1)
+        assert bf.ingredients[0] == mock_sauce
+        assert bf.ingredients[1] == mock_filling
