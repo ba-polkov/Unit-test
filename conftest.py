@@ -29,4 +29,4 @@ def mock_filling():
 
 @pytest.fixture
 def data_base_fixture():
-    return Database
+    return Database()
