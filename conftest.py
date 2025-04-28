@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import Mock
 from data import *
 from praktikum.database import Database
-
+from praktikum.burger import Burger
 
 @pytest.fixture
 def mock_bun():
@@ -30,3 +30,10 @@ def mock_filling():
 @pytest.fixture
 def data_base_fixture():
     return Database()
+
+@pytest.fixture
+def burger_fixture(mock_bun):
+    burger=Burger()
+    burger.set_buns(mock_bun)
+    return burger
+
