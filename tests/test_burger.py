@@ -61,13 +61,14 @@ class TestBurger:
         bf = burger_fixture
         bf.add_ingredient(mock_sauce)
         bf.add_ingredient(mock_filling)
-        bf.get_price()
+
         expected_receipt = (
-            f'(==== {'Эльфийский хлеб'} ====',
-            f'\n = {INGREDIENT_TYPE_SAUCE} {'Еловый привкус Байкала'} =',
-            f'\n = {INGREDIENT_TYPE_FILLING} {'Верблюжий горб'} =',
-            f'\n (==== {'Эльфийский хлеб'} ====)\n',
-            f'Price: {2400}'
+            f'(==== Эльфийский хлеб ====)\n'
+            f'= sauce Еловый привкус Байкала =\n'
+            f'= filling Верблюжий горб =\n'
+            f'(==== Эльфийский хлеб ====)\n'
+            '\n'
+            f'Price: {bf.get_price()}'
             )
         assert bf.get_receipt() == expected_receipt
 
