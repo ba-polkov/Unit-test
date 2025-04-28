@@ -3,6 +3,7 @@ from conftest import mock_bun
 from mock_data import MockData
 from src.bun import Bun
 
+
 class TestBun:
 
     @pytest.mark.parametrize('name, price', [
