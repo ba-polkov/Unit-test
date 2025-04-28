@@ -12,11 +12,13 @@ class TestBurger:
         assert burger_fixture.bun.get_name() == Data.Bun_name
 
     @allure.title('Проверка метода add_ingredient через параметризацию, путем добавления начинок')
-    @pytest.mark.parametrize('ingredient_name, ingridient_added_name',
+    @pytest.mark.parametrize('ingredient_name, expected_ingridient_added_name',
                              [
-                             [Data.Sauce_name, Data.Sauce_name],
-                             [Data.Filling_name, Data.Filling_name]
+                                 ('mock_sauce', Data.Sauce_name),
+                                 ('mock_filling', Data.Filling_name)
                              ])
-    def test_add_ingredient(self,burger_fixture, ingredient_name, ingridient_added_name):
-        bf = burger_fixture.add_ingredient(ingredient_name)
-        assert bf == [ingridient_added_name]
+    def test_add_ingredient(self,burger_fixture, request, ingredient_name, expected_ingridient_added_name):
+        ingredient = request.getfixturevalue(ingredient_name)
+        bf = burger_fixture
+        bf.add_ingredient(ingredient)
+        assert bf.ingredients[0].get_name() == expected_ingridient_added_name
