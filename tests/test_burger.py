@@ -39,12 +39,35 @@ class TestBurger:
         assert expected_ingridient_removed_name not in [ing.get_name() for ing in bf.ingredients]
 
     @allure.title('Проверка метода move_ingredient. Перемещение ингридиентов в бургере')
-
     def test_move_ingredient(self, burger_fixture, mock_sauce, mock_filling):
         bf = burger_fixture
         bf.add_ingredient(mock_sauce)
         bf.add_ingredient(mock_filling)
-        assert len(bf.ingridients) == 2
+        assert len(bf.ingredients) == 2
         bf.move_ingredient(0, 1)
-        assert bf.ingredients[0] == mock_sauce
-        assert bf.ingredients[1] == mock_filling
+        assert bf.ingredients[1] == mock_sauce
+        assert bf.ingredients[0] == mock_filling
+
+    @allure.title('Проверка метода get_price. Получение стоимости бургера')
+    def test_get_price(self, burger_fixture,mock_sauce, mock_filling):
+        bf = burger_fixture
+        bf.add_ingredient(mock_sauce)
+        bf.add_ingredient(mock_filling)
+        expected_price = (bf.bun.get_price()*2 + mock_sauce.get_price() + mock_filling.get_price())
+        assert bf.get_price() == expected_price
+
+    @allure.title('Проверка метода get_receipt. Получения чека с информацией о бургере')
+    def test_get_receipt(self, burger_fixture, mock_sauce, mock_filling):
+        bf = burger_fixture
+        bf.add_ingredient(mock_sauce)
+        bf.add_ingredient(mock_filling)
+        bf.get_price()
+        expected_receipt = (
+            f'(==== {'Эльфийский хлеб'} ====',
+            f'\n = {INGREDIENT_TYPE_SAUCE} {'Еловый привкус Байкала'} =',
+            f'\n = {INGREDIENT_TYPE_FILLING} {'Верблюжий горб'} =',
+            f'\n (==== {'Эльфийский хлеб'} ====)\n',
+            f'Price: {2400}'
+            )
+        assert bf.get_receipt() == expected_receipt
+
