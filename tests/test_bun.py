@@ -11,7 +11,7 @@ class TestBun:
         (MockData.WHITE_BUN, MockData.WHITE_BUN_PRICE),
         (MockData.RED_BUN, MockData.RED_BUN_PRICE)
     ])
-    def test_get_name_of_the_bun(self, name: str, price: int, mock_bun: Bun):
+    def test_get_name_of_the_bun(self, name, price, mock_bun):
         bun = Bun(name, price)
         assert bun.get_name() == name
 
@@ -20,6 +20,6 @@ class TestBun:
         (MockData.WHITE_BUN, MockData.WHITE_BUN_PRICE),
         (MockData.RED_BUN, MockData.RED_BUN_PRICE)
     ])
-    def test_get_price_of_the_bun(self, name: str, price: int, mock_bun: Bun):
+    def test_get_price_of_the_bun(self, name, price, mock_bun):
         bun = Bun(name, price)
         assert bun.get_price() == price

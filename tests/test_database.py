@@ -9,7 +9,7 @@ class TestDataBase:
         (1, MockData.WHITE_BUN),
         (2, MockData.RED_BUN)
     ])
-    def test_available_buns_in_the_database_and_exist_in_list(self, bun_ind: int, available_bun_name: str):
+    def test_available_buns_in_the_database_and_exist_in_list(self, bun_ind, available_bun_name):
         db = Database()
         assert db.available_buns()[bun_ind].name == available_bun_name
 
@@ -21,6 +21,6 @@ class TestDataBase:
         (4, MockData.DINOSAUR_FILLING),
         (5, MockData.SAUSAGE_FILLING)
     ])
-    def test_available_ingredients_in_the_database_and_exist_in_list(self, ingredient_ind: int, available_ingredient_name: str):
+    def test_available_ingredients_in_the_database_and_exist_in_list(self, ingredient_ind, available_ingredient_name):
         db = Database()
         assert db.available_ingredients()[ingredient_ind].name == available_ingredient_name

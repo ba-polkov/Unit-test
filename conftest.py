@@ -4,7 +4,6 @@ from src.bun import Bun
 from src.ingredient import Ingredient
 from unittest.mock import Mock
 from src.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
-from src.burger import Burger
 
 
 @pytest.fixture(scope='function')
@@ -27,7 +26,3 @@ def ingredient_filling():
     test_ingredient_filling = Ingredient(INGREDIENT_TYPE_FILLING, MockData.CUTLET_FILLING, MockData.CUTLET_FILLING_PRICE)
     return test_ingredient_filling
 
-@pytest.fixture(scope='function')
-def mock_burger():
-    mock_burger = Burger()
-    return mock_burger
