@@ -23,6 +23,7 @@ class TestBurger:
         ingredient = Ingredient(ingredient_types.INGREDIENT_TYPE_FILLING, 'Наполнитель', 50)
         burger.add_ingredient(ingredient)
         burger.remove_ingredient(1)
+
         assert len(burger.ingredients) == 1
 
     def test_move_ingredient(self, burger):
@@ -30,6 +31,7 @@ class TestBurger:
         ingredient = Ingredient(ingredient_types.INGREDIENT_TYPE_FILLING, 'Наполнитель', 50)
         burger.add_ingredient(ingredient)
         burger.move_ingredient(1, 0)
+
         assert (burger.ingredients[0].type == ingredient_types.INGREDIENT_TYPE_FILLING and
                 burger.ingredients[0].name == 'Наполнитель' and burger.ingredients[0].price == 50)
 
@@ -41,4 +43,5 @@ class TestBurger:
     def test_get_receipt(self, burger):
         burger = burger
         print(burger.get_receipt())
+
         assert burger.get_receipt() == '(==== Mike ====)\n= sauce Соус =\n(==== Mike ====)\n\nPrice: 1060'
