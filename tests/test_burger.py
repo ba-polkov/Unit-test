@@ -38,3 +38,7 @@ class TestBurger:
 
         assert burger.get_price() == 1060
 
+    def test_get_receipt(self, burger):
+        burger = burger
+        print(burger.get_receipt())
+        assert burger.get_receipt() == '(==== Mike ====)\n= sauce Соус =\n(==== Mike ====)\n\nPrice: 1060'
