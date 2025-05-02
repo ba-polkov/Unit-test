@@ -18,3 +18,10 @@ class TestBurger:
 
         assert (burger.ingredients[1].type == ingredient_types.INGREDIENT_TYPE_FILLING and
                 burger.ingredients[1].name == 'Наполнитель' and burger.ingredients[1].price == 50)
+
+    def test_remove_ingredient(self, burger):
+        burger = burger
+        ingredient = Ingredient(ingredient_types.INGREDIENT_TYPE_FILLING, 'Наполнитель', 50)
+        burger.add_ingredient(ingredient)
+        burger.remove_ingredient(1)
+        assert len(burger.ingredients) == 1
