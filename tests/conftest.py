@@ -1,8 +1,8 @@
 import pytest
-from bun import Bun
-from burger import Burger
-from ingredient import Ingredient
-import ingredient_types
+from praktikum.bun import Bun
+from praktikum.burger import Burger
+from praktikum.ingredient import Ingredient
+from praktikum import ingredient_types
 
 
 @pytest.fixture

@@ -1,5 +1,5 @@
-from ingredient import Ingredient
-import ingredient_types
+from praktikum.ingredient import Ingredient
+from praktikum import ingredient_types
 
 
 class TestBurger:
