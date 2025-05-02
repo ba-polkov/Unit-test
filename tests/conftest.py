@@ -17,3 +17,8 @@ def burger(bun):
     ingredient = Ingredient(ingredient_types.INGREDIENT_TYPE_SAUCE, 'Соус', 60)
     burger.add_ingredient(ingredient)
     return burger
+
+@pytest.fixture
+def ingredient():
+    ingredient = Ingredient(ingredient_types.INGREDIENT_TYPE_SAUCE, 'Соус', 60)
+    return ingredient
