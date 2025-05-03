@@ -4,12 +4,21 @@ from praktikum import ingredient_types
 
 class TestBurger:
 
-    def test_set_buns(self, bun, burger):
+#Проверка, что булочка в бургере создана, и ее имя соответствует тестовым данным
+    def test_set_buns_input_test_name_output_test_name(self, bun, burger):
         burger = burger
         burger.set_buns(bun)
 
         assert burger.bun.name == 'Mike'
 
+#Проверка, что булочка в бургере создана, и ee цена соответствует тестовым данным
+    def test_set_buns_input_test_price_output_test_price(self, bun, burger):
+        burger = burger
+        burger.set_buns(bun)
+
+        assert burger.bun.price == 500
+
+#Проверка, что добавленный ингредиент соответствует тестовым данным
     def test_add_ingredient(self, burger):
         burger = burger
         ingredient = Ingredient(ingredient_types.INGREDIENT_TYPE_FILLING, 'Наполнитель', 50)
@@ -17,6 +26,14 @@ class TestBurger:
 
         assert (burger.ingredients[1].type == ingredient_types.INGREDIENT_TYPE_FILLING and
                 burger.ingredients[1].name == 'Наполнитель' and burger.ingredients[1].price == 50)
+
+#Проверка, что после добавления нового ингредиента, ингредиентов в списке стало два
+    def test_add_ingredient_add_second_ingredient_total_two_ingredients(self, burger):
+        burger = burger
+        ingredient = Ingredient(ingredient_types.INGREDIENT_TYPE_FILLING, 'Наполнитель', 50)
+        burger.add_ingredient(ingredient)
+
+        assert len(burger.ingredients) == 2
 
     def test_remove_ingredient(self, burger):
         burger = burger
