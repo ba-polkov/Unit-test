@@ -35,6 +35,7 @@ class TestBurger:
 
         assert len(burger.ingredients) == 2
 
+#Проверка, что после удаления ингредиента, ингредиент в списке остался один
     def test_remove_ingredient(self, burger):
         burger = burger
         ingredient = Ingredient(ingredient_types.INGREDIENT_TYPE_FILLING, 'Наполнитель', 50)
@@ -43,14 +44,26 @@ class TestBurger:
 
         assert len(burger.ingredients) == 1
 
+#Проверка, что после смещения ингредиентов их индексы сменились
     def test_move_ingredient(self, burger):
         burger = burger
         ingredient = Ingredient(ingredient_types.INGREDIENT_TYPE_FILLING, 'Наполнитель', 50)
         burger.add_ingredient(ingredient)
         burger.move_ingredient(1, 0)
 
-        assert (burger.ingredients[0].type == ingredient_types.INGREDIENT_TYPE_FILLING and
-                burger.ingredients[0].name == 'Наполнитель' and burger.ingredients[0].price == 50)
+        assert ((burger.ingredients[0].type == ingredient_types.INGREDIENT_TYPE_FILLING and
+                burger.ingredients[0].name == 'Наполнитель' and burger.ingredients[0].price == 50) and
+                (burger.ingredients[1].type == ingredient_types.INGREDIENT_TYPE_SAUCE and
+                burger.ingredients[1].name == 'Соус' and burger.ingredients[1].price == 60))
+
+#Проверка, что после смещения ингредиентов их количесвто осталось равным 2
+    def test_move_ingredient_before_two_ingredients_after_two_ingredients(self, burger):
+        burger = burger
+        ingredient = Ingredient(ingredient_types.INGREDIENT_TYPE_FILLING, 'Наполнитель', 50)
+        burger.add_ingredient(ingredient)
+        burger.move_ingredient(1, 0)
+
+        assert len(burger.ingredients) == 2
 
     def test_get_price(self, burger):
         burger = burger
