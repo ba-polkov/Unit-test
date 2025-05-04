@@ -5,7 +5,7 @@ from bun import Bun
 
 
 @pytest.fixture
-def default_bun(self):
+def default_bun():
     return Bun("Краторная булка N-200i", 1255)
 
 
@@ -13,5 +13,5 @@ def default_bun(self):
     ("Флюоресцентная булка R2-D3", 988),
     ("Краторная булка N-200i", 1255)
 ])
-def parametrized_bun(self, request):
+def parametrized_bun(request):
     return Bun(*request.param)
