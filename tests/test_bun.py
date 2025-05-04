@@ -46,4 +46,6 @@ class TestBun:
         default_bun.price = 1000
         assert default_bun.get_price() == 1000.0
 
-
+    def test_bun_standard_string_representation(self, default_bun):
+        """Проверка, что строковое представление содержит стандартный формат Python"""
+        assert "Bun object at" in str(default_bun)
