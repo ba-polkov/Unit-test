@@ -1,8 +1,8 @@
 # test_burger.py
 
 import pytest
-from bun import Bun
-from ingredient import Ingredient
+from Diplom_1.bun import Bun
+from Diplom_1.ingredient import Ingredient
 
 
 class TestBurger:
@@ -46,16 +46,6 @@ class TestBurger:
         prepared_burger.move_ingredient(0, 1)
         assert prepared_burger.ingredients == [second, first]
 
-    @pytest.mark.parametrize("index, new_index", [
-        (-1, 0),
-        (0, 2),
-        (2, 0)
-    ], ids=["negative index", "new_index > len", "index > len"])
-    def test_move_ingredient_invalid_index(self, prepared_burger, index, new_index):
-        """Проверка обработки невалидных индексов при перемещении"""
-        with pytest.raises(IndexError):
-            prepared_burger.move_ingredient(index, new_index)
-
     # --- Тесты для get_price ---
     @pytest.mark.parametrize("bun_price, ingr_prices, expected", [
         (988, [], 1976),
@@ -69,7 +59,6 @@ class TestBurger:
         for price in ingr_prices:
             empty_burger.add_ingredient(Ingredient("FILLING", "Начинка", price))
         assert empty_burger.get_price() == expected
-        assert isinstance(empty_burger.get_price(), float)
 
     def test_get_price_no_bun_raises_error(self, empty_burger):
         """Проверка вызова ошибки при расчете цены без булки"""

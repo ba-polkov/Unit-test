@@ -1,9 +1,9 @@
 # conftest.py
 
-import pytest
-from bun import Bun
-from burger import Burger
-from ingredient import Ingredient
+from Diplom_1.bun import Bun
+from Diplom_1.burger import Burger
+from Diplom_1.ingredient import Ingredient
+
 
 @pytest.fixture
 def default_bun():
