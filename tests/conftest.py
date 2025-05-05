@@ -5,31 +5,36 @@ from bun import Bun
 from burger import Burger
 from ingredient import Ingredient
 
-
 @pytest.fixture
 def default_bun():
+    """Фикстура для стандартной булки"""
     return Bun("Краторная булка N-200i", 1255)
-
-
-@pytest.fixture(params=[
-    ("Флюоресцентная булка R2-D3", 988),
-    ("Краторная булка N-200i", 1255)
-])
-def parametrized_bun(request):
-    return Bun(*request.param)
-
 
 @pytest.fixture
 def empty_burger():
+    """Фикстура для пустого бургера"""
     return Burger()
 
 @pytest.fixture
-def prepared_burger():
-    bun = Bun("Краторная булка N-200i", 1255)
-    ingredient1 = Ingredient("SAUCE", "Соус фирменный Space Sauce", 80)
-    ingredient2 = Ingredient("FILLING", "Биокотлета из марсианской Магнолии", 424)
+def prepared_burger(default_bun):
+    """Фикстура для собранного бургера (булка + 2 ингредиента)"""
     burger = Burger()
-    burger.set_buns(bun)
-    burger.add_ingredient(ingredient1)
-    burger.add_ingredient(ingredient2)
+    burger.set_buns(default_bun)
+    burger.add_ingredient(Ingredient("SAUCE", "Соус фирменный Space Sauce", 80))
+    burger.add_ingredient(Ingredient("FILLING", "Биокотлета из марсианской Магнолии", 424))
     return burger
+
+# Параметризованные фикстуры
+@pytest.fixture(params=[
+    ("Краторная булка N-200i", 1255),
+    ("Флюоресцентная булка R2-D3", 988)
+], ids=["krator_bun", "fluorescent_bun"])
+def parametrized_bun(request):
+    return Bun(*request.param)
+
+@pytest.fixture(params=[
+    ("SAUCE", "Соус фирменный Space Sauce", 80),
+    ("FILLING", "Биокотлета из марсианской Магнолии", 424)
+], ids=["sauce", "filling"])
+def parametrized_ingredient(request):
+    return Ingredient(*request.param)
