@@ -1,8 +1,10 @@
 # conftest.py
 
-from Diplom_1.bun import Bun
-from Diplom_1.burger import Burger
-from Diplom_1.ingredient import Ingredient
+import pytest
+from bun import Bun
+from burger import Burger
+from ingredient import Ingredient
+from unittest.mock import Mock
 
 
 @pytest.fixture
@@ -38,3 +40,33 @@ def parametrized_bun(request):
 ], ids=["sauce", "filling"])
 def parametrized_ingredient(request):
     return Ingredient(*request.param)
+
+# Мокированные объекты
+@pytest.fixture
+def mock_bun():
+    bun = Mock(spec=Bun)
+    bun.get_name.return_value = "Мок булки"
+    bun.get_price.return_value = 100
+    return bun
+
+@pytest.fixture
+def mock_ingredient():
+    ingr = Mock(spec=Ingredient)
+    ingr.get_type.return_value = "SAUCE"
+    ingr.get_name.return_value = "Мок соуса"
+    ingr.get_price.return_value = 50
+    return ingr
+
+@pytest.fixture
+def burger_with_mocks(mock_bun, mock_ingredient):
+    burger = Burger()
+    burger.set_buns(mock_bun)
+    burger.add_ingredient(mock_ingredient)
+    return burger
+
+# Параметризованные фикстуры
+@pytest.fixture(params=[80, 100, 150], ids=["cheap", "medium", "expensive"])
+def parametrized_ingredient_price(request):
+    ingr = Mock(spec=Ingredient)
+    ingr.get_price.return_value = request.param
+    return ingr

@@ -21,4 +21,8 @@
 
 **Запуск автотестов и создание HTML-отчета о покрытии**
 
->  `$ pytest --cov=praktikum --cov-report=html`
+> `$ pytest --cov=bun --cov=ingredient --cov=burger --cov-report=term-missing --cov-report=html tests/`
+
+**Откройте файл в браузере**
+
+> `$ start htmlcov/index.html`
