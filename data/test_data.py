@@ -1,0 +1,2 @@
+BUN_NAME = "test"
+BUN_PRICE = 13.37
