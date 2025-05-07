@@ -1,8 +1,8 @@
-from data.test_data import BUN_NAME, BUN_PRICE
+from data import test_data
 
 class TestBun:
     def test_get_name(self, bun):
-        assert bun.get_name() == BUN_NAME
+        assert bun.get_name() == test_data.BUN_NAME
 
     def test_get_price(self, bun):
-        assert bun.get_price() == BUN_PRICE
+        assert bun.get_price() == test_data.BUN_PRICE

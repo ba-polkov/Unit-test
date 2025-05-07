@@ -1,8 +1,18 @@
 import pytest
 
 from bun import Bun
-from data.test_data import BUN_PRICE, BUN_NAME
+from ingredient import Ingredient
+from data import test_data
+from ingredient_types import INGREDIENT_TYPE_FILLING
+
 
 @pytest.fixture
 def bun():
-    return Bun(BUN_NAME, BUN_PRICE)
+    return Bun(test_data.BUN_NAME, test_data.BUN_PRICE)
+
+
+@pytest.fixture
+def ingredient():
+    return Ingredient(
+        INGREDIENT_TYPE_FILLING, test_data.INGREDIENT_NAME, test_data.INGREDIENT_PRICE,
+    )
