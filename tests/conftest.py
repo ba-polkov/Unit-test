@@ -1,8 +1,13 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import pytest
 from unittest.mock import MagicMock
-from praktikum.bun import Bun
-from praktikum.ingredient import Ingredient
-from praktikum.burger import Burger
+from prakticum.bun import Bun
+from prakticum.ingredient import Ingredient
+from prakticum.burger import Burger
+
 
 
 

@@ -1,7 +1,7 @@
 import pytest
 import allure
-from praktikum.ingredient import Ingredient
-from praktikum.ingredient_types import INGREDIENT_TYPE_FILLING, INGREDIENT_TYPE_SAUCE
+from prakticum.ingredient import Ingredient
+from prakticum.ingredient_types import INGREDIENT_TYPE_FILLING, INGREDIENT_TYPE_SAUCE
 
 
 class TestIngredient:

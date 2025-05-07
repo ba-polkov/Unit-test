@@ -1,9 +1,9 @@
 import pytest
 import allure
-from praktikum.database import Database
-from praktikum.bun import Bun
-from praktikum.ingredient import Ingredient
-from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
+from prakticum.database import Database
+from prakticum.bun import Bun
+from prakticum.ingredient import Ingredient
+from prakticum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 class TestDatabase:
 

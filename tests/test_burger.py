@@ -1,7 +1,7 @@
 import pytest
 import allure
 from unittest.mock import MagicMock
-from praktikum.ingredient import Ingredient
+from prakticum.ingredient import Ingredient
 
 
 

@@ -1,6 +1,6 @@
 import pytest
 import allure
-from praktikum.bun import Bun
+from prakticum.bun import Bun
 
 
 class TestBun:
