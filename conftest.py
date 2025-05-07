@@ -1,6 +1,7 @@
 import pytest
 
 from praktikum.bun import Bun
+from praktikum.burger import Burger
 from praktikum.database import Database
 from praktikum.ingredient import Ingredient
 from data import test_data
@@ -21,3 +22,7 @@ def ingredient():
 @pytest.fixture
 def database():
     return Database()
+
+@pytest.fixture
+def burger():
+    return Burger()
