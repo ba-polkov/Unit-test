@@ -1,3 +1,5 @@
+# praktikum.py
+
 from typing import List
 
 from bun import Bun

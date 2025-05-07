@@ -21,7 +21,7 @@
 
 **Запуск автотестов и создание HTML-отчета о покрытии**
 
-> `$ pytest --cov=bun --cov=ingredient --cov=burger --cov-report=term-missing --cov-report=html tests/`
+> `$ python -m pytest --cov=. --cov-report=html tests/`
 
 **Откройте файл в браузере**
 
