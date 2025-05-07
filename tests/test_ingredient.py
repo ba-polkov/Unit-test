@@ -3,10 +3,7 @@ from praktikum.ingredient import Ingredient
 from praktikum.ingredient_types import *
 
 class TestIngredient:
-    @pytest.fixture()
-    def ingredient(self):
-        return Ingredient(INGREDIENT_TYPE_SAUCE, 'Соус традиционный галактический', 15)
-    
+        
     def test_correct_name_of_ingredient(self, ingredient):
         assert ingredient.get_name() == 'Соус традиционный галактический'
 
