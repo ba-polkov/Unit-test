@@ -100,15 +100,11 @@ class TestBurger:
 
     def test_get_price(self):
         mock_bun = Mock()
-        #mock_bun.name = 'Mike'
-        #mock_bun.price = 500
         mock_bun.get_price.return_value = 500
         burger = Burger()
         burger.set_buns(mock_bun)
 
         mock_ingredient = Mock()
-        #mock_ingredient.type = ingredient_types.INGREDIENT_TYPE_SAUCE
-        #mock_ingredient.name = 'Соус'
         mock_ingredient.price = 60
         mock_ingredient.get_price.return_value = 60
 
