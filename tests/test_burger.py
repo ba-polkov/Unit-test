@@ -57,3 +57,22 @@ class TestBurger:
                            "(==== black bun ====)\n\n"\
                            "Price: 400"
         assert expected_receipt == burger.get_receipt()
+
+    " Тест на перемещение ингридиента в бургере"""
+
+    def test_move_ingredient(self):
+        burger = Burger()
+        database = Database()
+        burger.add_ingredient(database.available_ingredients()[0])
+        burger.add_ingredient(database.available_ingredients()[1])
+        burger.add_ingredient(database.available_ingredients()[2])
+
+        assert burger.ingredients[0].get_name() == database.available_ingredients()[0].get_name()
+        assert burger.ingredients[1].get_name() == database.available_ingredients()[1].get_name()
+        assert burger.ingredients[2].get_name() == database.available_ingredients()[2].get_name()
+
+        burger.move_ingredient(1, 0)
+
+        assert burger.ingredients[0].get_name() == database.available_ingredients()[1].get_name()
+        assert burger.ingredients[1].get_name() == database.available_ingredients()[0].get_name()
+        assert burger.ingredients[2].get_name() == database.available_ingredients()[2].get_name()
