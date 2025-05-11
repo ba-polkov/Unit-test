@@ -1,4 +1,3 @@
-from praktikum.ingredient import Ingredient
 from praktikum import ingredient_types
 from unittest.mock import Mock
 from praktikum.burger import Burger
