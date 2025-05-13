@@ -1,5 +1,5 @@
 import pytest
-from praktikum.praktikum import Ingredient
+from praktikum.ingredient import Ingredient
 from data import TestData
 
 class TestIngredient:
