@@ -5,6 +5,7 @@ from data.mock import mock_bun, mock_ingredient1, mock_ingredient2
 from praktikum.bun import Bun
 from praktikum.burger import Burger
 from praktikum.ingredient import Ingredient
+from helpers import *
 
 
 class TestBurger:
@@ -37,9 +38,7 @@ class TestBurger:
     def test_burger_add_different_ingredients(self):
         burger = Burger()
 
-        for i in range(13):
-            ingredient = Ingredient(*ingredients[i])
-            burger.add_ingredient(ingredient)
+        burger = add_multiple_ingredients(burger, ingredients[:13])
 
         assert len(burger.ingredients) == 13
 
