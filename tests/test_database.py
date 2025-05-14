@@ -1,7 +1,5 @@
 import allure
 from data import Data
-from conftest import *
-from praktikum.database import Database
 import pytest
 
 

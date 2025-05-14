@@ -1,6 +1,6 @@
 import allure
 import pytest
-from conftest import *
+
 from praktikum.burger import Burger
 from data import Data
 
