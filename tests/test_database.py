@@ -2,8 +2,6 @@ import allure
 from data import Data
 import pytest
 
-
-
 class TestDataBase:
     @allure.title('Проверка имени и стоимости  булочки методом available_buns через параметризацию')
     @pytest.mark.parametrize('buns_number, buns_name, buns_price', Data.buns_data_for_test_database)

@@ -1,7 +1,6 @@
 import allure
 from data import Data
 
-
 class TestIngridientSauce:
 
     @allure.title('Проверка получения имени соуса через метод get_name')

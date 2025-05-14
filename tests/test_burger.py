@@ -1,8 +1,7 @@
 import allure
 import pytest
-
-from praktikum.burger import Burger
 from data import Data
+from helpers import ingredient_exists
 
 class TestBurger:
 
@@ -36,7 +35,7 @@ class TestBurger:
         assert ingredient in bf.ingredients
         index = bf.ingredients.index(ingredient)
         bf.remove_ingredient(index)
-        assert expected_ingridient_removed_name not in [ing.get_name() for ing in bf.ingredients]
+        assert not ingredient_exists(bf.ingredients, expected_ingridient_removed_name)
 
     @allure.title('Проверка метода move_ingredient. Перемещение ингридиентов в бургере')
     def test_move_ingredient(self, burger_fixture, mock_sauce, mock_filling):
