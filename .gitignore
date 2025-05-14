@@ -120,8 +120,8 @@ pip-delete-this-directory.txt
 
 .tox/
 .nox/
-.coverage
-.coverage.*
+#.coverage
+#.coverage.*
 .cache
 nosetests.xml
 coverage.xml
