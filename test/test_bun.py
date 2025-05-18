@@ -1,14 +1,21 @@
 import pytest
+from typing import List, Dict
 from Diplom_1.bun import Bun
 from Diplom_1.database import Database
 
+@pytest.fixture
+def database():
+    """
+    Фикстура для создания экземпляра Database.
+    """
+    return Database()
+
+@pytest.fixture
+def buns_by_name(database: Database) -> Dict[str, Bun]:
+    """Фикстура, возвращающая словарь булок по имени."""
+    return {bun.name: bun for bun in database.available_buns()}
+
 class TestBun:
-    @pytest.fixture
-    def database(self):
-        """
-        Фикстура для создания экземпляра Database.
-        """
-        return Database()
 
     @pytest.fixture
     def bun(self):
@@ -19,27 +26,22 @@ class TestBun:
 
 
     @pytest.mark.parametrize(
-        "bun_name, bun_price",
+        "bun_name",
         [
-            ("black bun", 100),
-            ("white bun", 200),
-            ("red bun", 300)
+            ("black bun"),
+            ("white bun"),
+            ("red bun")
         ],
     )
-    def test_get_name_parametrize(self, database, bun_name, bun_price):
+    def test_get_name_parametrize(self, buns_by_name: Dict[str, Bun], bun_name: str):
         """
         Проверяет правильность работы метода get_name().
         """
-        buns = database.available_buns()
-        found_bun = None
-        for bun in buns:
-            if bun.name == bun_name:
-                found_bun = bun
-                break
+        found_bun = buns_by_name.get(bun_name)
 
-            # Проверяем, что булка найдена и ее имя соответствует ожидаемому
         assert found_bun is not None, f"Булка с именем '{bun_name}' не найдена в базе данных."
         assert found_bun.get_name() == bun_name
+
 
     @pytest.mark.parametrize(
         "bun_name, bun_price",
@@ -49,17 +51,12 @@ class TestBun:
             ("red bun", 300)
         ],
     )
-    def test_get_price_parametrize(self, database, bun_name, bun_price):
+    def test_get_price_parametrize(self, buns_by_name: Dict[str, Bun], bun_name: str, bun_price: int):
         """
         Проверяет правильность работы метода get_price().
         """
-        buns = database.available_buns()
-        found_bun = None
-        for bun in buns:
-            if bun.name == bun_name:
-                found_bun = bun
-                break
+        found_bun = buns_by_name.get(bun_name)
 
-            # Проверяем, что булка найдена и ее имя соответствует ожидаемому
+        # Проверяем, что булка найдена и ее цена соответствует ожидаемому
         assert found_bun is not None, f"Булка с именем '{bun_name}' не найдена в базе данных."
-        assert found_bun.get_price() == bun_price
+        assert found_bun.get_price() == bun_price, f"Цена булки '{bun_name}' не соответствует ожидаемой."
