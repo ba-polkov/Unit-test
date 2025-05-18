@@ -108,7 +108,7 @@ class TestBurger:
         ],
     )
 
-    def test_get_receipt(self, burger, bun, sauce, filling, bun_name, sauce_name, filling_name):
+        def test_get_receipt(self, burger, bun, sauce, filling, bun_name, sauce_name, filling_name):
         """
         Проверяет формирование рецепта для бургера.
         """
@@ -120,9 +120,13 @@ class TestBurger:
         burger.add_ingredient(sauce)
         burger.add_ingredient(filling)
         receipt = burger.get_receipt()
+        # формируем контрольный рецепт с теми же ингредиентами
+        receipt_control = "Price: "+str(bun_name)+str(bun_name)+str(sauce_name)+str(filling_name)
+
         assert isinstance(receipt, str)
-        # Проверяем, что в рецепте есть ожидаемые элементы (можно разбить на несколько assert)
+        #Проверяем, что в рецепте есть ожидаемые элементы (можно разбить на несколько assert)
         assert f'(==== {bun.get_name()} ====)' in receipt
         assert f'= {INGREDIENT_TYPE_SAUCE.lower()} {sauce.get_name()} =' in receipt
         assert f'= {INGREDIENT_TYPE_FILLING.lower()} {filling.get_name()} =' in receipt
         assert f'Price: {burger.get_price()}' in receipt
+        assert f'Price: {burger.get_price()}' == receipt_control, "Рецептура неверная"
