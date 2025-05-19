@@ -1,19 +1,13 @@
-import pytest
-from praktikum.burger import Burger
-from unittest.mock import Mock
 from praktikum.ingredient import Ingredient
-
-@pytest.fixture
-def burger():
-    return Burger()
-
 import pytest
 from praktikum.burger import Burger
 from unittest.mock import Mock
 
+
 @pytest.fixture
 def burger():
     return Burger()
+
 
 @pytest.fixture
 def mock_bun():
@@ -21,6 +15,7 @@ def mock_bun():
     bun.get_price.return_value = 100
     bun.get_name.return_value = "black bun"
     return bun
+
 
 @pytest.fixture
 def mock_ingredient():
