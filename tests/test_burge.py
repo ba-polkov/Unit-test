@@ -64,11 +64,14 @@ class TestBurger:
         burger.add_ingredient(Ingredient(INGREDIENT_TYPE_SAUCE, "ketchup", 30))
         burger.add_ingredient(Ingredient(INGREDIENT_TYPE_FILLING, "salad", 50))
 
-        receipt = burger.get_receipt()
-        assert "red bun" in receipt
-        assert "ketchup" in receipt
-        assert "salad" in receipt
-        assert str(200 * 2 + 30 + 50) in receipt  # Проверка общей суммы
+        receipt = burger.get_receipt().split('\n')
+
+        assert len(receipt) >= 5, "Рецепт должен содержать как минимум 5 строк"
+        assert receipt[0] == "(==== red bun ====)", "Первая строка должна быть верхней булочкой"
+        assert receipt[1] == "= sauce ketchup =", "Вторая строка должна содержать соус"
+        assert receipt[2] == "= filling salad =", "Третья строка должна содержать начинку"
+        assert receipt[3] == "(==== red bun ====)", "Четвертая строка должна быть нижней булочкой"
+        assert "Price: 480" in receipt[-1], "Последняя строка должна содержать общую сумму"
 
     # Граничные случаи
     def test_remove_nonexistent_ingredient(self):

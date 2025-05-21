@@ -1,58 +1,85 @@
 import pytest
 from praktikum.bun import Bun
 
+
 class TestBun:
-    # Тесты на нормальные случаи
-    @pytest.mark.parametrize("name, price", [
+    # Общие тестовые данные
+    VALID_CASES = [
         ("black bun", 100),
         ("white bun", 200),
         ("red bun", 300),
-        ("булочка с кунжутом", 150.50),  # Дробная цена
-        ("b", 0.01),  # Минимальные значения
-        ("очень длинное название булочки с множеством слов и символов", 999.99)  # Длинное название
-    ])
-    def test_bun_initialization_valid_cases(self, name, price):
-        """Тестирование корректной инициализации булочки с валидными параметрами"""
-        bun = Bun(name, price)
-        assert bun.get_name() == name
-        assert bun.get_price() == price
+        ("булочка с кунжутом", 150.50),
+        ("b", 0.01),
+        ("очень длинное название булочки с множеством слов и символов", 999.99)
+    ]
 
-    # Тесты на граничные случаи
-    @pytest.mark.parametrize("name, price", [
-        ("", 100),  # Пустое название
-        (" ", 100),  # Пробел в названии
-        ("black bun", 0),  # Нулевая цена
-        ("black bun", 0.001),  # Очень маленькая цена
-        ("black bun", 999999.99),  # Очень большая цена
-        ("123", 100),  # Название из цифр
-        ("!@#$%^&*()", 100)  # Спецсимволы в названии
-    ])
-    def test_bun_edge_cases(self, name, price):
-        """Тестирование граничных случаев"""
-        bun = Bun(name, price)
-        assert bun.get_name() == name
-        assert bun.get_price() == price
+    EDGE_CASES = [
+        ("", 100),
+        (" ", 100),
+        ("123", 100),
+        ("!@#$%^&*()", 100),
+        ("black bun", 0),
+        ("black bun", 0.001),
+        ("black bun", 999999.99)
+    ]
 
-    # Тесты на недопустимые типы цены
-    @pytest.mark.parametrize("name, price, is_valid", [
+    PRICE_TYPE_CASES = [
         ("bun", 100, True),
         ("bun", "100", False),
         ("bun", None, False),
         ("bun", [100], False),
         ("bun", {"price": 100}, False)
-    ])
-    def test_bun_price_type_check(self, name, price, is_valid):
-        """Проверяем, является ли цена числом"""
-        bun = Bun(name, price)
-        assert isinstance(bun.price, (int, float)) == is_valid
+    ]
 
-    # Тесты на отрицательные цены
-    @pytest.mark.parametrize("name, price", [
+    NEGATIVE_PRICE_CASES = [
         ("negative bun", -1),
         ("negative bun", -0.01),
         ("negative bun", -1000000)
-    ])
-    def test_bun_negative_price(self, name, price):
-        """Тестирование отрицательных цен"""
+    ]
+
+    # Тесты для валидных случаев
+    @pytest.mark.parametrize("name, price", VALID_CASES)
+    def test_valid_bun_name(self, name, price):
+        """Тестирование корректности имени булочки"""
+        bun = Bun(name, price)
+        assert bun.get_name() == name
+
+    @pytest.mark.parametrize("name, price", VALID_CASES)
+    def test_valid_bun_price(self, name, price):
+        """Тестирование корректности цены булочки"""
         bun = Bun(name, price)
         assert bun.get_price() == price
+
+    # Тесты граничных случаев для имени
+    @pytest.mark.parametrize("name, price", EDGE_CASES)
+    def test_edge_cases_name(self, name, price):
+        """Тестирование граничных случаев имени"""
+        bun = Bun(name, price)
+        assert bun.get_name() == name
+
+    # Тесты граничных случаев для цены
+    @pytest.mark.parametrize("name, price", EDGE_CASES)
+    def test_edge_cases_price(self, name, price):
+        """Тестирование граничных случаев цены"""
+        bun = Bun(name, price)
+        assert bun.get_price() == price
+
+    # Тесты типа цены
+    @pytest.mark.parametrize("name, price, is_valid", PRICE_TYPE_CASES)
+    def test_price_type_validation(self, name, price, is_valid):
+        """Проверка типа данных для цены"""
+        bun = Bun(name, price)
+        assert isinstance(bun.get_price(), (int, float)) == is_valid
+
+    # Тесты отрицательных цен
+    @pytest.mark.parametrize("name, price", NEGATIVE_PRICE_CASES)
+    def test_negative_price_value(self, name, price):
+        """Проверка сохранения отрицательных значений цены"""
+        bun = Bun(name, price)
+        assert bun.get_price() == price
+
+    @pytest.mark.parametrize("name, price", NEGATIVE_PRICE_CASES)
+    def test_negative_price_type(self, name, price):
+        """Проверка типа данных при отрицательной цене"""
+        bun = Bun(name, price)
+        assert isinstance(bun.get_price(), (int, float))

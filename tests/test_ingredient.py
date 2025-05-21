@@ -2,61 +2,88 @@ import pytest
 from praktikum.ingredient import Ingredient
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
+
 class TestIngredient:
-    # Тесты на нормальные случаи инициализации
-    @pytest.mark.parametrize("ingredient_type, name, price", [
+    # Общие тестовые данные
+    VALID_CASES = [
         (INGREDIENT_TYPE_SAUCE, "hot sauce", 100),
         (INGREDIENT_TYPE_FILLING, "cutlet", 200),
-        (INGREDIENT_TYPE_SAUCE, "соус барбекю", 150.50),  # Дробная цена
-        (INGREDIENT_TYPE_FILLING, "к", 0.01),  # Минимальные значения
-        (INGREDIENT_TYPE_SAUCE, "очень длинное название ингредиента с множеством слов", 999.99)  # Длинное название
-    ])
-    def test_ingredient_initialization_valid_cases(self, ingredient_type, name, price):
-        """Тестирование корректной инициализации ингредиента с валидными параметрами"""
-        ingredient = Ingredient(ingredient_type, name, price)
-        assert ingredient.get_type() == ingredient_type
-        assert ingredient.get_name() == name
-        assert ingredient.get_price() == price
+        (INGREDIENT_TYPE_SAUCE, "соус барбекю", 150.50),
+        (INGREDIENT_TYPE_FILLING, "к", 0.01),
+        (INGREDIENT_TYPE_SAUCE, "очень длинное название ингредиента с множеством слов", 999.99)
+    ]
 
-    # Тесты на граничные случаи
-    @pytest.mark.parametrize("ingredient_type, name, price", [
-        (INGREDIENT_TYPE_SAUCE, "", 100),  # Пустое название
-        (INGREDIENT_TYPE_FILLING, " ", 200),  # Пробел в названии
-        (INGREDIENT_TYPE_SAUCE, "123", 150),  # Название из цифр
-        (INGREDIENT_TYPE_FILLING, "!@#$%^&*()", 200),  # Спецсимволы в названии
-        ("UNKNOWN_TYPE", "mystery", 100),  # Неизвестный тип
-        (None, "null", 100),  # None в качестве типа
-        (INGREDIENT_TYPE_SAUCE, "sauce", 0),  # Нулевая цена
-        (INGREDIENT_TYPE_FILLING, "filling", 0.001),  # Очень маленькая цена
-        (INGREDIENT_TYPE_SAUCE, "expensive", 999999.99)  # Очень большая цена
-    ])
-    def test_ingredient_edge_cases(self, ingredient_type, name, price):
-        """Тестирование граничных случаев"""
-        ingredient = Ingredient(ingredient_type, name, price)
-        assert ingredient.get_type() == ingredient_type
-        assert ingredient.get_name() == name
-        assert ingredient.get_price() == price
+    EDGE_CASES = [
+        (INGREDIENT_TYPE_SAUCE, "", 100),
+        (INGREDIENT_TYPE_FILLING, " ", 200),
+        (INGREDIENT_TYPE_SAUCE, "123", 150),
+        (INGREDIENT_TYPE_FILLING, "!@#$%^&*()", 200),
+        ("UNKNOWN_TYPE", "mystery", 100),
+        (None, "null", 100),
+        (INGREDIENT_TYPE_SAUCE, "sauce", 0),
+        (INGREDIENT_TYPE_FILLING, "filling", 0.001),
+        (INGREDIENT_TYPE_SAUCE, "expensive", 999999.99)
+    ]
 
-    # Тесты на недопустимые типы цены
-    @pytest.mark.parametrize("ingredient_type, name, price, expected_valid", [
+    PRICE_TYPE_CASES = [
         (INGREDIENT_TYPE_SAUCE, "sauce", 100, True),
-        (INGREDIENT_TYPE_FILLING, "filling", "100", False),  # Цена как строка
-        (INGREDIENT_TYPE_SAUCE, "sauce", None, False),  # None в качестве цены
-        (INGREDIENT_TYPE_FILLING, "filling", [100], False),  # Цена как список
-        (INGREDIENT_TYPE_SAUCE, "sauce", {"price": 100}, False)  # Цена как словарь
-    ])
-    def test_ingredient_price_type_check(self, ingredient_type, name, price, expected_valid):
-        """Проверяем, является ли цена числом"""
-        ingredient = Ingredient(ingredient_type, name, price)
-        assert isinstance(ingredient.price, (int, float)) == expected_valid
+        (INGREDIENT_TYPE_FILLING, "filling", "100", False),
+        (INGREDIENT_TYPE_SAUCE, "sauce", None, False),
+        (INGREDIENT_TYPE_FILLING, "filling", [100], False),
+        (INGREDIENT_TYPE_SAUCE, "sauce", {"price": 100}, False)
+    ]
 
-    # Тесты на отрицательные цены
-    @pytest.mark.parametrize("ingredient_type, name, price", [
+    NEGATIVE_PRICE_CASES = [
         (INGREDIENT_TYPE_SAUCE, "negative", -1),
         (INGREDIENT_TYPE_FILLING, "negative", -0.01),
         (INGREDIENT_TYPE_SAUCE, "very negative", -1000000)
-    ])
-    def test_ingredient_negative_price(self, ingredient_type, name, price):
-        """Тестирование отрицательных цен"""
+    ]
+
+    # Тесты для валидных случаев
+    @pytest.mark.parametrize("ingredient_type, name, price", VALID_CASES)
+    def test_valid_ingredient_type(self, ingredient_type, name, price):
+        ingredient = Ingredient(ingredient_type, name, price)
+        assert ingredient.get_type() == ingredient_type
+
+    @pytest.mark.parametrize("ingredient_type, name, price", VALID_CASES)
+    def test_valid_ingredient_name(self, ingredient_type, name, price):
+        ingredient = Ingredient(ingredient_type, name, price)
+        assert ingredient.get_name() == name
+
+    @pytest.mark.parametrize("ingredient_type, name, price", VALID_CASES)
+    def test_valid_ingredient_price(self, ingredient_type, name, price):
+        ingredient = Ingredient(ingredient_type, name, price)
+        assert ingredient.get_price() == price
+
+    # Тесты для граничных случаев
+    @pytest.mark.parametrize("ingredient_type, name, price", EDGE_CASES)
+    def test_edge_cases_type(self, ingredient_type, name, price):
+        ingredient = Ingredient(ingredient_type, name, price)
+        assert ingredient.get_type() == ingredient_type
+
+    @pytest.mark.parametrize("ingredient_type, name, price", EDGE_CASES)
+    def test_edge_cases_name(self, ingredient_type, name, price):
+        ingredient = Ingredient(ingredient_type, name, price)
+        assert ingredient.get_name() == name
+
+    @pytest.mark.parametrize("ingredient_type, name, price", EDGE_CASES)
+    def test_edge_cases_price(self, ingredient_type, name, price):
+        ingredient = Ingredient(ingredient_type, name, price)
+        assert ingredient.get_price() == price
+
+    # Тесты типа цены
+    @pytest.mark.parametrize("ingredient_type, name, price, expected_valid", PRICE_TYPE_CASES)
+    def test_price_type_validation(self, ingredient_type, name, price, expected_valid):
+        ingredient = Ingredient(ingredient_type, name, price)
+        assert isinstance(ingredient.get_price(), (int, float)) == expected_valid
+
+    # Тесты отрицательных цен
+    @pytest.mark.parametrize("ingredient_type, name, price", NEGATIVE_PRICE_CASES)
+    def test_negative_price_type(self, ingredient_type, name, price):
+        ingredient = Ingredient(ingredient_type, name, price)
+        assert isinstance(ingredient.get_price(), (int, float))
+
+    @pytest.mark.parametrize("ingredient_type, name, price", NEGATIVE_PRICE_CASES)
+    def test_negative_price_value(self, ingredient_type, name, price):
         ingredient = Ingredient(ingredient_type, name, price)
         assert ingredient.get_price() == price
