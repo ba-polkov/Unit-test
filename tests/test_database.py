@@ -1,4 +1,4 @@
-from praktikum.praktikum import Database
+from praktikum.database import Database
 
 class TestDatabase:
     # Тестирование получения списка доступных булок
