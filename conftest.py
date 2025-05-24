@@ -1,14 +1,14 @@
 import pytest
+from unittest.mock import MagicMock
 from praktikum.bun import Bun
+from praktikum.database import Database
+
 
 @pytest.fixture
 def bun_factory():
     def _create_bun(name="default bun", price=100):
         return Bun(name, price)
     return _create_bun
-
-import pytest
-from unittest.mock import MagicMock
 
 
 @pytest.fixture
@@ -30,5 +30,4 @@ def mock_ingredient():
 
 @pytest.fixture
 def db():
-    from praktikum.database import Database
     return Database()
