@@ -1,9 +1,9 @@
 from unittest.mock import Mock
-
 from praktikum.burger import Burger
 from data import TestData
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE
 from praktikum.ingredient_types import INGREDIENT_TYPE_FILLING
+from data import EXPECTED_RECEIPTS
 
 class TestBurger:
     def test_set_bun(self):     # тестирование метода выбора булки
@@ -68,5 +68,4 @@ class TestBurger:
         mock_ingredient2.get_type.return_value = INGREDIENT_TYPE_SAUCE
         burger.bun = mock_bun
         burger.ingredients = [mock_ingredient1, mock_ingredient2]
-        receipt_text = ('(==== Флюоресцентная булка R2-D3 ====)\n= filling Мясо бессмертных моллюсков =\n= sauce Соус Spicy-X =\n(==== Флюоресцентная булка R2-D3 ====)\n\nPrice: 3403')
-        assert burger.get_receipt() == receipt_text
+        assert burger.get_receipt() == EXPECTED_RECEIPTS['complex_burger']
