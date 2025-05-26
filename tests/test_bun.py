@@ -9,8 +9,8 @@ class TestBun:
     ])
     @allure.title("Проверка установки имени и прайса для булочки")
     def test_bun_properties(self, bun_fixture, name_expected, price_expected):
-        bun_fixture.name = name_expected  # Устанавливаем новое имя
-        bun_fixture.price = price_expected  # Устанавливаем новую цену
+        bun_fixture.name = name_expected
+        bun_fixture.price = price_expected
         assert bun_fixture.get_name() == name_expected
         assert bun_fixture.get_price() == price_expected
 

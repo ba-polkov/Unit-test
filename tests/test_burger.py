@@ -7,8 +7,8 @@ from praktikum.ingredient import Ingredient
 class TestBurger:
     @allure.story('Установка булочки')
     def test_set_buns(self, burger_fixture, mock_bun):
-        burger_fixture.set_buns(mock_bun) # для бургера установили булочку
-        assert burger_fixture.bun == mock_bun # теперь проверяем что для обьекта бургера булочка точно равна той что мы установили
+        burger_fixture.set_buns(mock_bun)
+        assert burger_fixture.bun == mock_bun
 
     @allure.step("установка ингредиента")
     def test_add_ingredient(self,burger_fixture, mock_ingredient):
@@ -38,7 +38,7 @@ class TestBurger:
         burger_fixture.set_buns(mock_bun)
         burger_fixture.add_ingredient(mock_ingredient)
         price = burger_fixture.get_price()
-        assert price == 1.5 * 2 + 0.5  # 2 булочки и 1 ингредиент
+        assert price == 1.5 * 2 + 0.5
 
     @allure.story('Генерация чека')
     def test_get_receipt(self, burger_fixture, mock_bun, mock_ingredient):
@@ -46,10 +46,4 @@ class TestBurger:
         burger_fixture.add_ingredient(mock_ingredient)
         receipt = burger_fixture.get_receipt()
         assert (f'(==== {mock_bun.get_name()} ====)' + '\n' + f'= {mock_ingredient.get_type().lower()} {mock_ingredient.get_name()} =' + '\n' + f'(==== {mock_bun.get_name()} ====)' + '\n' + '\n' + f'Price: {burger_fixture.get_price()}') == burger_fixture.get_receipt()
-        # expected_receipt = (
-        #     '(==== Классическая булочка ====)\n'
-        #     '= начинка летучая начинка =\n'
-        #     '(==== Классическая булочка ====)\n'
-        #     'Price: 3.5'
-        # )
-        # assert receipt == expected_receipt
+
