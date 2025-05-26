@@ -94,10 +94,14 @@ class TestBurger():
 
         receipt = burger.get_receipt()
 
-        assert burger.get_price() == 1650.0
-        assert "(==== Bulka ====)" in receipt
-        assert "= sauce Carry =" in receipt
-        assert f"Price: {burger.get_price()}" in receipt
+        expected_receipt = (
+        "(==== Bulka ====)\n" 
+        "= sauce Carry =\n"
+        "(==== Bulka ====)\n\n"
+        "Price: 1650.0"
+        )
+
+        assert receipt == expected_receipt
 
 
 

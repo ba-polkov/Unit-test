@@ -1,7 +1,6 @@
 import pytest
 from praktikum.burger import Burger
 from praktikum.bun import Bun
-from praktikum.database import Database
 from praktikum.ingredient import Ingredient
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
@@ -27,7 +26,4 @@ def burger(self, bun_simple, sauce_carry, filling_chicken):
 
     return burger
 
-@pytest.fixture
-def db():
-    return Database()
 
