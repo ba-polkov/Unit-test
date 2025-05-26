@@ -32,4 +32,4 @@ class TestClassIngredient:
     @allure.title('Возвращение нужного типа данных типа ингредиента')
     def test_return_valid_type_ingredient_type(self):
         ingredient_type = Ingredient(**TID.INGREDIENT).type
-        isinstance(ingredient_type, str)
+        assert isinstance(ingredient_type, str)
