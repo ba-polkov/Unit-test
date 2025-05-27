@@ -1,5 +1,4 @@
 import pytest
-import allure
 
 from Diplom_1.ingredient import Ingredient
 from Diplom_1.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
@@ -12,7 +11,7 @@ class TestIngredient:
     (INGREDIENT_TYPE_FILLING, "Антивещество", 567)  # ингредиент начинка
         ])
 
-    @allure.title('Тест на успешное создание ингредиента')
+    #Тест на успешное создание ингредиента
     # успешно создать новый ингредиент
     def test_new_ingredient(self, ingredient_type, name, price):
         ingredient = Ingredient(ingredient_type, name, price)

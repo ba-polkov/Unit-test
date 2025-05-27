@@ -1,4 +1,3 @@
-import allure
 from unittest.mock import patch, MagicMock
 
 from Diplom_1.bun import Bun
@@ -9,14 +8,14 @@ from Diplom_1.database import Database
 
 class TestDatabase:
 
-    @allure.title('Проверка инициализации базы данных')
+    # Проверка инициализации базы данных
     def test_initialization(self, database):
         assert len(database.buns) == 3
         assert len(database.ingredients) == 6
         assert isinstance(database.buns[0], Bun)
         assert isinstance(database.ingredients[0], Ingredient)
 
-    @allure.title('Проверка инициализации с моками')
+    # Проверка инициализации с моками
     @patch('Diplom_1.database.Bun')
     @patch('Diplom_1.database.Ingredient')
     def test_initialization_with_mocks(self, mock_ingredient, mock_bun):
@@ -27,7 +26,7 @@ class TestDatabase:
         assert mock_bun.call_count == 3
         assert mock_ingredient.call_count == 6
 
-    @allure.title('Проверка списка доступных булок')
+    # Проверка списка доступных булок
     def test_available_buns(self, database):
         buns = database.available_buns()
         assert len(buns) == 3
@@ -38,7 +37,7 @@ class TestDatabase:
         assert buns[2].get_name() == "red bun"
         assert buns[2].get_price() == 300
 
-    @allure.title('Тест проверяет доступные булки с моками')
+    # Тест проверяет доступные булки с моками
     @patch('Diplom_1.database.Database')
     def test_available_buns_with_mock(self, mock_db):
         # Настроить мок
@@ -53,7 +52,7 @@ class TestDatabase:
         assert len(result) == 1
 
 
-    @allure.title('Проверка списка доступных ингредиентов')
+    # Проверка списка доступных ингредиентов
     def test_available_ingredients(self, database):
         ingredients = database.available_ingredients()
         assert len(ingredients) == 6

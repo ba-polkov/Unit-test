@@ -1,31 +1,30 @@
 from unittest.mock import Mock
-import allure
 
 from Diplom_1.burger import Burger
 
 
 class TestBurger:
 
-    @allure.title('Тест проверяет начальное состояния бургера (без булочки и ингредиентов)')
+    # Тест проверяет начальное состояния бургера (без булочки и ингредиентов)
     def test_initial_state(self, burger):
         assert burger.bun is None
         assert len(burger.ingredients) == 0
 
 
-    @allure.title('Тест проверяет корректность установки булочки в бургер и сохраняет её')
+    # Тест проверяет корректность установки булочки в бургер и сохраняет её
     def test_set_buns(self, burger, bun):
         burger.set_buns(bun)
         assert burger.bun == bun
 
 
-    @allure.title('Тест проверяет успешное добавление ингредиента  - соус в бургер')
+   # Тест проверяет успешное добавление ингредиента - соус в бургер
     def test_add_ingredient(self, burger, ingredient_sauce):
         burger.add_ingredient(ingredient_sauce)
         assert len(burger.ingredients) == 1
         assert burger.ingredients[0] == ingredient_sauce
 
 
-    @allure.title('Тест проверяет успешное удаление ингредиента из бургера')
+    # Тест проверяет успешное удаление ингредиента из бургера
     def test_remove_ingredient(self, burger, ingredient_sauce, ingredient_filling):
         burger.add_ingredient(ingredient_sauce)
         burger.add_ingredient(ingredient_filling)
@@ -34,7 +33,7 @@ class TestBurger:
         assert burger.ingredients[0] == ingredient_filling
 
 
-    @allure.title('Тест проверяет успешное перемещение ингредиентов (меняется индекс ингредиента)')
+    # Тест проверяет успешное перемещение ингредиентов (меняется индекс ингредиента)
     def test_move_ingredient(self, burger, ingredient_sauce, ingredient_filling):
         burger.add_ingredient(ingredient_sauce)
         burger.add_ingredient(ingredient_filling)
@@ -42,7 +41,7 @@ class TestBurger:
         assert burger.ingredients[0] == ingredient_filling
         assert burger.ingredients[1] == ingredient_sauce
 
-    @allure.title('Тест проверяет расчет стоимости бургера с учетом булочек и ингредиентов')
+    # Тест проверяет расчет стоимости бургера с учетом булочек и ингредиентов
     def test_get_price(self):
         # Создать мок-объекты
         mock_bun = Mock()
@@ -73,7 +72,7 @@ class TestBurger:
 
 
 
-    @allure.title('Тест проверяет формирование чека с правильным форматированием')
+    # Тест проверяет формирование чека с правильным форматированием
     def test_get_receipt(self, burger, bun, ingredient_sauce, ingredient_filling):
         burger.set_buns(bun)
         burger.add_ingredient(ingredient_sauce)
@@ -91,7 +90,7 @@ class TestBurger:
 
 
 
-    @allure.title('Тест проверяет чек с моками')
+    # Тест проверяет чек с моками
     def test_get_receipt_with_mocks(self):
         mock_bun = Mock()
         mock_bun.get_name.return_value = "Test Bun"
@@ -115,13 +114,13 @@ class TestBurger:
         assert "Test Sauce" in receipt
 
 
-    @allure.title('Тест проверяет стоимость бургера без ингредиентов')
+    # Тест проверяет стоимость бургера без ингредиентов
     def test_empty_burger_price(self, burger, bun):
         burger.set_buns(bun)
         assert burger.get_price() == bun.get_price() * 2
 
 
-    @allure.title('Тест проверяет чек для бургера без ингредиентов')
+    # Тест проверяет чек для бургера без ингредиентов
     def test_empty_burger_receipt(self, burger, bun):
         burger.set_buns(bun)
         expected_receipt = (
