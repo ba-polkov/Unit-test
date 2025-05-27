@@ -1,4 +1,8 @@
+from unittest.mock import Mock
 import allure
+
+from Diplom_1.burger import Burger
+
 
 class TestBurger:
 
@@ -38,14 +42,35 @@ class TestBurger:
         assert burger.ingredients[0] == ingredient_filling
         assert burger.ingredients[1] == ingredient_sauce
 
-
     @allure.title('Тест проверяет расчет стоимости бургера с учетом булочек и ингредиентов')
-    def test_get_price(self, burger, bun, ingredient_sauce, ingredient_filling):
-        burger.set_buns(bun)
-        burger.add_ingredient(ingredient_sauce)
-        burger.add_ingredient(ingredient_filling)
-        expected_price = bun.get_price() * 2 + ingredient_sauce.get_price() + ingredient_filling.get_price()
-        assert burger.get_price() == expected_price
+    def test_get_price(self):
+        # Создать мок-объекты
+        mock_bun = Mock()
+        mock_bun.get_price.return_value = 100
+
+        mock_sauce = Mock()
+        mock_sauce.get_price.return_value = 50
+
+        mock_filling = Mock()
+        mock_filling.get_price.return_value = 80
+
+        # Протестировать
+        burger = Burger()
+        burger.set_buns(mock_bun)
+        burger.add_ingredient(mock_sauce)
+        burger.add_ingredient(mock_filling)
+
+        # Вызвать метод, который должен использовать моки
+
+        price = burger.get_price()
+        # Проверить вызовы моков
+        mock_bun.get_price.assert_called_once()
+        mock_sauce.get_price.assert_called_once()
+        mock_filling.get_price.assert_called_once()
+
+        # Проверить
+        assert price == 330  # Сначала проверяем результат
+
 
 
     @allure.title('Тест проверяет формирование чека с правильным форматированием')
@@ -63,6 +88,32 @@ class TestBurger:
         )
 
         assert burger.get_receipt() == expected_receipt
+
+
+
+    @allure.title('Тест проверяет чек с моками')
+    def test_get_receipt_with_mocks(self):
+        mock_bun = Mock()
+        mock_bun.get_name.return_value = "Test Bun"
+        mock_bun.get_price.return_value = 100
+
+        mock_ingredient = Mock()
+        mock_ingredient.get_type.return_value = "SAUCE"
+        mock_ingredient.get_name.return_value = "Test Sauce"
+        mock_ingredient.get_price.return_value = 50
+
+        burger = Burger()
+        burger.set_buns(mock_bun)
+        burger.add_ingredient(mock_ingredient)
+
+        receipt = burger.get_receipt()
+
+        mock_bun.get_name.assert_called()
+        mock_ingredient.get_name.assert_called()
+
+        assert "Test Bun" in receipt
+        assert "Test Sauce" in receipt
+
 
     @allure.title('Тест проверяет стоимость бургера без ингредиентов')
     def test_empty_burger_price(self, burger, bun):
