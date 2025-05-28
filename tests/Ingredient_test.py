@@ -16,4 +16,3 @@ class TestBun:
     def test_ingredient_get_price_return_price(self):
         ingredient = Ingredient(ingredient_type=const['TESTS_DATA_INGREDIENT'][0], name=const['TESTS_DATA_INGREDIENT'][1], price=const['TESTS_DATA_INGREDIENT'][2])
         TestTools.check_unit_test_result(expected_value=const['TESTS_DATA_INGREDIENT'][2], actually_value=ingredient.get_price())
-
