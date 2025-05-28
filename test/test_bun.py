@@ -2,6 +2,7 @@ import allure
 from praktikum.bun import Bun
 
 
+
 class TestBun:
 
     @allure.title('Проверка возврата Названия')
