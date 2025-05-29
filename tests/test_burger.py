@@ -62,14 +62,16 @@ class TestBurger:
         assert empty_burger.get_price() == expected
 
     def test_receipt_contains_components(self, prepared_burger):
-        """Проверка формирования чека с использованием фикстуры"""
-        receipt = prepared_burger.get_receipt()
-        assert all(x in receipt for x in [
-            "Краторная булка N-200i",
-            "Соус фирменный Space Sauce",
-            "Биокотлета из марсианской Магнолии",
-            "Price:"
-        ])
+        """Проверка точного формата чека"""
+        expected_receipt = (
+            "(==== Краторная булка N-200i ====)\n"
+            "= sauce Соус фирменный Space Sauce =\n"
+            "= filling Биокотлета из марсианской Магнолии =\n"
+            "(==== Краторная булка N-200i ====)\n"
+            "\n"
+            f"Price: {prepared_burger.get_price()}"  # Динамическая проверка цены
+        )
+        assert prepared_burger.get_receipt() == expected_receipt
 
     def test_remove_last_ingredient(self, prepared_burger):
         """Удаление последнего ингредиента"""
