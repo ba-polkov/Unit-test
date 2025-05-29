@@ -12,13 +12,13 @@ class TestBurger:
     def test_burger_set_buns_set_buns_of_burger(self):
         burger = Burger()
         burger.set_buns(bun=Bun(name=const['TESTS_DATA_BUN'][0], price=const['TESTS_DATA_BUN'][1]))
-        buns = burger.bun.get_name(), burger.bun.get_price()
+        buns = burger.bun.name, burger.bun.price
         TestTools.check_unit_test_result(expected_value=const['TESTS_DATA_BUN'], actually_value=buns)
 
     def test_burger_add_ingredient_add_ingredient_in_burger(self):
         burger = Burger()
         burger.add_ingredient(ingredient=Ingredient(ingredient_type=const['TESTS_DATA_INGREDIENT'][0], name=const['TESTS_DATA_INGREDIENT'][1], price=const['TESTS_DATA_INGREDIENT'][2]))
-        ingredient = burger.ingredients[0].get_type(), burger.ingredients[0].get_name(), burger.ingredients[0].get_price()
+        ingredient = burger.ingredients[0].type, burger.ingredients[0].name, burger.ingredients[0].price
         TestTools.check_unit_test_result(expected_value=const['TESTS_DATA_INGREDIENT'], actually_value=ingredient)
 
     def test_burger_remove_ingredient_remove_ingredient_from_burger(self):
@@ -32,7 +32,7 @@ class TestBurger:
         burger.add_ingredient(ingredient=Ingredient(ingredient_type=const['TESTS_DATA_INGREDIENT'][0], name=const['TESTS_DATA_INGREDIENT'][1], price=const['TESTS_DATA_INGREDIENT'][2]))
         burger.add_ingredient(ingredient=Ingredient(ingredient_type=const['TESTS_DATA_INGREDIENT_2'][0], name=const['TESTS_DATA_INGREDIENT_2'][1], price=const['TESTS_DATA_INGREDIENT_2'][2]))
         burger.move_ingredient(index=1,new_index=0)
-        ingredient_0 = burger.ingredients[0].get_type(), burger.ingredients[0].get_name(), burger.ingredients[0].get_price()
+        ingredient_0 = burger.ingredients[0].type, burger.ingredients[0].name, burger.ingredients[0].price
         TestTools.check_unit_test_result(expected_value=const['TESTS_DATA_INGREDIENT_2'], actually_value=ingredient_0)
 
     @pytest.mark.parametrize('ingredients', const['TESTS_DATA_BURGER'])

@@ -3,7 +3,7 @@ from helpers import TestTools
 from praktikum.ingredient import Ingredient
 
 
-class TestBun:
+class TestIngredient:
 
     def test_ingredient_get_type_return_type(self):
         ingredient = Ingredient(ingredient_type=const['TESTS_DATA_INGREDIENT'][0], name=const['TESTS_DATA_INGREDIENT'][1], price=const['TESTS_DATA_INGREDIENT'][2])
