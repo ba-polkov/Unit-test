@@ -1,6 +1,4 @@
-from unittest.mock import patch, Mock
-
-from bun import Bun
+from unittest.mock import Mock
 from burger import Burger
 
 
@@ -53,4 +51,3 @@ class TestBurger:
         assert name_bun in result
         assert name_ingredient in result
         assert price in result
-
