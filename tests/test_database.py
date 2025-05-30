@@ -1,10 +1,10 @@
 from unittest.mock import patch, Mock
-from database import Database
+from praktikum.database import Database
 from ingredient_types import INGREDIENT_TYPE_SAUCE
 
 
 class TestDatabase:
-    @patch('database.Database')
+    @patch('praktikum.database.Database')
     def test_available_buns(self, mock_database_class):
         mock_buns = [
             Mock(get_name=Mock(return_value="black bun"), get_price=Mock(return_value=100))
@@ -19,7 +19,7 @@ class TestDatabase:
         assert result[0].get_name() == "black bun"
         assert result[0].get_price() == 100
 
-    @patch('database.Database')
+    @patch('praktikum.database.Database')
     def test_available_ingredients(self, mock_database_class):
         mock_ingredients = [
             Mock(get_type=Mock(return_value=INGREDIENT_TYPE_SAUCE), get_name=Mock(return_value="hot sauce"))
