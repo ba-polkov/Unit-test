@@ -1,36 +1,12 @@
 import sys
 from pathlib import Path
-"""
-В проекте ругается, что не находит файл data.py, пришлось таким способом выкручиваться, чтобы запускать тесты.
-"""
-project_root = Path(__file__).resolve().parent
-sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(Path(__file__).parent.resolve()))
 
 import pytest
 import data
 import generators
-from praktikum.bun import Bun
-from praktikum.database import Database
-from praktikum.ingredient import Ingredient
 from praktikum.burger import Burger
 from unittest.mock import Mock
-
-@pytest.fixture()
-def create_bun():
-    create_bun = Bun(data.DataBun.BUN_NAME, data.DataBun.BUN_PRICE)
-    return create_bun
-
-@pytest.fixture()
-def create_ingredient():
-    create_ingredient = Ingredient(data.DataIngredient.INGREDIENT_TYPE,
-                            data.DataIngredient.INGREDIENT_NAME,
-                            data.DataIngredient.INGREDIENT_PRICE)
-    return create_ingredient
-
-@pytest.fixture()
-def create_burger():
-    burger = Burger()
-    return burger
 
 @pytest.fixture()
 def mock_create_bun():
@@ -59,13 +35,9 @@ def mock_ingredients():
     return ingredients
 
 @pytest.fixture()
-def prepared_burger(create_burger, mock_create_bun, mock_ingredients):
-    create_burger.bun = mock_create_bun
+def prepared_burger(mock_create_bun, mock_ingredients):
+    burger = Burger()
+    burger.bun = mock_create_bun
     for ingredient in mock_ingredients:
-        create_burger.add_ingredient(ingredient)
-    return create_burger
-
-@pytest.fixture()
-def create_database():
-    data_base = Database()
-    return data_base
+        burger.add_ingredient(ingredient)
+    return burger

@@ -8,13 +8,15 @@ class TestBurger:
         assert burger.bun is None
         assert burger.ingredients == []
 
-    def test_set_buns(self, create_burger, mock_create_bun):
-        create_burger.set_buns(mock_create_bun)
-        assert create_burger.bun == mock_create_bun
+    def test_set_buns(self, mock_create_bun):
+        burger = Burger()
+        burger.set_buns(mock_create_bun)
+        assert burger.bun == mock_create_bun
 
-    def test_add_ingredient(self, create_burger, mock_create_ingredient):
-        create_burger.add_ingredient(mock_create_ingredient)
-        assert mock_create_ingredient in create_burger.ingredients
+    def test_add_ingredient(self, mock_create_ingredient):
+        burger = Burger()
+        burger.add_ingredient(mock_create_ingredient)
+        assert mock_create_ingredient in burger.ingredients
 
     @pytest.mark.parametrize('index', data.DataIngredient.REMOVE_INDEX)
     def test_remove_ingredient(self, prepared_burger, index):
@@ -33,17 +35,12 @@ class TestBurger:
                           sum(ingredient.get_price() for ingredient in prepared_burger.ingredients))
         assert prepared_burger.get_price() == expected_price
 
-    def test_bun_name_in_receipt(self, prepared_burger):
+    def test_receipt(self, prepared_burger):
         receipt = prepared_burger.get_receipt()
-        assert f'=== {prepared_burger.bun.get_name()} ===' in receipt
-        assert receipt.count(f'=== {prepared_burger.bun.get_name()} ===') == 2
-
-    def test_ingredients_in_receipt(self, prepared_burger):
-        receipt = prepared_burger.get_receipt()
-        for ingredient in prepared_burger.ingredients:
-            expected_ingredient = f'{str(ingredient.get_type()).lower()} {ingredient.get_name()}'
-            assert expected_ingredient in receipt
-
-    def test_price_in_receipt(self, prepared_burger):
-        receipt = prepared_burger.get_receipt()
-        assert 'Price:' in receipt
+        expected_receipt_lines = [f'(==== {prepared_burger.bun.get_name()} ====)',
+                                  *[f'= {ingredient.get_type().lower()} {ingredient.get_name()} ='
+                                    for ingredient in prepared_burger.ingredients],
+                                  f'(==== {prepared_burger.bun.get_name()} ====)\n',
+                                  f'Price: {prepared_burger.get_price()}']
+        expected_receipt = '\n'.join(expected_receipt_lines)
+        assert receipt == expected_receipt
