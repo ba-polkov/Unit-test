@@ -1,4 +1,4 @@
-from Diplom_1.bun import Bun
+from praktikum.bun import Bun
 
 class TestBun:
 

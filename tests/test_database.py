@@ -1,9 +1,9 @@
 from unittest.mock import patch, MagicMock
 
-from Diplom_1.bun import Bun
-from Diplom_1.ingredient import Ingredient
-from Diplom_1.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
-from Diplom_1.database import Database
+from praktikum.bun import Bun
+from praktikum.ingredient import Ingredient
+from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
+from praktikum.database import Database
 
 
 class TestDatabase:
@@ -16,8 +16,8 @@ class TestDatabase:
         assert isinstance(database.ingredients[0], Ingredient)
 
     # Проверка инициализации с моками
-    @patch('Diplom_1.database.Bun')
-    @patch('Diplom_1.database.Ingredient')
+    @patch('praktikum.database.Bun')
+    @patch('praktikum.database.Ingredient')
     def test_initialization_with_mocks(self, mock_ingredient, mock_bun):
         # Создать тестовую базу
         db = Database()
@@ -38,7 +38,7 @@ class TestDatabase:
         assert buns[2].get_price() == 300
 
     # Тест проверяет доступные булки с моками
-    @patch('Diplom_1.database.Database')
+    @patch('praktikum.database.Database')
     def test_available_buns_with_mock(self, mock_db):
         # Настроить мок
         mock_bun = MagicMock()
