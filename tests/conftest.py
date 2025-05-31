@@ -1,6 +1,6 @@
 from praktikum.database import Database
 from unittest.mock import Mock
-from praktikum.data import Data1, Data2
+from data import Data1, Data2
 import pytest
 
 
