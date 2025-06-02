@@ -76,5 +76,3 @@ class TestBurger:
             mock_ingredient_copy.get_price.return_value = ingredient[2]
             burger.ingredients.append(mock_ingredient_copy)
         TestTools.check_unit_test_result(expected_value=results, actually_value=burger.get_receipt())
-
-
