@@ -14,10 +14,12 @@ class TestDatabase:
         mock_database.available_buns.return_value = mock_buns
         mock_database_class.return_value = mock_database
         db = Database()
+        actual_name = "black bun"
+        actual_price = 100
         result = db.available_buns()
 
-        assert result[0].get_name() == "black bun"
-        assert result[0].get_price() == 100
+        assert result[0].get_name() == actual_name
+        assert result[0].get_price() == actual_price
 
     @patch('praktikum.database.Database')
     def test_available_ingredients(self, mock_database_class):
@@ -29,7 +31,9 @@ class TestDatabase:
         mock_database.available_ingredients.return_value = mock_ingredients
         mock_database_class.return_value = mock_database
         db = Database()
+        actual_type = INGREDIENT_TYPE_SAUCE
+        actual_name = "hot sauce"
         result = db.available_ingredients()
 
-        assert result[0].get_type() == INGREDIENT_TYPE_SAUCE
-        assert result[0].get_name() == "hot sauce"
+        assert result[0].get_type() == actual_type
+        assert result[0].get_name() == actual_name
