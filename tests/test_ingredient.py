@@ -1,4 +1,6 @@
 import pytest
+
+from data import INGREDIENTS_TEST_DATA
 from praktikum.ingredient import Ingredient
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
@@ -36,14 +38,16 @@ class TestIngredient:
         mock_ingredient_filling.get_price.assert_called_once()
 
 
-    @pytest.mark.parametrize("ing_type,name,price", [
-        (INGREDIENT_TYPE_SAUCE, "Соус Spicy-X", 90.0),
-        (INGREDIENT_TYPE_FILLING, "Мясо бессмертных моллюсков Protostomia", 1337.0)
-    ])
-    def test_real_ingredient_creation(self, ing_type, name, price):
+    @pytest.mark.parametrize("ingredient_data", INGREDIENTS_TEST_DATA)
+
+    def test_real_ingredient_creation(self, ingredient_data):
         # Параметризованный тест для создания реальных ингредиентов с проверкой на тип данных
-        ingredient = Ingredient(ing_type, name, price)
-        assert ingredient.get_type() == ing_type
-        assert ingredient.get_name() == name
-        assert ingredient.get_price() == price
+        ingredient = Ingredient(
+            ingredient_data["type"],
+            ingredient_data["name"],
+            ingredient_data["price"]
+        )
+        assert ingredient.get_type() == ingredient_data["type"]
+        assert ingredient.get_name() == ingredient_data["name"]
+        assert ingredient.get_price() == ingredient_data["price"]
         assert isinstance(ingredient.get_price(), float)

@@ -17,3 +17,27 @@ FILLINGS_DATA = [
     ("dinosaur", 200, INGREDIENT_TYPE_FILLING),
     ("sausage", 300, INGREDIENT_TYPE_FILLING)
 ]
+
+ALL_INGREDIENTS_DATA = SAUCES_DATA + FILLINGS_DATA
+
+INGREDIENTS_TEST_DATA = [
+    {
+        "type": INGREDIENT_TYPE_SAUCE,
+        "name": "Соус Spicy-X",
+        "price": 90.0
+    },
+    {
+        "type": INGREDIENT_TYPE_FILLING,
+        "name": "Мясо бессмертных моллюсков Protostomia",
+        "price": 1337.0
+    }
+]
+
+EXPECTED_RECEIPT = (
+    "(==== black bun ====)\n"
+    "= sauce hot sauce =\n"
+    "= filling cheese =\n"
+    "(==== black bun ====)\n"
+    "\n"
+    "Price: 280"
+)

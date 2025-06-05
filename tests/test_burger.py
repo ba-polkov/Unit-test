@@ -1,3 +1,4 @@
+from data import EXPECTED_RECEIPT
 from praktikum.burger import Burger
 
 class TestBurger:
@@ -35,13 +36,9 @@ class TestBurger:
 
     # Тест расчёта цены
     def test_get_price(self, prepared_burger):
-        # 100 (bun) * 2 + 50 (sauce) + 30 (filling) = 280
+        # 100 (булка) * 2 + 50 (соус) + 30 (начинка) = 280
         assert prepared_burger.get_price() == 280
 
     # Тест генерации чека
     def test_get_receipt(self, prepared_burger):
-        receipt = prepared_burger.get_receipt()
-        assert "(==== black bun ====)" in receipt
-        assert "= sauce hot sauce =" in receipt
-        assert "= filling cheese =" in receipt
-        assert "Price: 280" in receipt
+        assert prepared_burger.get_receipt() == EXPECTED_RECEIPT

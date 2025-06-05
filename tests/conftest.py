@@ -42,7 +42,3 @@ def prepared_burger(mock_bun, mock_ingredient_sauce, mock_ingredient_filling):
     burger.add_ingredient(mock_ingredient_sauce)
     burger.add_ingredient(mock_ingredient_filling)
     return burger
-
-@pytest.fixture   #  Фикстура, создающая экземпляр Database для тестов
-def database():
-    return Database()
