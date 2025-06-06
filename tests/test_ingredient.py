@@ -3,19 +3,19 @@ import allure
 
 
 class TestIngredient:
-    @allure.title('Проверка работы метода get_name, получающего название соуса')
+    @allure.title('Проверка get_name(), получающего название соуса')
     def test_get_name_sauce_success(self, mock_sauce):
         assert mock_sauce.get_name() == Data1.sauce_name
 
-    @allure.title('Проверка работы метода get_name, получающего название начинки')
+    @allure.title('Проверка get_name(), получающего название начинки')
     def test_get_name_filling_success(self, mock_filling):
         assert mock_filling.get_name() == Data1.filling_name
 
-    @allure.title('Проверка работы метода get_price, получающего стоимость соуса')
+    @allure.title('Проверка get_price(), получающего стоимость соуса')
     def test_get_price_sauce_success(self, mock_sauce_2):
         assert mock_sauce_2.get_price() == Data2.sauce_price
 
-    @allure.title('Проверка работы метода get_price, получающего стоимость начинки')
+    @allure.title('Проверка get_price(), получающего стоимость начинки')
     def test_get_price_filling_success(self, mock_filling_2):
         assert mock_filling_2.get_price() == Data2.filling_price
 
