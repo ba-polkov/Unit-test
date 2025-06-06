@@ -11,9 +11,10 @@
 ### Структура проекта
 
 - `praktikum` - пакет, содержащий код программы
-- `tests` - пакет, содержащий тесты, разделенные по классам. Например, `bun_test.py`, `burger_test.py` и т.д.
+- `tests` - пакет, содержащий тесты, разделенные по классам.
 -  conftest.py - фикстуры
 -  data.py - тестовые данные
+-  requirements.txt - список зависимостей
  
 
 ### Запуск автотестов
@@ -23,5 +24,7 @@
 > `$ pip install -r requirements.txt`
 
 **Запуск автотестов и создание HTML-отчета о покрытии**
+    pytest --alluredir=./allure_results tests/
 
 >  `$ pytest --cov=praktikum --cov-report=html`
+
