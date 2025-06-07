@@ -1,17 +1,40 @@
 import pytest
-from praktikum.bun import Bun
 
 
-@pytest.mark.parametrize("name,price", [
-    ("Бородинская булка", 21),
-    ("Булка с розмарином", 10000),
-    ("", 50),
-    ("Булка с кунжутом", None),
-    ("Булка бесплатная", 0),
-    ("Булка зарплатная", -20)
-])
-def test_bun_creation(name, price):
-    bun = Bun(name, price)
-    assert bun.get_name() == name
-    assert bun.get_price() == price
+
+class TestBun:
+
+    @pytest.mark.parametrize("name", [
+        "Бородинская булка",
+        "БУЛКА С РOЗМAРИНОМ",
+        "",
+        "2-ая булка",
+        "Булка бесплатная",
+        "Burger bun",
+        "Булка с рисом!!!"
+    ])
+    def test_get_name_returns_correct_name(self, name, simple_bun):
+        bun = simple_bun(name = name)
+        assert bun.get_name() == name, f"Получено {bun.get_name()} вместо ожидаемого {name}"
+
+
+    @pytest.mark.parametrize("price", [
+        50,
+        100,
+        200.50,
+        0,
+        -10,
+        99999999999999999999.99
+    ])
+    def test_get_price_returns_correct_price(self, price, simple_bun):
+        bun = simple_bun(price=price)
+        assert bun.get_price() == price, f"Получено {bun.get_price()} вместо ожидаемого {price}"
+
+
+
+
+
+
+
+
 
