@@ -9,23 +9,23 @@ from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FI
 
 @pytest.fixture
 def mock_bun():
-    mock = Mock(spec=Bun)
-    mock.get_name.return_value = 'black bun'
-    mock.get_price.return_value = 100
-    return mock
+    bun = Mock(spec=Bun)
+    bun.get_name.return_value = 'black bun'
+    bun.get_price.return_value = 100
+    return bun
 
 @pytest.fixture
-def mock_ingredient_1():
-    mock = Mock(spec=Ingredient)
-    mock.get_type.return_value = INGREDIENT_TYPE_SAUCE.lower()
-    mock.get_name.return_value = 'sour cream'
-    mock.get_price.return_value = 200
-    return mock
+def mock_sauce():
+    sauce = Mock(spec=Ingredient)
+    sauce.get_type.return_value = INGREDIENT_TYPE_SAUCE.lower()
+    sauce.get_name.return_value = 'sour cream'
+    sauce.get_price.return_value = 200
+    return sauce
 
 @pytest.fixture
-def mock_ingredient_2():
-    mock = Mock(spec=Ingredient)
-    mock.get_type.return_value = INGREDIENT_TYPE_FILLING.lower()
-    mock.get_name.return_value = 'sausage'
-    mock.get_price.return_value = 300
-    return mock
+def mock_filling():
+    filling = Mock(spec=Ingredient)
+    filling.get_type.return_value = INGREDIENT_TYPE_FILLING.lower()
+    filling.get_name.return_value = 'sausage'
+    filling.get_price.return_value = 300
+    return filling
