@@ -3,15 +3,19 @@ from praktikum.bun import Bun
 
 
 class TestBun:
-    list_data = [("black bun", 100.0),
-                 ("white bun", 200.0),
-                 ("", 0.0),
-                 ("1", 0.01),
-                 ("b" * 100, 999.99)]
+    list_data_name = ["black bun", "white bun", "", "1", "b"]
+    list_data_price = [100.0, 0.0, 0.01, 999.99]
 
-    @pytest.mark.parametrize("name, price", list_data)
-    def test_bun_properties(self, name, price):
-            bun = Bun(name, price)
+    @pytest.mark.parametrize("name", list_data_name)
+    def test_bun_names(self, name):
+        price = 99.0
+        bun = Bun(name, price)
 
-            assert bun.get_name() == name
-            assert bun.get_price() == price
+        assert bun.get_name() == name
+
+    @pytest.mark.parametrize("price", list_data_price)
+    def test_bun_price(self, price):
+        name = "black bun"
+        bun = Bun(name, price)
+
+        assert bun.get_price() == price

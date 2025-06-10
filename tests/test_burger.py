@@ -43,11 +43,7 @@ class TestBurger:
         burger = Burger()
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_ingredient)
-        name_bun = 'test_bun'
-        name_ingredient = 'test_ingredient'
-        price = '277.0'
-        result = burger.get_receipt()
+        expected_result = '(==== test_bun ====)\n= filling test_ingredient =\n(==== test_bun ====)\n\nPrice: 277.0'
+        actual_result = burger.get_receipt()
 
-        assert name_bun in result
-        assert name_ingredient in result
-        assert price in result
+        assert actual_result == expected_result
