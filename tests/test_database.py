@@ -26,7 +26,7 @@ class TestDatabase:
         ingredients_list = database.available_ingredients()
         assert len(ingredients_list) == 6
 
-    def test_database_available_ingredients_correct_info(self):
+    def test_available_ingredients_correct_info(self):
         database = Database()
         ingredients = database.available_ingredients()
         expected_list = IngredientData.list_ingredient
