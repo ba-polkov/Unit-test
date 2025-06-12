@@ -1,46 +1,80 @@
 import pytest
-from unittest.mock import MagicMock
-from praktikum.bun import Bun
-from praktikum.burger import Burger
-from praktikum.ingredient import Ingredient
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
-def test_burger_with_mocks_and_parametrize(sample_bun, sample_ingredients):
-    burger = Burger()
 
-    burger.set_buns(sample_bun)
+def test_set_buns(burger, mock_bun):
+    burger.set_buns(mock_bun)
+    assert burger.bun == mock_bun
 
-    ing1 = MagicMock()
-    ing1.get_name.return_value = "mocked sauce"
-    ing1.get_price.return_value = 50
-    ing1.get_type.return_value = INGREDIENT_TYPE_SAUCE
+def test_add_ingredient(burger, mock_ingredient):
+    ingredient = mock_ingredient("Hot Sauce", 50, INGREDIENT_TYPE_SAUCE)
+    initial_count = len(burger.ingredients)
 
-    ing2 = MagicMock()
-    ing2.get_name.return_value = "mocked filling"
-    ing2.get_price.return_value = 100
-    ing2.get_type.return_value = INGREDIENT_TYPE_FILLING
+    burger.add_ingredient(ingredient)
+
+    assert len(burger.ingredients) == initial_count + 1
+    assert burger.ingredients[-1] == ingredient
+
+
+def test_remove_ingredient(burger, mock_ingredient):
+    ing1 = mock_ingredient("Ing1", 10, INGREDIENT_TYPE_SAUCE)
+    ing2 = mock_ingredient("Ing2", 20, INGREDIENT_TYPE_FILLING)
+    ing3 = mock_ingredient("Ing3", 30, INGREDIENT_TYPE_SAUCE)
 
     burger.add_ingredient(ing1)
     burger.add_ingredient(ing2)
+    burger.add_ingredient(ing3)
 
-    expected_price = sample_bun.get_price() * 2 + 50 + 100
+    burger.remove_ingredient(1)
+
+    assert len(burger.ingredients) == 2
+    assert burger.ingredients == [ing1, ing3]
+
+
+def test_move_ingredient(burger, mock_ingredient):
+    ing1 = mock_ingredient("Ing1", 10, INGREDIENT_TYPE_SAUCE)
+    ing2 = mock_ingredient("Ing2", 20, INGREDIENT_TYPE_FILLING)
+    ing3 = mock_ingredient("Ing3", 30, INGREDIENT_TYPE_SAUCE)
+
+    burger.add_ingredient(ing1)
+    burger.add_ingredient(ing2)
+    burger.add_ingredient(ing3)
+
+    burger.move_ingredient(0, 2)
+
+    assert burger.ingredients == [ing2, ing3, ing1]
+
+
+def test_get_price_with_bun_and_ingredients(burger, mock_bun, mock_ingredient):
+    burger.set_buns(mock_bun)
+    burger.add_ingredient(mock_ingredient("Sauce", 50, INGREDIENT_TYPE_SAUCE))
+    burger.add_ingredient(mock_ingredient("Filling", 100, INGREDIENT_TYPE_FILLING))
+
+    expected_price = 100 * 2 + 50 + 100
     assert burger.get_price() == expected_price
 
+def test_get_price_with_bun_only(burger, mock_bun):
+    burger.set_buns(mock_bun)
+    assert burger.get_price() == mock_bun.get_price() * 2
+
+def test_get_price_with_ingredients_only(burger, mock_ingredient):
+    burger.add_ingredient(mock_ingredient("Sauce", 50, INGREDIENT_TYPE_SAUCE))
+    assert burger.get_price() == 0
+
+
+def test_get_receipt_full_burger(burger, mock_bun, mock_ingredient):
+    burger.set_buns(mock_bun)
+    burger.add_ingredient(mock_ingredient("Hot Sauce", 50, INGREDIENT_TYPE_SAUCE))
+    burger.add_ingredient(mock_ingredient("Cutlet", 200, INGREDIENT_TYPE_FILLING))
+
     receipt = burger.get_receipt()
-    assert sample_bun.get_name() in receipt
-    assert "mocked sauce" in receipt
-    assert "mocked filling" in receipt
-    assert f"Price: {expected_price}" in receipt
+
+    assert "(==== black bun ====)" in receipt
+    assert "= sauce Hot Sauce =" in receipt
+    assert "= filling Cutlet =" in receipt
+    assert "Price: 450" in receipt
 
 
-def test_add_and_remove_ingredient():
-    burger = Burger()
-    bun = Bun("Bun", 100)
-    ing = Ingredient(INGREDIENT_TYPE_SAUCE, "Sauce", 50)
-
-    burger.set_buns(bun)
-    burger.add_ingredient(ing)
-    assert len(burger.ingredients) == 1
-
-    burger.remove_ingredient(0)
-    assert len(burger.ingredients) == 0
+def test_get_receipt_no_bun(burger, mock_ingredient):
+    burger.add_ingredient(mock_ingredient("Sauce", 50, INGREDIENT_TYPE_SAUCE))
+    assert burger.get_receipt() == "Бургер без булочки."
