@@ -1,8 +1,6 @@
 import pytest
 from praktikum.bun import Bun
 from unittest.mock import Mock
-
-from praktikum.database import Database
 from praktikum.ingredient import Ingredient
 from praktikum.burger import Burger
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
