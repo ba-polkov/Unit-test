@@ -1,6 +1,6 @@
 import allure
 from unittest.mock import Mock
-
+from burger import Burger
 
 @allure.feature('Burger')
 class TestBurger:
