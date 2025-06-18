@@ -1,5 +1,4 @@
-from data import TestDataBase
-from .conftest import *
+from data import *
 import allure
 
 

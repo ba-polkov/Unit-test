@@ -1,4 +1,4 @@
-from .conftest import *
+from data import *
 import allure
 
 

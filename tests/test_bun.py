@@ -1,5 +1,5 @@
-from .conftest import *
 import allure
+from data import *
 
 
 class TestBun:

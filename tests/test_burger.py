@@ -1,6 +1,7 @@
 from praktikum.burger import Burger
-from .conftest import *
+from data import *
 import allure
+
 
 class TestBurger:
     @allure.title('Проверка работы метода, добавляющего булку в бургер set_buns')
