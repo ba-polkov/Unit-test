@@ -1,15 +1,7 @@
 from unittest.mock import Mock
-from unittest.mock import Mock
-import pytest
 from practicum_burgers.bun import Bun
-from practicum_burgers.burger import Burger
 from practicum_burgers.ingredient import Ingredient
-from tests.conftest import *
-from helper import *
 
-from practicum_burgers import burger
-from tests.conftest import *
-from practicum_burgers.bun import Bun
 
 
 def create_and_set_bun_mock(burger, price=50, name="Булка"):
