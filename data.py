@@ -41,3 +41,6 @@ EXPECTED_RECEIPT = (
     "\n"
     "Price: 280"
 )
+
+VERIFICATION_NAME = 'Краторная булка'
+VERIFICATION_PRICE = 125.50
