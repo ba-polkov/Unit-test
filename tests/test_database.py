@@ -52,11 +52,6 @@ class TestDatabase:
     )
 
     def test_main_with_mocked_db(self, monkeypatch, capsys, mocked_database, ingredients_list, expected_ingredients, expected_price):
-        """
-        Проверяем функцию main() из praktikum.py, подменяя Database на mock.
-        Благодаря параметризации тест сразу покрывает два разных набора данных.
-        """
-
         mocked_database.available_ingredients.return_value = ingredients_list
         monkeypatch.setattr("praktikum.praktikum.Database", lambda: mocked_database)
 

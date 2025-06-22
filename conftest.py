@@ -7,15 +7,8 @@ from praktikum.ingredient_types import INGREDIENT_TYPE_FILLING, INGREDIENT_TYPE_
 
 @pytest.fixture
 def mocked_database():
-    """
-    Базовая фикстура, создающая MagicMock‑объект Database
-    с одной булкой «mock bun» за 100 ₽.
-    Список ингредиентов будет переопределяться прямо
-    в параметризованном тесте для разных сценариев.
-    """
     mock_db = MagicMock()
     mock_db.available_buns.return_value = [Bun("mock bun", 100)]
-    # ingredients заполним в самом тесте
     return mock_db
 
 @pytest.fixture
