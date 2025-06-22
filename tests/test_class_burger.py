@@ -1,6 +1,9 @@
 import pytest
+
 from unittest.mock import Mock
 from data import BurgerComponents as BC, IngredientIndex as II, BurgerPrices as BP
+from burger import Burger
+from tests.conftest import burger
 
 
 ### Тесты, покрывающие класс Burger ###
@@ -9,12 +12,14 @@ class TestBurgerMethods:
     ### Тесты для конструктора __init__ ###
     # Проверяем, что при первоначальном создании объекта класса Burger
     # в нём нет ни одной булки
-    def test_burger_bun_true(self, burger):
+    def test_burger_bun_true(self):
+        burger = Burger()
         assert burger.bun == None
 
     # Проверяем, что при первоначальном создании объекта класса Burger
     # в нём нет никаких ингредиентов
-    def test_burger_ingredients_true(self, burger):
+    def test_burger_ingredients_true(self):
+        burger = Burger()
         assert burger.ingredients == []
 
     ### Тесты для метода set_buns() ###
@@ -160,7 +165,12 @@ class TestBurgerMethods:
     def test_get_receipt_2_black_buns(self, burger, mock_black_bun):
         burger.set_buns(mock_black_bun)
         receipt = burger.get_receipt()
-        assert len(receipt) > 0 and BC.BUN_NAME_1 in receipt and f'{BP.BURGER_PRICE_BLACK_BUNS}' in receipt
+        expected_receipt = (
+            "(==== black bun ====)\n"
+            "(==== black bun ====)\n"
+            "\nPrice: 200.0"
+        )
+        assert len(receipt) > 0 and burger.get_receipt() == expected_receipt
 
     # Проверяем получение рецепта: 2 чёрные булки, сметана и динозавр
     def test_get_receipt_2_black_buns_1_sauce_1_cutlet(self, burger, mock_black_bun, mock_sauce_2, mock_filling_2):
@@ -168,8 +178,11 @@ class TestBurgerMethods:
         burger.add_ingredient(mock_sauce_2)
         burger.add_ingredient(mock_filling_2)
         receipt = burger.get_receipt()
-        assert (len(receipt) > 0 and
-                BC.BUN_NAME_1 in receipt and
-                BC.SAUCE_NAME_2 in receipt and
-                BC.FILLING_NAME_2 in receipt and
-                f'{BP.BURGER_PRICE_BB_SC_D}' in receipt)
+        expected_receipt = (
+            "(==== black bun ====)\n"
+            "= sauce sour cream =\n"
+            "= filling dinosaur =\n"
+            "(==== black bun ====)\n"
+            "\nPrice: 600.0"
+        )
+        assert len(receipt) > 0 and burger.get_receipt() == expected_receipt
