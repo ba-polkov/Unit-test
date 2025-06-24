@@ -51,17 +51,21 @@ class TestBun:
         возвращает int для целых чисел - это ошибка.
         """
         bun = Bun("test bun", price)
-        actual_type = type(bun.get_price())
+        assert isinstance(bun.get_price(), expected_type)
 
-        # Проверяем соответствие документации
-        if expected_type != actual_type:
-            pytest.fail(
-                f"По аннотации метод должен возвращать {expected_type}, "
-                f"но вернул {actual_type} для значения {price}. "
-                "Это нарушение контракта метода."
-            )
-
-        # Дополнительная проверка, что значение сохраняется
+    @pytest.mark.parametrize(
+        "price",
+        [
+            100,
+            100.5,
+            0,
+            -50,
+            1e10
+        ]
+    )
+    def test_get_price_returns_correct_value(self, price):
+        """Проверяем что get_price() возвращает корректное значение."""
+        bun = Bun("test bun", price)
         assert bun.get_price() == price
 
     def test_get_price_type_annotation(self):
