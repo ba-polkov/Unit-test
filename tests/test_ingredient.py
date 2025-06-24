@@ -1,4 +1,5 @@
 import pytest
+from inspect import signature
 from praktikum.ingredient import Ingredient
 
 
@@ -57,8 +58,6 @@ class TestIngredient:
 
     def test_method_type_annotations(self):
         """Проверяем соответствие аннотаций типов"""
-        from inspect import signature
-
         assert signature(Ingredient.get_price).return_annotation is float
         assert signature(Ingredient.get_name).return_annotation is str
         assert signature(Ingredient.get_type).return_annotation is str
