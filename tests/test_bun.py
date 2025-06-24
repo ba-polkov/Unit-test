@@ -1,4 +1,5 @@
 import pytest
+from inspect import signature
 from praktikum.bun import Bun
 
 
@@ -70,6 +71,5 @@ class TestBun:
 
     def test_get_price_type_annotation(self):
         """Проверяем, что аннотация типа метода get_price() соответствует float."""
-        from inspect import signature
         sig = signature(Bun.get_price)
         assert sig.return_annotation is float, "Аннотация типа должна быть float"
