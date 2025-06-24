@@ -1,21 +1,18 @@
-import pytest
 import allure
 from praktikum.bun import Bun
-from data import *
+from data import bun_name_price
 from helpers import *
 
 class TestBun:
 
     @allure.title("Тест получения названия булочки")
-    @pytest.mark.parametrize("bun_name, bun_price", buns_name_price)
-    def test_get_name(self, bun_name, bun_price):
-        bun = Bun(name=bun_name, price=bun_price)
-        TestTools.check_unit_test_result(expected_value=bun_name, actually_value=bun.get_name())
+    def test_bun_get_name(self):
+        bun = Bun(name=bun_name_price[0], price=bun_name_price[1])
+        TestTools.check_unit_test_result(expected_value=bun_name_price[0], actually_value=bun.get_name())
 
     @allure.title("Тест получения цены булочки")
-    @pytest.mark.parametrize("bun_name, bun_price", buns_name_price)
-    def test_get_price(self, bun_name, bun_price):
-        bun = Bun(name=bun_name, price=bun_price)
-        TestTools.check_unit_test_result(expected_value=bun_price, actually_value=bun.get_price())
+    def test_bun_get_price(self):
+        bun = Bun(name=bun_name_price[0], price=bun_name_price[1])
+        TestTools.check_unit_test_result(expected_value=bun_name_price[1], actually_value=bun.get_price())
 
 
