@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock, patch
-from .burger import Burger
+from burger import Burger
 from ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 
@@ -103,6 +103,12 @@ class TestBurger:
             "",
             "Price: 50"
         ]),
+        ("red bun", None, None, [
+            "(==== red bun ====)",
+            "(==== red bun ====)",
+            "",
+            "Price: 50"
+        ]),
     ])
     @patch('burger.Bun')
     def test_get_receipt(self, bun_name, ingredient_type, ingredient_name, expected_lines,mock_bun_class):
@@ -116,8 +122,8 @@ class TestBurger:
 
         burger.set_buns(mock_bun)
 
-        # Настраиваем мок для ингредиента, если он есть в параметрах
-        if ingredient_name:
+        # Настраиваем мок для ингредиента, если он передан
+        if ingredient_name is not None:
             mock_ingredient = Mock()
             mock_ingredient.get_type.return_value = ingredient_type
             mock_ingredient.get_name.return_value = ingredient_name
