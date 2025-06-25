@@ -1,0 +1,90 @@
+import pytest
+from Diplom_1.burger import Burger
+from Diplom_1.ingredient_types import INGREDIENT_TYPE_FILLING, INGREDIENT_TYPE_SAUCE
+
+def test_set_buns_sets_bun_correctly(bun_mock):
+    burger = Burger()
+    burger.set_buns(bun_mock)
+    assert burger.bun == bun_mock
+
+
+@pytest.mark.parametrize("ingredients_data", [
+    [(INGREDIENT_TYPE_SAUCE, "Sauce A", 1.5), (INGREDIENT_TYPE_FILLING, "Meat", 3.0)],
+    [(INGREDIENT_TYPE_FILLING, "Cheese", 2.0)],
+])
+def test_add_ingredient_adds_to_list(ingredient_mock, ingredients_data):
+    burger = Burger()
+    for data in ingredients_data:
+        burger.add_ingredient(ingredient_mock(*data))
+    assert len(burger.ingredients) == len(ingredients_data)
+
+
+def test_remove_ingredient_removes_correct(ingredient_mock):
+    burger = Burger()
+    ing1 = ingredient_mock(INGREDIENT_TYPE_FILLING, "A", 1.0)
+    ing2 = ingredient_mock(INGREDIENT_TYPE_FILLING, "B", 2.0)
+    burger.add_ingredient(ing1)
+    burger.add_ingredient(ing2)
+
+    burger.remove_ingredient(0)
+    assert burger.ingredients[0] == ing2
+    assert len(burger.ingredients) == 1
+
+
+def test_move_ingredient_moves(ingredient_mock):
+    burger = Burger()
+    ing1 = ingredient_mock(INGREDIENT_TYPE_FILLING, "A", 1.0)
+    ing2 = ingredient_mock(INGREDIENT_TYPE_FILLING, "B", 2.0)
+    ing3 = ingredient_mock(INGREDIENT_TYPE_FILLING, "C", 3.0)
+
+    burger.add_ingredient(ing1)
+    burger.add_ingredient(ing2)
+    burger.add_ingredient(ing3)
+
+    burger.move_ingredient(2, 0)
+
+    assert burger.ingredients[0] == ing3
+    assert burger.ingredients[1] == ing1
+    assert burger.ingredients[2] == ing2
+
+
+def test_get_price_calculates_correctly(bun_mock, ingredient_mock):
+    burger = Burger()
+    burger.set_buns(bun_mock)
+    ing1 = ingredient_mock(INGREDIENT_TYPE_FILLING, "A", 1.0)
+    ing2 = ingredient_mock(INGREDIENT_TYPE_SAUCE, "B", 2.0)
+
+    burger.add_ingredient(ing1)
+    burger.add_ingredient(ing2)
+
+    expected_price = bun_mock.get_price() * 2 + ing1.get_price() + ing2.get_price()
+    assert burger.get_price() == expected_price
+
+
+def test_get_receipt_format(bun_mock, ingredient_mock):
+    burger = Burger()
+    burger.set_buns(bun_mock)
+
+    ing1 = ingredient_mock(INGREDIENT_TYPE_FILLING, "Meat", 3.0)
+    ing2 = ingredient_mock(INGREDIENT_TYPE_SAUCE, "Ketchup", 1.0)
+
+    burger.add_ingredient(ing1)
+    burger.add_ingredient(ing2)
+
+    receipt = burger.get_receipt()
+
+    assert f"(==== {bun_mock.get_name()} ====)" in receipt
+    assert "= filling Meat =" in receipt
+    assert "= sauce Ketchup =" in receipt
+    assert f"Price: {burger.get_price()}" in receipt
+
+def test_get_price_raises_if_bun_not_set():
+    burger = Burger()
+    with pytest.raises(AttributeError):
+        burger.get_price()
+
+
+def test_get_receipt_raises_if_bun_not_set():
+    burger = Burger()
+    with pytest.raises(AttributeError):
+        burger.get_receipt()
