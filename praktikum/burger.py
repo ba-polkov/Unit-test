@@ -2,8 +2,10 @@ from typing import List
 
 from praktikum.bun import Bun
 from praktikum.ingredient import Ingredient
+from typing import List
 
-
+from praktikum.bun import Bun
+from praktikum.ingredient import Ingredient
 class Burger:
     """
     Модель бургера.
