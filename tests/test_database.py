@@ -7,7 +7,6 @@ import allure
 
 class TestDatabase:
     @allure.title("Проверка доступных булочек")
-    @allure.severity(allure.severity_level.BLOCKER)
     def test_available_buns_returns_list_of_buns(self, database):
         with allure.step("Получить список доступных булочек"):
             buns = database.available_buns()
@@ -20,7 +19,6 @@ class TestDatabase:
             assert len(buns) == 3
 
     @allure.title("Проверка корректности данных булочек")
-    @allure.severity(allure.severity_level.CRITICAL)
     def test_available_buns_contains_correct_buns(self, database):
         with allure.step("Получить список булочек"):
             buns = database.available_buns()
@@ -39,7 +37,6 @@ class TestDatabase:
                     assert buns[i].get_price() == expected_price
 
     @allure.title("Проверка доступных ингредиентов")
-    @allure.severity(allure.severity_level.BLOCKER)
     def test_available_ingredients_returns_list_of_ingredients(self, database):
         with allure.step("Получить список ингредиентов"):
             ingredients = database.available_ingredients()
@@ -52,7 +49,6 @@ class TestDatabase:
             assert len(ingredients) == 6
 
     @allure.title("Проверка корректности данных соусов")
-    @allure.severity(allure.severity_level.CRITICAL)
     def test_available_ingredients_contains_correct_sauces(self, database):
         with allure.step("Получить и отфильтровать соусы"):
             sauces = [
@@ -75,7 +71,6 @@ class TestDatabase:
                     assert sauces[i].get_price() == expected_price
 
     @allure.title("Проверка корректности данных начинок")
-    @allure.severity(allure.severity_level.CRITICAL)
     def test_available_ingredients_contains_correct_fillings(self, database):
         with allure.step("Получить и отфильтровать начинки"):
             fillings = [
