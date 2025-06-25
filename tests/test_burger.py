@@ -4,6 +4,7 @@ from burger import Burger
 from ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 
+
 class TestBurger:
 
     # Тест для метода set_buns
