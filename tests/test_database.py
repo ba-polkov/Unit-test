@@ -5,7 +5,6 @@ from praktikum.ingredient import Ingredient
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 class TestDatabase:
-    class TestBuns:
         def test_available_buns_returns_list(self):
             db = Database()
             buns = db.available_buns()
@@ -37,7 +36,6 @@ class TestDatabase:
             assert 200 in bun_prices
             assert 300 in bun_prices
 
-    class TestIngredients:
         def test_available_ingredients_returns_list(self):
             db = Database()
             ingredients = db.available_ingredients()
