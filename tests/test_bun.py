@@ -12,9 +12,13 @@ class TestBun:
         assert bun.price == price
 
     @pytest.mark.parametrize("name, price", DataBun.BUN_CREATION_TEST_DATA)
-    def test_bun_methods(self, name, price):
+    def test_bun_get_name(self, name, price):
         bun = Bun(name, price)
         assert bun.get_name() == name
+
+    @pytest.mark.parametrize("name, price", DataBun.BUN_CREATION_TEST_DATA)
+    def test_bun_get_price(self, name, price):
+        bun = Bun(name, price)
         assert bun.get_price() == price
 
     @pytest.mark.parametrize("name, price", DataBun.BUN_CREATION_TEST_DATA)
