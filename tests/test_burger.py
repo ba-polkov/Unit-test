@@ -1,7 +1,6 @@
 import pytest
 from unittest.mock import Mock
 from praktikum.burger import Burger
-from praktikum.bun import *
 from data import *
 from helpers import *
 
