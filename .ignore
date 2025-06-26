@@ -1,0 +1,41 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# --- Virtual Environment ---
+venv/
+env/
+ENV/
+
+# --- Logs & reports ---
+*.log
+*.tmp
+*.bak
+*.swp
+
+# --- Test cache / coverage ---
+htmlcov/
+.tox/
+coverage.xml
+.pytest_cache/
+.cache/
+nosetests.xml
+junit-*.xml
+
+# --- Allure results ---
+allure-results/
+allure-report/
+
+# --- PyCharm ---
+.idea/
+*.iml
+
+# --- VSCode (если используешь) ---
+.vscode/
+
+# --- OS specific ---
+.DS_Store
+Thumbs.db
