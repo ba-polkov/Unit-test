@@ -5,7 +5,6 @@ from data import *
 from helpers import *
 
 
-
 class TestBurger:
 
     def test_burger_init(self):
