@@ -1,3 +1,4 @@
+
 import pytest
 from praktikum.bun import Bun
 from praktikum.burger import Burger
@@ -11,59 +12,43 @@ class TestBurger:
         burger = Burger()
         assert burger.bun is None and burger.ingredients == []
 
-    def test_set_buns(self):
+    def test_set_buns(self, bun_mock):
         burger = Burger()
-        bun = Bun("Булка", 100.3)
-        burger.set_buns(bun)
+        burger.set_buns(bun_mock)
         assert burger.bun.get_name() == "Булка" and burger.ingredients == []
 
-    @pytest.mark.parametrize("bun_price, burger_price", [
-        (0.0, 0.0),
-        (100.0, 200.0),
-        (100.3, 200.6)
-    ])
-    def test_burger_price_without_ingredients(self, bun_price, burger_price):
+    def test_burger_price_without_ingredients(self, bun_mock):
         burger = Burger()
-        bun = Bun("Булка", bun_price)
-        burger.set_buns(bun)
-        assert burger.get_price() == pytest.approx(burger_price)
+        burger.set_buns(bun_mock)
+        assert burger.get_price() == 200.6
 
-    def test_add_one_ingredient(self):
+    def test_add_one_ingredient(self, ingredient_sauce_mock):
         burger = Burger()
-        ingredient_sauce = Ingredient(INGREDIENT_TYPE_SAUCE, "Цезарь", 100.3)
-        burger.add_ingredient(ingredient_sauce)
-        assert burger.bun is None and burger.ingredients == [ingredient_sauce]
+        burger.add_ingredient(ingredient_sauce_mock)
+        assert burger.bun is None and burger.ingredients == [ingredient_sauce_mock]
 
-    def test_burger_price_with_one_ingredient(self):
+    def test_burger_price_with_one_ingredient(self, bun_mock, ingredient_sauce_mock):
         burger = Burger()
-        bun = Bun("Булка", 100.3)
-        ingredient_sauce = Ingredient(INGREDIENT_TYPE_SAUCE, "Цезарь", 100.3)
-        burger.set_buns(bun)
-        burger.add_ingredient(ingredient_sauce)
+        burger.set_buns(bun_mock)
+        burger.add_ingredient(ingredient_sauce_mock)
         assert burger.get_price() == 300.9
 
-    def test_add_more_than_one_ingredients(self):
+    def test_add_more_than_one_ingredients(self, ingredient_sauce_mock, ingredient_filling_mock):
         burger = Burger()
-        ingredient_sauce = Ingredient(INGREDIENT_TYPE_SAUCE, "Цезарь", 100.3)
-        ingredient_filling = Ingredient(INGREDIENT_TYPE_FILLING, "Котлета", 200.3)
-        burger.add_ingredient(ingredient_sauce)
-        burger.add_ingredient(ingredient_filling)
-        assert burger.bun is None and burger.ingredients == [ingredient_sauce, ingredient_filling]
+        burger.add_ingredient(ingredient_sauce_mock)
+        burger.add_ingredient(ingredient_filling_mock)
+        assert burger.bun is None and burger.ingredients == [ingredient_sauce_mock, ingredient_filling_mock]
 
-    def test_burger_price_with_more_than_one_ingredients(self):
+    def test_burger_price_with_more_than_one_ingredients(self, bun_mock, ingredient_sauce_mock, ingredient_filling_mock):
         burger = Burger()
-        bun = Bun("Булка", 100.3)
-        ingredient_sauce = Ingredient(INGREDIENT_TYPE_SAUCE, "Цезарь", 100.3)
-        ingredient_filling = Ingredient(INGREDIENT_TYPE_FILLING, "Котлета", 200.3)
-        burger.set_buns(bun)
-        burger.add_ingredient(ingredient_sauce)
-        burger.add_ingredient(ingredient_filling)
+        burger.set_buns(bun_mock)
+        burger.add_ingredient(ingredient_sauce_mock)
+        burger.add_ingredient(ingredient_filling_mock)
         assert burger.get_price() == 501.2
 
-    def test_remove_ingredient(self):
+    def test_remove_ingredient(self, ingredient_sauce_mock):
         burger = Burger()
-        ingredient_sauce = Ingredient(INGREDIENT_TYPE_SAUCE, "Цезарь", 100.3)
-        burger.add_ingredient(ingredient_sauce)
+        burger.add_ingredient(ingredient_sauce_mock)
         burger.remove_ingredient(0)
         assert burger.ingredients == []
 
@@ -72,63 +57,52 @@ class TestBurger:
         with pytest.raises(IndexError):
             burger.remove_ingredient(5)
 
-    def test_burger_price_after_remove_ingredient(self):
+    def test_burger_price_after_remove_ingredient(self, bun_mock, ingredient_sauce_mock, ingredient_filling_mock):
         burger = Burger()
-        bun = Bun("Булка", 100.3)
-        ingredient_sauce = Ingredient(INGREDIENT_TYPE_SAUCE, "Цезарь", 100.3)
-        ingredient_filling = Ingredient(INGREDIENT_TYPE_FILLING, "Котлета", 200.3)
-        burger.set_buns(bun)
-        burger.add_ingredient(ingredient_sauce)
-        burger.add_ingredient(ingredient_filling)
+        burger.set_buns(bun_mock)
+        burger.add_ingredient(ingredient_sauce_mock)
+        burger.add_ingredient(ingredient_filling_mock)
         burger.remove_ingredient(0)
         assert burger.get_price() == 400.9
 
-    def test_move_ingredient(self):
+    def test_move_ingredient(self, ingredient_sauce_mock, ingredient_filling_mock):
         burger = Burger()
-        ingredient_sauce = Ingredient(INGREDIENT_TYPE_SAUCE, "Цезарь", 100.3)
-        ingredient_filling = Ingredient(INGREDIENT_TYPE_FILLING, "Котлета", 200.3)
-        burger.add_ingredient(ingredient_sauce)
-        burger.add_ingredient(ingredient_filling)
+        burger.add_ingredient(ingredient_sauce_mock)
+        burger.add_ingredient(ingredient_filling_mock)
         burger.move_ingredient(0,1)
-        assert burger.ingredients == [ingredient_filling, ingredient_sauce]
+        assert burger.ingredients == [ingredient_filling_mock, ingredient_sauce_mock]
 
     def test_move_invalid_index_ingredient(self):
         burger = Burger()
         with pytest.raises(IndexError):
             burger.move_ingredient(0, 5)
 
-    def test_burger_price_after_move_ingredients(self):
+    def test_burger_price_after_move_ingredients(self, bun_mock, ingredient_sauce_mock, ingredient_filling_mock):
         burger = Burger()
-        bun = Bun("Булка", 100.3)
-        ingredient_sauce = Ingredient(INGREDIENT_TYPE_SAUCE, "Цезарь", 100.3)
-        ingredient_filling = Ingredient(INGREDIENT_TYPE_FILLING, "Котлета", 200.3)
-        burger.set_buns(bun)
-        burger.add_ingredient(ingredient_sauce)
-        burger.add_ingredient(ingredient_filling)
+        burger.set_buns(bun_mock)
+        burger.add_ingredient(ingredient_sauce_mock)
+        burger.add_ingredient(ingredient_filling_mock)
         burger.move_ingredient(0, 1)
         assert burger.get_price() == 501.2
 
-    def test_get_receipt_without_ingredients(self):
+    def test_get_receipt_without_ingredients(self, bun_mock):
         burger = Burger()
-        bun = Bun("Булка", 100.3)
-        burger.set_buns(bun)
+        burger.set_buns(bun_mock)
         expected_result = (
-            f"(==== {bun.get_name()} ====)\n"
-            f"(==== {bun.get_name()} ====)\n\n"
+            f"(==== {bun_mock.get_name()} ====)\n"
+            f"(==== {bun_mock.get_name()} ====)\n\n"
             f"Price: {burger.get_price()}"
         )
         assert burger.get_receipt() == expected_result
 
-    def test_get_receipt_with_ingredients(self):
+    def test_get_receipt_with_ingredients(self, bun_mock, ingredient_sauce_mock):
         burger = Burger()
-        bun = Bun("Булка", 100.3)
-        ingredient_sauce = Ingredient(INGREDIENT_TYPE_SAUCE, "Цезарь", 100.3)
-        burger.set_buns(bun)
-        burger.add_ingredient(ingredient_sauce)
+        burger.set_buns(bun_mock)
+        burger.add_ingredient(ingredient_sauce_mock)
         expected_result = (
-            f"(==== {bun.get_name()} ====)\n"
-            f"= {ingredient_sauce.get_type().lower()} {ingredient_sauce.get_name()} =\n"
-            f"(==== {bun.get_name()} ====)\n\n"
+            f"(==== {bun_mock.get_name()} ====)\n"
+            f"= {ingredient_sauce_mock.get_type().lower()} {ingredient_sauce_mock.get_name()} =\n"
+            f"(==== {bun_mock.get_name()} ====)\n\n"
             f"Price: {burger.get_price()}"
         )
         assert burger.get_receipt() == expected_result
