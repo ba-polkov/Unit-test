@@ -1,6 +1,6 @@
 import pytest
 from praktikum.bun import Bun
-from data import buns_name_and_price
+from data.data import buns_name_and_price
 
 class TestBun:
     
