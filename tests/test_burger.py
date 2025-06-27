@@ -102,3 +102,4 @@ class TestBurger:
             f"Price: {burger.get_price()}"
         )
         assert burger.get_receipt() == expected_result
+
