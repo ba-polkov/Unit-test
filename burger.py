@@ -1,5 +1,4 @@
 from typing import List
-
 from Diplom_1.bun import Bun
 from Diplom_1.ingredient import Ingredient
 
