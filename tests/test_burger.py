@@ -45,4 +45,16 @@ class TestBurger:
         expected_price = bun.get_price() * 2 + sum(i.get_price() for i in burger.ingredients)
         assert burger.get_price() == pytest.approx(expected_price)
 
-    #def
+    @pytest.mark.parametrize("create_burger_with_ingredients", [2], indirect=True)
+    @pytest.mark.parametrize("bun", TEST_BUNS)
+    def test_get_receipt(self, create_burger_with_ingredients, bun):
+        burger = create_burger_with_ingredients
+        burger.set_buns(bun)
+        receipt = burger.get_receipt()
+        ingredients_check = all(
+            (ingredient.get_type().lower() in receipt and ingredient.get_name() in receipt)
+            for ingredient in burger.ingredients
+        )
+        bun_check = (receipt.count(burger.bun.name) == 2 and f"==== {burger.bun.name} ====" in receipt)
+        price_check = f"Price: {burger.get_price()}" in receipt
+        assert ingredients_check and bun_check and price_check
