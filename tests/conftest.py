@@ -18,3 +18,21 @@ def ingredient_mock():
         mock.get_price.return_value = price
         return mock
     return _create
+
+
+@pytest.fixture
+def ingredient_mock_filling():
+    mock = Mock()
+    mock.get_type.return_value = "FILLING"
+    mock.get_name.return_value = "Meat"
+    mock.get_price.return_value = 3.0
+    return mock
+
+
+@pytest.fixture
+def ingredient_mock_sauce():
+    mock = Mock()
+    mock.get_type.return_value = "SAUCE"
+    mock.get_name.return_value = "Ketchup"
+    mock.get_price.return_value = 1.5
+    return mock

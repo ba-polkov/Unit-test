@@ -61,22 +61,26 @@ def test_get_price_calculates_correctly(bun_mock, ingredient_mock):
     assert burger.get_price() == expected_price
 
 
-def test_get_receipt_format(bun_mock, ingredient_mock):
+def test_get_receipt(bun_mock, ingredient_mock_filling, ingredient_mock_sauce):
     burger = Burger()
     burger.set_buns(bun_mock)
-
-    ing1 = ingredient_mock(INGREDIENT_TYPE_FILLING, "Meat", 3.0)
-    ing2 = ingredient_mock(INGREDIENT_TYPE_SAUCE, "Ketchup", 1.0)
-
-    burger.add_ingredient(ing1)
-    burger.add_ingredient(ing2)
+    burger.add_ingredient(ingredient_mock_filling)
+    burger.add_ingredient(ingredient_mock_sauce)
 
     receipt = burger.get_receipt()
 
-    assert f"(==== {bun_mock.get_name()} ====)" in receipt
-    assert "= filling Meat =" in receipt
-    assert "= sauce Ketchup =" in receipt
-    assert f"Price: {burger.get_price()}" in receipt
+    expected_lines = [
+        f"(==== {bun_mock.get_name()} ====)",
+        f"= {ingredient_mock_filling.get_type().lower()} {ingredient_mock_filling.get_name()} =",
+        f"= {ingredient_mock_sauce.get_type().lower()} {ingredient_mock_sauce.get_name()} =",
+        f"(==== {bun_mock.get_name()} ====)",
+        "",
+        f"Price: {burger.get_price()}"
+    ]
+
+    expected_receipt = "\n".join(expected_lines)
+
+    assert receipt == expected_receipt
 
 def test_get_price_raises_if_bun_not_set():
     burger = Burger()
