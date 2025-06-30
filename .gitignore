@@ -1,0 +1,43 @@
+# Директории сборки и кэша Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Директории и файлы тестовых отчетов
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+
+# Файлы окружения и настроек
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Файлы IDE и редакторов
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Логи и временные файлы
+*.log
+*.tmp
+*.bak
+
+# Файлы зависимостей
+*.egg-info/
+dist/
+build/
+
+# Опционально (если используете Jupyter)
+.ipynb_checkpoints/
+*.ipynb
+
+# Файлы операционных систем
+.DS_Store
+Thumbs.db
