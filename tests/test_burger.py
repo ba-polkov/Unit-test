@@ -8,7 +8,8 @@ from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FI
 class TestBurger:
 
     @allure.title("Добавление булочки в бургер")
-    def test_set_buns(self, burger, mock_bun):
+    def test_set_buns(self, mock_bun):
+        burger = Burger()
         with allure.step("Добавляем булочку в бургер"):
             burger.set_buns(mock_bun)
 
@@ -16,7 +17,8 @@ class TestBurger:
             assert burger.bun == mock_bun
 
     @allure.title("Добавление ингредиента в бургер")
-    def test_add_ingredient(self, burger, mock_sauce):
+    def test_add_ingredient(self, mock_sauce):
+        burger = Burger()
         with allure.step("Добавляем ингредиент в бургер"):
             burger.add_ingredient(mock_sauce)
 
@@ -25,7 +27,8 @@ class TestBurger:
             assert mock_sauce in burger.ingredients
 
     @allure.title("Удаление ингредиента из бургера")
-    def test_remove_ingredient(self, burger, mock_sauce, mock_filling):
+    def test_remove_ingredient(self, mock_sauce, mock_filling):
+        burger = Burger()
         with allure.step("Добавляем два ингредиента в бургер"):
             burger.add_ingredient(mock_sauce)
             burger.add_ingredient(mock_filling)
@@ -43,7 +46,8 @@ class TestBurger:
         (1, 0, [1, 0, 2]),
         (2, 1, [0, 2, 1])
     ])
-    def test_move_ingredient(self, burger, initial_index, new_index, expected_order):
+    def test_move_ingredient(self, initial_index, new_index, expected_order):
+        burger = Burger()
         with allure.step(f"Подготавливаем тестовые данные: {initial_index}->{new_index}"):
             mock_ingredients = [Mock(), Mock(), Mock()]
             burger.ingredients = mock_ingredients.copy()
@@ -55,7 +59,8 @@ class TestBurger:
             assert burger.ingredients == [mock_ingredients[i] for i in expected_order]
 
     @allure.title("Расчет цены бургера только с булочкой")
-    def test_get_price_with_only_bun(self, burger, mock_bun):
+    def test_get_price_with_only_bun(self, mock_bun):
+        burger = Burger()
         with allure.step("Добавляем булочку в бургер"):
             burger.set_buns(mock_bun)
 
@@ -69,17 +74,18 @@ class TestBurger:
             assert prepared_burger.get_price() == 325.0
 
     @allure.title("Генерация чека для бургера только с булочкой")
-    def test_get_receipt_with_only_bun(self, burger, bun):
+    def test_get_receipt_with_only_bun(self, mock_bun):
+        burger = Burger()
         with allure.step("Добавляем булочку в бургер"):
-            burger.set_buns(bun)
+            burger.set_buns(mock_bun)
 
         with allure.step("Генерируем чек"):
             receipt = burger.get_receipt()
 
         with allure.step("Проверяем содержание чека"):
-            assert "(==== white bun ====)" in receipt
-            assert "(==== white bun ====)\n" in receipt
-            assert "Price: 400" in receipt
+            assert "(==== black bun ====)" in receipt
+            assert "(==== black bun ====)\n" in receipt
+            assert "Price: 200" in receipt
 
     @allure.title("Генерация чека для полного бургера")
     def test_get_receipt_with_bun_and_ingredients(self, prepared_burger):
@@ -94,4 +100,6 @@ class TestBurger:
             assert lines[3] == "(==== black bun ====)"
             assert lines[4] == ""
             assert "Price: 325" in lines[5]
+
+
 

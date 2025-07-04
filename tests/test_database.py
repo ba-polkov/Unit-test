@@ -1,5 +1,6 @@
 import pytest
 from praktikum.bun import Bun
+from praktikum.database import Database
 from praktikum.ingredient import Ingredient
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 import allure
@@ -7,7 +8,8 @@ import allure
 
 class TestDatabase:
     @allure.title("Проверка доступных булочек")
-    def test_available_buns_returns_list_of_buns(self, database):
+    def test_available_buns_returns_list_of_buns(self):
+        database = Database()
         with allure.step("Получить список доступных булочек"):
             buns = database.available_buns()
 
@@ -19,7 +21,8 @@ class TestDatabase:
             assert len(buns) == 3
 
     @allure.title("Проверка корректности данных булочек")
-    def test_available_buns_contains_correct_buns(self, database):
+    def test_available_buns_contains_correct_buns(self):
+        database = Database()
         with allure.step("Получить список булочек"):
             buns = database.available_buns()
 
@@ -37,7 +40,8 @@ class TestDatabase:
                     assert buns[i].get_price() == expected_price
 
     @allure.title("Проверка доступных ингредиентов")
-    def test_available_ingredients_returns_list_of_ingredients(self, database):
+    def test_available_ingredients_returns_list_of_ingredients(self):
+        database = Database()
         with allure.step("Получить список ингредиентов"):
             ingredients = database.available_ingredients()
 
@@ -49,7 +53,8 @@ class TestDatabase:
             assert len(ingredients) == 6
 
     @allure.title("Проверка корректности данных соусов")
-    def test_available_ingredients_contains_correct_sauces(self, database):
+    def test_available_ingredients_contains_correct_sauces(self):
+        database = Database()
         with allure.step("Получить и отфильтровать соусы"):
             sauces = [
                 ing for ing in database.available_ingredients()
@@ -71,7 +76,8 @@ class TestDatabase:
                     assert sauces[i].get_price() == expected_price
 
     @allure.title("Проверка корректности данных начинок")
-    def test_available_ingredients_contains_correct_fillings(self, database):
+    def test_available_ingredients_contains_correct_fillings(self):
+        database = Database()
         with allure.step("Получить и отфильтровать начинки"):
             fillings = [
                 ing for ing in database.available_ingredients()
