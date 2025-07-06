@@ -1,0 +1,10 @@
+pycache/
+*.py[cod]
+
+.idea/
+
+.venv/
+
+.pytest_cache/
+
+*.log.
