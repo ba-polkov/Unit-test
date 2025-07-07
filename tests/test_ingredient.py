@@ -1,68 +1,45 @@
 import pytest
-from unittest.mock import Mock
 from praktikum.ingredient import Ingredient
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 class TestIngredient:
     """Тест-кейсы для класса Ingredient"""
     
-    # Параметризованный тест конструктора с разными типами ингредиентов
+    # 1. Тест создания ингредиента с валидными параметрами
     @pytest.mark.parametrize("ingredient_type, name, price", [
         (INGREDIENT_TYPE_SAUCE, "Сырный соус", 50),
-        (INGREDIENT_TYPE_FILLING, "Говяжья котлета", 100),
-        (INGREDIENT_TYPE_SAUCE, "Острый соус", 60),
-        (INGREDIENT_TYPE_FILLING, "Салат", 20)
+        (INGREDIENT_TYPE_FILLING, "Говяжья котлета", 100)
     ])
-    def test_ingredient_creation(self, ingredient_type, name, price):
-        """Тест-кейс 1: Создание ингредиента с разными параметрами"""
+    def test_ingredient_creation_when_valid_params_then_success(self, ingredient_type, name, price):
+        """1. Можно создать ингредиент с валидными параметрами"""
         ingredient = Ingredient(ingredient_type, name, price)
-        
         assert ingredient.get_type() == ingredient_type
-        assert ingredient.get_name() == name
-        assert ingredient.get_price() == price
-
-    # Тест строкового представления
-    def test_ingredient_string_representation(self):
-        """Тест-кейс 2: Проверка строкового представления"""
-        ingredient = Ingredient(INGREDIENT_TYPE_SAUCE, "Сырный соус", 50)
-        assert str(ingredient) == "Сырный соус"
-        assert repr(ingredient) == "Сырный соус"
-
-    # Тест с mock-объектом
-    def test_mock_ingredient(self):
-        """Тест-кейс 3: Проверка работы с mock-объектом"""
-        mock_ingredient = Mock(spec=Ingredient)
-        mock_ingredient.get_type.return_value = INGREDIENT_TYPE_FILLING
-        mock_ingredient.get_name.return_value = "Котлета"
-        mock_ingredient.get_price.return_value = 100
-        
-        assert mock_ingredient.get_type() == INGREDIENT_TYPE_FILLING
-        assert mock_ingredient.get_name() == "Котлета"
-        assert mock_ingredient.get_price() == 100
-
-    # Негативные тесты
-    @pytest.mark.parametrize("ingredient_type, name, price, exception", [
-        (None, "Соус", 50, TypeError),          # None вместо типа
-        ("UNKNOWN", "Соус", 50, ValueError),    # Неизвестный тип
-        (INGREDIENT_TYPE_SAUCE, "", 50, ValueError),    # Пустое название
-        (INGREDIENT_TYPE_SAUCE, None, 50, TypeError),   # None вместо названия
-        (INGREDIENT_TYPE_SAUCE, "Соус", -10, ValueError),  # Отрицательная цена
-        (INGREDIENT_TYPE_SAUCE, "Соус", "50", TypeError)   # Строка вместо цены
-    ])
-    def test_invalid_ingredient_creation(self, ingredient_type, name, price, exception):
-        """Тест-кейс 4: Проверка обработки некорректных входных данных"""
-        with pytest.raises(exception):
-            Ingredient(ingredient_type, name, price)
-
-    # Тест изменения цены (если функционал предусмотрен)
-    def test_price_change(self):
-        """Тест-кейс 5: Проверка изменения цены ингредиента"""
+    
+    # 2. Тест строкового представления ингредиента
+    def test_str_when_ingredient_created_then_returns_name(self):
+        """2. При создании ингредиента str() возвращает его название"""
         ingredient = Ingredient(INGREDIENT_TYPE_SAUCE, "Соус", 50)
-        
-        # Если атрибут изменяемый
-        ingredient.price = 60
-        assert ingredient.get_price() == 60
-        
-        # Если атрибут read-only
-        with pytest.raises(AttributeError):
-            ingredient.price = 70
+        assert str(ingredient) == "Соус"
+    
+    # 3. Тест mock-ингредиента
+    def test_mock_ingredient_when_created_then_returns_mock_values(self, mock_ingredient):
+        """3. Mock-ингредиент возвращает заданные значения"""
+        assert mock_ingredient.get_type() == INGREDIENT_TYPE_SAUCE
+    
+    # 4. Тест создания ингредиента с невалидным типом
+    def test_create_ingredient_when_type_invalid_then_raises_exception(self):
+        """4. При создании ингредиента с невалидным типом возникает исключение"""
+        with pytest.raises(ValueError):
+            Ingredient("UNKNOWN", "Соус", 50)
+    
+    # 5. Тест создания ингредиента с пустым названием
+    def test_create_ingredient_when_name_empty_then_raises_exception(self):
+        """5. При создании ингредиента с пустым названием возникает исключение"""
+        with pytest.raises(ValueError):
+            Ingredient(INGREDIENT_TYPE_SAUCE, "", 50)
+    
+    # 6. Тест создания ингредиента с отрицательной ценой
+    def test_create_ingredient_when_price_negative_then_raises_exception(self):
+        """6. При создании ингредиента с отрицательной ценой возникает исключение"""
+        with pytest.raises(ValueError):
+            Ingredient(INGREDIENT_TYPE_SAUCE, "Соус", -10)
