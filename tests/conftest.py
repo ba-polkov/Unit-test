@@ -2,6 +2,11 @@ import pytest
 from unittest.mock import Mock
 from praktikum.burger import Burger
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
+from praktikum.database import Database
+
+@pytest.fixture
+def burger():
+    return Burger()
 
 @pytest.fixture
 def mock_bun():
@@ -27,4 +32,8 @@ def mock_ingredient_two():
     mock_ingredient_two.get_name.return_value = 'Кетчуп'
     mock_ingredient_two.get_price.return_value = 90
     return mock_ingredient_two
+
+@pytest.fixture
+def database():
+    return Database()
 
