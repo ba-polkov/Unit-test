@@ -1,9 +1,9 @@
-
+import pytest
 from typing import List
-
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 class TestDatabase:
+
     # Тест на проверку количества булочек
     def test_count_available_buns(self, database):
         buns = database.available_buns()
@@ -14,39 +14,42 @@ class TestDatabase:
         assert len(database.available_ingredients()) == 6
 
     # Тест на проверку количества соусов
-    def test_initial_sauces_count(self, database):
+    def test_count_available_sauces(self, database):
         ingredients = database.available_ingredients()
         sauces = [ingredient for ingredient in ingredients if ingredient.type == INGREDIENT_TYPE_SAUCE]
         assert len(sauces) == 3
 
     # Тест на проверку количества начинок
-    def test_initial_toppings_count(self, database):
+    def test_count_available_fillings(self, database):
         ingredients = database.available_ingredients()
         fillings = [ingredient for ingredient in ingredients if ingredient.type == INGREDIENT_TYPE_FILLING]
         assert len(fillings) == 3
 
     # Тест на проверку данных булочек
-    def test_correct_data_buns(self, database):
+    @pytest.mark.parametrize('index,expected_name,expected_price', [
+        (0, 'black bun', 100),
+        (1, 'white bun', 200),
+        (2, 'red bun', 300)
+        ])
+    def test_correct_data_buns(self, database, index, expected_name, expected_price):
         buns = database.available_buns()
-        assert buns[0].get_name() == "black bun" and buns[0].get_price() == 100
-        assert buns[1].get_name() == "white bun" and buns[1].get_price() == 200
-        assert buns[2].get_name() == "red bun" and buns[2].get_price() == 300
+        assert buns[index].get_name() == expected_name
+        assert buns[index].get_price() == expected_price
 
     # Тест на проверку данных ингредиентов
-    def test_correct_data_ingredients(self, database):
+    @pytest.mark.parametrize('index,expected_type,expected_name,expected_price',[
+            (0, INGREDIENT_TYPE_SAUCE, 'hot sauce', 100),
+            (1, INGREDIENT_TYPE_SAUCE, 'sour cream', 200),
+            (2, INGREDIENT_TYPE_SAUCE, 'chili sauce', 300),
+            (3, INGREDIENT_TYPE_FILLING, 'cutlet', 100),
+            (4, INGREDIENT_TYPE_FILLING, 'dinosaur', 200),
+            (5, INGREDIENT_TYPE_FILLING, 'sausage', 300),
+            ])
+    def test_correct_data_ingredients(self, database, index, expected_type, expected_name, expected_price):
         ingredients = database.available_ingredients()
-        assert ingredients[0].get_type() == INGREDIENT_TYPE_SAUCE
-        assert ingredients[0].get_name() == "hot sauce" and ingredients[0].get_price() == 100
-        assert ingredients[1].get_type() == INGREDIENT_TYPE_SAUCE
-        assert ingredients[1].get_name() == "sour cream" and ingredients[1].get_price() == 200
-        assert ingredients[2].get_type() == INGREDIENT_TYPE_SAUCE
-        assert ingredients[2].get_name() == "chili sauce" and ingredients[2].get_price() == 300
-        assert ingredients[3].get_type() == INGREDIENT_TYPE_FILLING
-        assert ingredients[3].get_name() == "cutlet" and ingredients[3].get_price() == 100
-        assert ingredients[4].get_type() == INGREDIENT_TYPE_FILLING
-        assert ingredients[4].get_name() == "dinosaur" and ingredients[4].get_price() == 200
-        assert ingredients[5].get_type() == INGREDIENT_TYPE_FILLING
-        assert ingredients[5].get_name() == "sausage" and ingredients[5].get_price() == 300
+        assert ingredients[index].get_type() == expected_type
+        assert ingredients[index].get_name() == expected_name
+        assert ingredients[index].get_price() == expected_price
 
     # Тест на проверку возвращения списка булочек
     def test_returns_list_available_buns(self, database):

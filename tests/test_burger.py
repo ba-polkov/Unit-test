@@ -4,7 +4,7 @@ class TestBurger:
     def test_set_buns(self, burger, mock_bun):
         burger.set_buns(mock_bun)
         assert burger.bun == mock_bun
-        assert burger.bun.get_name() == "Булочка"
+        assert burger.bun.get_name() == 'Булочка'
         assert burger.bun.get_price() == 100
 
 # Тест добавления ингредиента
@@ -12,8 +12,8 @@ class TestBurger:
         burger.add_ingredient(mock_ingredient_one)
         assert len(burger.ingredients) == 1
         assert burger.ingredients[0] == mock_ingredient_one
-        assert burger.ingredients[-1].get_name() == "Курица"
-        assert burger.ingredients[-1].get_price() == 150
+        assert burger.ingredients[-1].get_name() == 'Курица'
+        assert burger.ingredients[-1].get_price() == 250
 
 # Тест удаления ингредиента
     def test_remove_ingredient(self, burger, mock_ingredient_one):
@@ -34,8 +34,8 @@ class TestBurger:
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_ingredient_one)
         burger.add_ingredient(mock_ingredient_two)
-        # Цена булочки (100) * 2 + курица (150) + кетчуп (90) = 440
-        assert burger.get_price() == 440
+        # Цена булочки (100) * 2 + курица (250) + кетчуп (90) = 540
+        assert burger.get_price() == 540
 
 # Тест формирования чека
     def test_get_receipt(self, burger, mock_bun, mock_ingredient_one, mock_ingredient_two):
@@ -44,11 +44,12 @@ class TestBurger:
         burger.add_ingredient(mock_ingredient_two)
         receipt = burger.get_receipt()
         expected_receipt = (
-            "(==== Булочка ====)\n"
-            "= filling Курица =\n"
-            "= sauce Кетчуп =\n"
-            "(==== Булочка ====)\n"
-            "\n"
-            "Price: 440"
+            '(==== Булочка ====)\n'
+            '= filling Курица =\n'
+            '= sauce Кетчуп =\n'
+            '(==== Булочка ====)\n'
+            '\n'
+            'Price: 540'
             )
         assert receipt == expected_receipt
+       # print(burger.get_receipt())

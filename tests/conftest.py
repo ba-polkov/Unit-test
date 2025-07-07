@@ -11,7 +11,7 @@ def burger():
 @pytest.fixture
 def mock_bun():
     bun = Mock()
-    bun.get_name.return_value = "Булочка"
+    bun.get_name.return_value = 'Булочка'
     bun.get_price.return_value = 100
     return bun
 
@@ -21,8 +21,7 @@ def mock_ingredient_one():
     mock_ingredient_one = Mock()
     mock_ingredient_one.get_type.return_value = INGREDIENT_TYPE_FILLING
     mock_ingredient_one.get_name.return_value = 'Курица'
-    mock_ingredient_one.get_price.return_value = 150
-
+    mock_ingredient_one.get_price.return_value = 250
     return mock_ingredient_one
 
 @pytest.fixture
