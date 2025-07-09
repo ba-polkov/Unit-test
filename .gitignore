@@ -169,3 +169,4 @@ cython_debug/
 .idea/vcs.xml
 .idea/Diplom_1.iml
 .idea/workspace.xml
+.idea/caches/deviceStreaming.xml
