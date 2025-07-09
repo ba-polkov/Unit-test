@@ -15,47 +15,22 @@ from data.test_data import (
 
 
 @pytest.fixture
-def bun():
-    """Фикстура для создания объекта булочки"""
-    return Bun(BUN_NAME, BUN_PRICE)
-
-
-@pytest.fixture
-def bun_2():
-    """Фикстура для создания второго объекта булочки"""
-    return Bun(BUN_NAME_2, BUN_PRICE_2)
-
-
-@pytest.fixture
-def ingredient():
-    """Фикстура для создания объекта ингредиента типа соус"""
-    return Ingredient(INGREDIENT_TYPE_SAUCE, INGREDIENT_NAME, INGREDIENT_PRICE)
-
-
-@pytest.fixture
-def ingredient_filling():
-    """Фикстура для создания объекта ингредиента типа начинка"""
-    return Ingredient(INGREDIENT_TYPE_FILLING, INGREDIENT_NAME_2, INGREDIENT_PRICE_2)
-
-
-@pytest.fixture
-def burger_with_bun(bun):
+def burger_with_bun():
     """Фикстура для создания бургера с булочкой"""
+    bun = Bun(BUN_NAME, BUN_PRICE)
     burger = Burger()
     burger.set_buns(bun)
     return burger
 
 
 @pytest.fixture
-def burger_with_ingredients(burger_with_bun, ingredient, ingredient_filling):
+def burger_with_ingredients():
     """Фикстура для создания бургера с булочкой и ингредиентами"""
-    burger = burger_with_bun
+    bun = Bun(BUN_NAME, BUN_PRICE)
+    ingredient = Ingredient(INGREDIENT_TYPE_SAUCE, INGREDIENT_NAME, INGREDIENT_PRICE)
+    ingredient_filling = Ingredient(INGREDIENT_TYPE_FILLING, INGREDIENT_NAME_2, INGREDIENT_PRICE_2)
+    burger = Burger()
+    burger.set_buns(bun)
     burger.add_ingredient(ingredient)
     burger.add_ingredient(ingredient_filling)
-    return burger
-
-
-@pytest.fixture
-def database():
-    """Фикстура для создания объекта базы данных"""
-    return Database() 
+    return burger 
