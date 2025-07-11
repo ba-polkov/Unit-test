@@ -1,0 +1,39 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# PyCharm project files
+.idea/
+
+# VSCode
+.vscode/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# pytest cache
+.pytest_cache/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+*.whl
+
+# Logs and system
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
