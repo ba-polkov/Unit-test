@@ -33,5 +33,3 @@ def ingredient_mock():
     ingredient_mock.get_name.return_value = "Сосика"
     ingredient_mock.get_price.return_value = 300
     return ingredient_mock
-
-

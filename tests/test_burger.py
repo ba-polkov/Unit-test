@@ -44,4 +44,3 @@ class TestBurger:
                            '\n'\
                            f'Price: {burger.get_price()}'
         assert burger.get_receipt() == result
-
