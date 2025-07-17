@@ -47,4 +47,12 @@ class TestBurger:
         burger.add_ingredient(ingredient_mock)
         burger.add_ingredient(sauce_mock)
         receipt = burger.get_receipt()
-        assert bun_mock.name in receipt and ingredient_mock.name in receipt and sauce_mock.name in receipt
+        result = (
+            '(==== Булка ====)\n'
+            '= filling Котлета =\n'
+            '= sauce Соус =\n'
+            '(==== Булка ====)\n'
+            '\n'
+            'Price: 70.0'
+        )
+        assert result == receipt
