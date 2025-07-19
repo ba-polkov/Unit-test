@@ -1,32 +1,37 @@
 from unittest.mock import MagicMock
 import pytest
+from data import DataSetPriceTesting
+from praktikum.burger import Burger
 
 class TestBurger:
-    def test_set_name_bun(self, burger, bun):
-        burger.set_buns(bun)
-        assert burger.bun == bun
+    def test_set_name_bun(self, bun_mock):
+        burger = Burger()
+        burger.set_buns(bun_mock)
+        assert burger.bun == bun_mock
 
-    def test_add_ingredient(self, burger, ingredient_from_db):
-        burger.add_ingredient(ingredient_from_db)
-        assert burger.ingredients[0] == ingredient_from_db
+    def test_add_ingredient(self, bun_mock):
+        burger = Burger()
+        burger.add_ingredient(bun_mock)
+        assert burger.ingredients[0] == bun_mock
 
-    def test_del_ingradient(self, burger, ingredient_from_class, index = 0):
-        burger.add_ingredient(ingredient_from_class)
+    def test_del_ingradient(self, ingredient_mock_1, index = 0):
+        burger = Burger()
+        burger.add_ingredient(ingredient_mock_1)
         burger.remove_ingredient(index)
         assert burger.ingredients == []
         assert len(burger.ingredients) == 0
 
-    def test_move_ingredient(self, burger, ingredient_mock, ingredient_from_db):
-        burger.add_ingredient(ingredient_mock)
-        burger.add_ingredient(ingredient_from_db)
+    def test_move_ingredient(self, ingredient_mock_1, ingredient_mock_2):
+        burger = Burger()
+        burger.add_ingredient(ingredient_mock_1)
+        burger.add_ingredient(ingredient_mock_2)
         burger.move_ingredient(0, 1)
-        assert burger.ingredients[0] == ingredient_from_db
+        assert burger.ingredients[0] == ingredient_mock_2
 
-    @pytest.mark.parametrize("ingredient_data, result", [
-        ([("Напонитель", "Халапеньо", 50.0), ("Соусо", "Горчичный", 20.0)], 470.0),
-        ([("Напонитель", "Грибы", 10.0), ("Соус", "Чесночный", 15.0)], 425.0)])
-    def test_get_price(self, burger, bun, ingredient_data, result):
-        burger.set_buns(bun)
+    @pytest.mark.parametrize("ingredient_data, result", [DataSetPriceTesting.FIRST_DATA_SET, DataSetPriceTesting.SECOND_DATA_SET])
+    def test_get_price(self, bun_mock, ingredient_data, result):
+        burger = Burger()
+        burger.set_buns(bun_mock)
         for ingredient_type, name, price in ingredient_data:
             ingredient_mock = MagicMock()
             ingredient_mock.get_type.return_value = ingredient_type
@@ -35,12 +40,13 @@ class TestBurger:
             burger.add_ingredient(ingredient_mock)
         assert result == burger.get_price()
 
-    def test_get_receipt(self, burger, bun, ingredient_from_db):
-        burger.set_buns(bun)
-        burger.add_ingredient(ingredient_from_db)
-        result = f'(==== {bun.get_name()} ====)\n'\
-                           f'= {ingredient_from_db.get_type().lower()} {ingredient_from_db.get_name()} =\n'\
-                           f'(==== {bun.get_name()} ====)\n'\
+    def test_get_receipt(self, bun_mock, ingredient_mock_1):
+        burger = Burger()
+        burger.set_buns(bun_mock)
+        burger.add_ingredient(ingredient_mock_1)
+        result = f'(==== {bun_mock.get_name()} ====)\n'\
+                           f'= {ingredient_mock_1.get_type().lower()} {ingredient_mock_1.get_name()} =\n'\
+                           f'(==== {bun_mock.get_name()} ====)\n'\
                            '\n'\
                            f'Price: {burger.get_price()}'
         assert burger.get_receipt() == result
