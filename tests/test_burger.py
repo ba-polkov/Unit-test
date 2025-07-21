@@ -103,4 +103,4 @@ class TestBurger:
             'Price: 540'
             )
         assert receipt == expected_receipt
-        print(burger.get_receipt())
+
