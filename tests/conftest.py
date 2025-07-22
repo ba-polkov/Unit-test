@@ -8,16 +8,6 @@ from praktikum.burger import Burger
 sys.path.append(str(Path(__file__).parent.parent))
 
 @pytest.fixture
-def database():
-    return Database()
-
-@pytest.fixture
-def burger():
-    return Burger()
-
-
-
-@pytest.fixture
 def mock_bun():
     bun = MagicMock()
     bun.get_name.return_value = "Краторная булка"
