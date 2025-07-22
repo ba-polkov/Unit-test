@@ -58,13 +58,22 @@ class TestBurger:
         ]
     )
     def test_get_receipt_parametrized(self, burger, bun, ingredient, ingredient_type, ingredient_name, expected_line):
+        bun.get_name.return_value = "White bun"
+        bun.get_price.return_value = 30.0
         ingredient.get_type.return_value = ingredient_type
         ingredient.get_name.return_value = ingredient_name
+        ingredient.get_price.return_value = 60.0
 
         burger.set_buns(bun)
         burger.add_ingredient(ingredient)
-        receipt = burger.get_receipt()
 
-        assert f"(==== {bun.get_name()} ====)" in receipt
-        assert expected_line in receipt
-        assert receipt.endswith(f"Price: {burger.get_price()}")
+        expected_receipt = (
+            f"(==== {bun.get_name()} ====)\n"
+            f"{expected_line}\n"
+            f"(==== {bun.get_name()} ====)\n"
+            f"Price: {burger.get_price()}"
+        )
+
+        actual_receipt = burger.get_receipt()
+
+        assert actual_receipt == expected_receipt
