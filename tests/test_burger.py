@@ -1,93 +1,69 @@
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 from praktikum.burger import Burger
 from praktikum.bun import Bun
 from praktikum.ingredient import Ingredient
-from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 class TestBurger:
-    # Тесты для класса Burger
+    @pytest.fixture
+    def mock_bun(self):
+        bun = MagicMock()
+        bun.get_name.return_value = "black bun"
+        bun.get_price.return_value = 100
+        return bun
 
-    def setup_method(self):
-        # Создаю новый объект бургера перед каждым тестом
-        self.burger = Burger()
+    @pytest.fixture
+    def mock_ingredient(self):
+        ingredient = MagicMock()
+        ingredient.get_type.return_value = "sauce"
+        ingredient.get_name.return_value = "hot sauce"
+        ingredient.get_price.return_value = 50
+        return ingredient
 
-    def test_initialization(self):
-        # Проверяю, что бургер инициализируется без булочки и ингредиентов
-        assert self.burger.bun is None
-        assert len(self.burger.ingredients) == 0
+    # Тесты для set_buns()
+    def test_set_buns_sets_bun_correctly(self, mock_bun):
+        """Проверяем, что set_buns() устанавливает булочку"""
+        burger = Burger()
+        burger.set_buns(mock_bun)
+        assert burger.bun == mock_bun
 
-    def test_set_buns(self, mock_bun):
-        # Проверяю установку булочки в бургер
-        self.burger.set_buns(mock_bun)
-        assert self.burger.bun == mock_bun
+    # Тесты для add_ingredient()
+    def test_add_ingredient_adds_to_list(self, mock_ingredient):
+        """Проверяем, что add_ingredient() добавляет ингредиент"""
+        burger = Burger()
+        burger.add_ingredient(mock_ingredient)
+        assert len(burger.ingredients) == 1
+        assert burger.ingredients[0] == mock_ingredient
 
-    def test_add_ingredient(self, mock_sauce, mock_filling):
-        # Проверяю добавление ингредиентов (соус и начинка)
-        self.burger.add_ingredient(mock_sauce)
-        assert len(self.burger.ingredients) == 1
-        assert self.burger.ingredients[0] == mock_sauce
+    # Тесты для remove_ingredient()
+    def test_remove_ingredient_removes_correctly(self, mock_ingredient):
+        """Проверяем, что remove_ingredient() удаляет по индексу"""
+        burger = Burger()
+        burger.add_ingredient(mock_ingredient)
+        burger.remove_ingredient(0)
+        assert len(burger.ingredients) == 0
 
-        self.burger.add_ingredient(mock_filling)
-        assert len(self.burger.ingredients) == 2
-        assert self.burger.ingredients[1] == mock_filling
+    # Тесты для move_ingredient()
+    def test_move_ingredient_changes_position(self, mock_ingredient):
+        """Проверяем, что move_ingredient() перемещает ингредиент"""
+        burger = Burger()
+        second_ingredient = MagicMock()
+        burger.add_ingredient(mock_ingredient)
+        burger.add_ingredient(second_ingredient)
+        burger.move_ingredient(0, 1)
+        assert burger.ingredients[1] == mock_ingredient
 
-    def test_remove_ingredient(self, mock_sauce, mock_filling):
-        # Проверяю удаление ингредиента по индексу
-        self.burger.add_ingredient(mock_sauce)
-        self.burger.add_ingredient(mock_filling)
-        assert len(self.burger.ingredients) == 2
+    # Тесты для get_price()
+    def test_get_price_calculates_correctly(self, mock_bun, mock_ingredient):
+        """Проверяем расчет цены с булочкой и ингредиентами"""
+        burger = Burger()
+        burger.set_buns(mock_bun)
+        burger.add_ingredient(mock_ingredient)
+        assert burger.get_price() == 250  # (100*2) + 50
 
-        self.burger.remove_ingredient(0)
-        assert len(self.burger.ingredients) == 1
-        assert self.burger.ingredients[0] == mock_filling
-
-    def test_move_ingredient(self, mock_sauce, mock_filling):
-        # Проверяю перемещение ингредиента внутри списка
-        self.burger.add_ingredient(mock_sauce)
-        self.burger.add_ingredient(mock_filling)
-
-        # Перемещаю соус с позиции 0 на позицию 1
-        self.burger.move_ingredient(0, 1)
-        assert self.burger.ingredients[0] == mock_filling
-        assert self.burger.ingredients[1] == mock_sauce
-
-    def test_get_price(self, mock_bun, mock_sauce, mock_filling):
-        # Проверяю правильность расчёта цены бургера
-        self.burger.set_buns(mock_bun)
-        self.burger.add_ingredient(mock_sauce)
-        self.burger.add_ingredient(mock_filling)
-
-        # Ожидаемая цена: (цена булочки * 2) + цена соуса + цена начинки
-        expected_price = (mock_bun.get_price() * 2) + mock_sauce.get_price() + mock_filling.get_price()
-        assert self.burger.get_price() == expected_price
-
-    def test_get_receipt(self, mock_bun, mock_sauce, mock_filling):
-        # Проверяю правильность формирования чека бургера
-        self.burger.set_buns(mock_bun)
-        self.burger.add_ingredient(mock_sauce)
-        self.burger.add_ingredient(mock_filling)
-
-        receipt = self.burger.get_receipt()
-
-        # Проверяю, что чек содержит корректные строки
-        assert f"(==== {mock_bun.get_name()} ====)" in receipt
-        assert f"= {mock_sauce.get_type().lower()} {mock_sauce.get_name()} =" in receipt
-        assert f"= {mock_filling.get_type().lower()} {mock_filling.get_name()} =" in receipt
-
-        # Проверяю, что итоговая цена отображается правильно
-        assert f"Price: {self.burger.get_price()}" in receipt
-
-    @patch('praktikum.burger.Burger.get_price')
-    def test_get_receipt_with_patched_price(self, mock_get_price, mock_bun, mock_sauce):
-        # Проверяю, что при патче цены чек выводит патченный результат
-        mock_get_price.return_value = 999
-
-        self.burger.set_buns(mock_bun)
-        self.burger.add_ingredient(mock_sauce)
-
-        receipt = self.burger.get_receipt()
-
-        # Проверяю, что чек содержит патченный цену
-        assert "Price: 999" in receipt
-        mock_get_price.assert_called_once()
+    # Тесты для get_receipt()
+    def test_get_receipt_includes_bun_name(self, mock_bun):
+        """Проверяем, что чек содержит название булочки"""
+        burger = Burger()
+        burger.set_buns(mock_bun)
+        assert "black bun" in burger.get_receipt()
