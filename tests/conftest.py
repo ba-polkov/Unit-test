@@ -1,12 +1,8 @@
 import pytest
 from unittest.mock import Mock
-from praktikum.burger import Burger
 from praktikum.bun import Bun
 from praktikum.ingredient import Ingredient
-
-@pytest.fixture
-def burger():
-    return Burger()
+from data.ingredients import INGREDIENTS_DATA
 
 @pytest.fixture
 def mock_bun():
@@ -18,19 +14,19 @@ def mock_bun():
 @pytest.fixture
 def mock_ingredients():
     ingredient1 = Mock(spec=Ingredient)
-    ingredient1.get_type.return_value = "SAUCE"
-    ingredient1.get_name.return_value = "hot sauce"
-    ingredient1.get_price.return_value = 50
+    ingredient1.get_type.return_value = INGREDIENTS_DATA['sauce']['type']
+    ingredient1.get_name.return_value = INGREDIENTS_DATA['sauce']['name']
+    ingredient1.get_price.return_value = INGREDIENTS_DATA['sauce']['price']
 
     ingredient2 = Mock(spec=Ingredient)
-    ingredient2.get_type.return_value = "VEGGIE"
-    ingredient2.get_name.return_value = "lettuce"
-    ingredient2.get_price.return_value = 30
+    ingredient2.get_type.return_value = INGREDIENTS_DATA['veggie']['type']
+    ingredient2.get_name.return_value = INGREDIENTS_DATA['veggie']['name']
+    ingredient2.get_price.return_value = INGREDIENTS_DATA['veggie']['price']
 
     ingredient3 = Mock(spec=Ingredient)
-    ingredient3.get_type.return_value = "MEAT"
-    ingredient3.get_name.return_value = "beef"
-    ingredient3.get_price.return_value = 100
+    ingredient3.get_type.return_value = INGREDIENTS_DATA['meat']['type']
+    ingredient3.get_name.return_value = INGREDIENTS_DATA['meat']['name']
+    ingredient3.get_price.return_value = INGREDIENTS_DATA['meat']['price']
 
     return {
         'sauce': ingredient1,
