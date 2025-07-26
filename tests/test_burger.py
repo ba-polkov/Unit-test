@@ -1,24 +1,10 @@
 import pytest
 from unittest.mock import MagicMock
 from praktikum.burger import Burger
-from praktikum.bun import Bun
-from praktikum.ingredient import Ingredient
+from praktikum.database import Database
+
 
 class TestBurger:
-    @pytest.fixture
-    def mock_bun(self):
-        bun = MagicMock()
-        bun.get_name.return_value = "black bun"
-        bun.get_price.return_value = 100
-        return bun
-
-    @pytest.fixture
-    def mock_ingredient(self):
-        ingredient = MagicMock()
-        ingredient.get_type.return_value = "sauce"
-        ingredient.get_name.return_value = "hot sauce"
-        ingredient.get_price.return_value = 50
-        return ingredient
 
     # Тесты для set_buns()
     def test_set_buns_sets_bun_correctly(self, mock_bun):
@@ -65,5 +51,13 @@ class TestBurger:
     def test_get_receipt_includes_bun_name(self, mock_bun):
         """Проверяем, что чек содержит название булочки"""
         burger = Burger()
-        burger.set_buns(mock_bun)
-        assert "black bun" in burger.get_receipt()
+        database = Database()
+        burger.set_buns(database.available_buns()[0])
+        burger.add_ingredient(database.available_ingredients()[0])
+        burger.add_ingredient(database.available_ingredients()[3])
+        expected_receipt = "(==== black bun ====)\n" \
+                           "= sauce hot sauce =\n" \
+                           "= filling cutlet =\n" \
+                           "(==== black bun ====)\n\n" \
+                           "Price: 400"
+        assert expected_receipt == burger.get_receipt()
