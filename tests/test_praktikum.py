@@ -53,4 +53,3 @@ class TestPraktikum:
             from praktikum.praktikum import main
             with pytest.raises(IndexError):
                 main()
-

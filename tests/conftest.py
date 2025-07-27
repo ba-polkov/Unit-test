@@ -12,12 +12,6 @@ from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FI
 
 
 @pytest.fixture
-def burger():
-    from praktikum.burger import Burger
-    return Burger()
-
-
-@pytest.fixture
 def mock_bun():
     bun = Mock(spec=Bun)
     bun.get_name.return_value = "black bun"
@@ -41,11 +35,6 @@ def mock_ingredient_filling():
     ingredient.get_name.return_value = "cutlet"
     ingredient.get_price.return_value = 200
     return ingredient
-
-
-@pytest.fixture(scope='module')
-def database():
-    return Database()
 
 
 @pytest.fixture
