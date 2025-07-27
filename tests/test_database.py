@@ -23,3 +23,4 @@ def test_database_available_ingredients():
     ingredients = db.available_ingredients()
     assert isinstance(ingredients[0], Ingredient)
     assert ingredients[0].get_name() == "hot sauce"
+    
