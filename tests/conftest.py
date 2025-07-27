@@ -35,3 +35,4 @@ def new_ingredient_sauce():
     new_sauce.get_type.return_value = "SAUCE"
     new_sauce.get_price.return_value = 5.0
     return new_sauce
+
