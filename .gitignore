@@ -1,0 +1,13 @@
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Pytest
+.pytest_cache/
+
+htmlcov/*
+
+# Кроме index.html
+!htmlcov/index.html
