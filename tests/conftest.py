@@ -1,17 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
 
-from praktikum.burger import Burger
-from praktikum.database import Database
-
-
-@pytest.fixture
-def burger():
-    return Burger()
-
-@pytest.fixture
-def database():
-    return Database()
 
 @pytest.fixture
 def new_bun():
@@ -35,4 +24,3 @@ def new_ingredient_sauce():
     new_sauce.get_type.return_value = "SAUCE"
     new_sauce.get_price.return_value = 5.0
     return new_sauce
-
