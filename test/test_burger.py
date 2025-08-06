@@ -33,12 +33,11 @@ class TestBurger:
     def test_get_price_success(self, burger, bun_mock, ingredient_prices):
         burger.set_buns(bun_mock)
         price_ingredients = 0
-        if len(ingredient_prices) != 0:
-            for price in ingredient_prices:
-                ingredient = MagicMock()
-                ingredient.get_price.return_value = price
-                burger.ingredients.append(ingredient)
-                price_ingredients += price
+        for price in ingredient_prices:
+            ingredient = MagicMock()
+            ingredient.get_price.return_value = price
+            burger.ingredients.append(ingredient)
+            price_ingredients += price
         expected_price = burger.bun.get_price() * 2 + price_ingredients
         assert expected_price == burger.get_price()
 
