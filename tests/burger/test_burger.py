@@ -26,7 +26,6 @@ class TestBurger():
     def test_add_ingredient_positive_value(self, mock_ingredient, name, price, type):
         testburger = Burger()
         testburger.add_ingredient(mock_ingredient)
-        print(testburger.ingredients[0].name)
         assert testburger.ingredients[0].name == name and testburger.ingredients[0]. price == price and testburger.ingredients[0].type == type
 
     @pytest.mark.parametrize(
