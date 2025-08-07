@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
-from burger import Burger
+
 
 class TestBurger:
     def test_set_buns(self, burger, bun):
