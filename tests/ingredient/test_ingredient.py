@@ -4,8 +4,6 @@ import data
 import ingredient_types
 from praktikum.ingredient import Ingredient
 
-from conftest import mock_ingredient
-
 
 class TestIngredient():
 

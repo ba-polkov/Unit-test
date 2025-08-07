@@ -2,7 +2,6 @@ import pytest
 
 import data
 from praktikum.bun import Bun
-from conftest import mock_bun
 
 
 class TestBun():

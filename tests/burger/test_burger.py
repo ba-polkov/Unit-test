@@ -4,9 +4,6 @@ from unittest.mock import Mock
 from praktikum.burger import Burger
 import data
 
-from conftest import mock_bun
-from conftest import mock_ingredient
-
 
 class TestBurger():
 
