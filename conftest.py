@@ -1,3 +1,5 @@
+from unittest.mock import Mock
+
 import pytest
 
 import data
@@ -26,3 +28,18 @@ def burger():
 def database():
     database = Database()
     return database
+
+@pytest.fixture
+def mock_bun():
+    mock_bun = Mock()
+    mock_bun.price = data.PRICE_BUN
+    mock_bun.name = data.NAME_BUN
+    return mock_bun
+
+@pytest.fixture
+def mock_ingredient():
+    mock_ingredient = Mock()
+    mock_ingredient.price = data.PRICE_INGREDIENT
+    mock_ingredient.name = data.NAME_INGREDIENT
+    return mock_ingredient
+
