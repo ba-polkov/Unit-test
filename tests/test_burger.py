@@ -4,14 +4,14 @@ from data import DataForTestPrice
 
 class TestBurger:
 
-# Проверяем, что в булку можно добавить в бургер
+# Проверяем, что булку можно добавить в бургер
     def test_set_bun(self, burger, bun):
         burger.set_buns(bun)
         assert burger.bun == bun
         assert burger.bun.get_name() == "Урановая булка"
         assert burger.bun.get_price() == 50.0
 
-# Проверяем, что в ингридиент можно добавить в бургер
+# Проверяем, что ингридиент можно добавить в бургер
     def test_add_ingredient(self, burger, ingredient_sauce):
         burger.add_ingredient(ingredient_sauce)
         assert len(burger.ingredients) == 1
