@@ -1,18 +1,34 @@
 import pytest
 from praktikum.bun import Bun
 
+class TestBun:
 
-@pytest.mark.parametrize("name, price", [
-    ("black bun", 100),
-    ("white bun", 200),
-    ("red bun", 300),
-    ("special bun", 0),
-    ("long name bun", 999.99)
-])
-def test_bun_get_name_and_price(name, price):
-    """
-    Проверяет корректность работы геттеров для различных значений
-    """
-    bun = Bun(name, price)
-    assert bun.get_name() == name
-    assert bun.get_price() == price
+    @pytest.mark.parametrize("name", [
+    "black bun",
+    "white bun",
+    "red bun",
+    "special bun",
+    "long name bun",
+    ""
+    ])
+    def test_bun_get_name(self, name):
+        """
+        Проверяет корректность работы метода get_name()
+        """
+        bun = Bun(name, 100)
+        assert bun.get_name() == name
+
+
+    @pytest.mark.parametrize("price", [
+        0,
+        100,
+        200,
+        999.99,
+        -50
+    ])
+    def test_bun_get_price(self, price):
+        """
+        Проверяет корректность работы метода get_price()
+        """
+        bun = Bun("test bun", price)
+        assert bun.get_price() == pytest.approx(price, 0.01)
