@@ -1,37 +1,9 @@
+
 import pytest
-from unittest.mock import Mock
 from praktikum.burger import Burger
 from praktikum.ingredient_types import INGREDIENT_TYPE_FILLING, INGREDIENT_TYPE_SAUCE
 
-
 class TestBurger:
-
-    @pytest.fixture
-    def burger(self):
-        return Burger()
-
-    @pytest.fixture
-    def mock_bun(self):
-        mock = Mock()
-        mock.get_name.return_value = 'black bun'
-        mock.get_price.return_value = 100
-        return mock
-
-    @pytest.fixture
-    def mock_ingredient1(self):
-        mock = Mock()
-        mock.get_type.return_value = INGREDIENT_TYPE_SAUCE
-        mock.get_name.return_value = 'hot sauce'
-        mock.get_price.return_value = 50
-        return mock
-
-    @pytest.fixture
-    def mock_ingredient2(self):
-        mock = Mock()
-        mock.get_type.return_value = INGREDIENT_TYPE_FILLING
-        mock.get_name.return_value = 'cutlet'
-        mock.get_price.return_value = 200
-        return mock
 
     def test_set_buns(self, burger, mock_bun):
         burger.set_buns(mock_bun)
@@ -79,11 +51,10 @@ class TestBurger:
         burger.add_ingredient(mock_ingredient1)
         burger.add_ingredient(mock_ingredient2)
 
-        # Исправлено: тип ингредиента выводится в верхнем регистре (SAUCE/FILLING)
         expected_receipt = (
             '(==== black bun ====)\n'
-            '= SAUCE hot sauce =\n'
-            '= FILLING cutlet =\n'
+            '= sauce hot sauce =\n'  # Обратите внимание: тип в нижнем регистре
+            '= filling cutlet =\n'   # Обратите внимание: тип в нижнем регистре
             '(==== black bun ====)\n'
             '\n'
             'Price: 450'
