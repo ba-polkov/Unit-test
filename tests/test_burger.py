@@ -29,7 +29,7 @@ class TestBurger:
         burger.remove_ingredient(0)
         assert len(burger.ingredients) == 0
 
-# Проверяем, что ингридиенты можно перемещать в бургере
+# Проверяем, что ингридиенты можно переставлять в бургере
     def test_move_ingredient(self, burger, ingredient_sauce, ingredient_filling):
         ingredient1 = ingredient_filling
         ingredient2 = ingredient_sauce
