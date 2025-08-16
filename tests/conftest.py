@@ -4,13 +4,7 @@ from unittest.mock import MagicMock
 from burger import Burger
 
 
-@pytest.fixture
-def database():
-    return Database()
 
-@pytest.fixture
-def burger():
-    return Burger()
 
 @pytest.fixture
 def bun():
