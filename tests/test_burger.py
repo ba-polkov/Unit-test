@@ -2,7 +2,6 @@ import pytest
 
 from practicum.burger import Burger
 from data import TestData
-from conftest import *
 
 class TestBurger:
 
