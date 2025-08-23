@@ -56,14 +56,35 @@ class TestBurger:
 
         assert burger.get_price() == expected_price
 
-    @allure.title('Getting a receipt')
-    def test_get_receipt_success(self, mock_bun, mock_ingredient):
+
+    @pytest.mark.parametrize(
+        "bun_name, ingredient_name, ingredient_type, bun_price, ingredient_price, expected_receipt",
+        [
+            (
+                "Булка", "Сыр", "ингредиент", 100, 50,
+                "(==== Булка ====)\n= ингредиент Сыр =\n(==== Булка ====)\n\nPrice: 250"
+            ),
+            (
+                "Булочка", "Соус", "ингредиент", 80, 20,
+                "(==== Булочка ====)\n= ингредиент Соус =\n(==== Булочка ====)\n\nPrice: 180"
+            ),
+        ]
+    )
+
+    @allure.title('Getting a full receipt')
+    def test_get_receipt_success(
+        self, mock_bun, mock_ingredient, bun_name, ingredient_name, ingredient_type, bun_price, ingredient_price, expected_receipt):
+        
+        mock_bun.get_name.return_value = bun_name
+        mock_bun.get_price.return_value = bun_price
+        mock_ingredient.get_name.return_value = ingredient_name
+        mock_ingredient.get_type.return_value = ingredient_type
+        mock_ingredient.get_price.return_value = ingredient_price
+
         burger = Burger()
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_ingredient)
 
         receipt = burger.get_receipt()
 
-        assert 'Булка' in receipt
-        assert 'ингредиент' in receipt.lower()
-        assert 'Price:' in receipt
+        assert receipt == expected_receipt
