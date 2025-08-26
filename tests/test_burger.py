@@ -1,3 +1,4 @@
+import pytest
 from praktikum.bun import Bun
 from praktikum.burger import Burger
 from praktikum.ingredient import Ingredient
@@ -16,22 +17,34 @@ class TestBurger:
 
     def test_add_ingredient(self, burger_ready):
         ingredient_to_add = Ingredient(INGREDIENT_TYPE_SAUCE, 'Соус Бама', 0.05)
+        count = len(burger_ready.ingredients)
         burger_ready.add_ingredient(ingredient_to_add)
-        assert ingredient_to_add == burger_ready.ingredients[-1]
+        assert ingredient_to_add == burger_ready.ingredients[-1] \
+            and count + 1 == len(burger_ready.ingredients)
 
-    def test_remove_ingredient(self, burger_ready):
-        ingredient_index = 1
-        ingredient_to_remove = burger_ready.ingredients[ingredient_index]
-        burger_ready.remove_ingredient(ingredient_index)
-        assert ingredient_to_remove not in burger_ready.ingredients
+    @pytest.mark.parametrize('index', [2, 0, 4])  # из середины, начала, конца
+    def test_remove_ingredient(self, burger_ready, index):
+        index = 1
+        ingredient_to_remove = burger_ready.ingredients[index]
+        count = len(burger_ready.ingredients)
+        burger_ready.remove_ingredient(index)
+        assert ingredient_to_remove not in burger_ready.ingredients \
+            and count - 1 == len(burger_ready.ingredients)
 
-    def test_move_ingredient(self, burger_ready):
-        ingredient_old_index = 2
-        ingredient_new_index = 0
-        ingredient_to_move = burger_ready.ingredients[ingredient_old_index]
-        burger_ready.move_ingredient(ingredient_old_index, ingredient_new_index)
-        assert ingredient_to_move == burger_ready.ingredients[ingredient_new_index] \
-            and ingredient_to_move != burger_ready.ingredients[ingredient_old_index]
+    @pytest.mark.parametrize('old_index, new_index',
+        [
+            (1,2), (2,1),  # соседние из середины 
+            (0,2), (2,0),  # голова - середина
+            (0,4), (4,0),  # голова - хвост
+            (2,4), (4,2),  # хвост - середина
+        ])
+    def test_move_ingredient(self, burger_ready, old_index, new_index):
+        ingredient_to_move = burger_ready.ingredients[old_index]
+        count = len(burger_ready.ingredients)
+        burger_ready.move_ingredient(old_index, new_index)
+        assert ingredient_to_move == burger_ready.ingredients[new_index] \
+            and ingredient_to_move != burger_ready.ingredients[old_index] \
+            and count == len(burger_ready.ingredients)
     
     def test_get_price(self, burger_ready):
         assert 15.99 == burger_ready.get_price()
