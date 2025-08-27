@@ -36,5 +36,5 @@ def main() -> str:
     return burger.get_receipt()
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":
     print(main())

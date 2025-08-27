@@ -60,7 +60,7 @@ class TestDatabase:
         # Act
         buns = database.available_buns()
 
-        # Assert - Test method behavior, not direct attribute comparison
+        # Assert
         assert len(buns) == 3
         assert all(isinstance(bun, Bun) for bun in buns)
         assert buns[0].get_name() == "black bun"
@@ -72,7 +72,7 @@ class TestDatabase:
         # Act
         ingredients = database.available_ingredients()
 
-        # Assert - Test method behavior, not direct attribute comparison
+        # Assert
         assert len(ingredients) == 6
         assert all(isinstance(ingredient, Ingredient) for ingredient in ingredients)
         
