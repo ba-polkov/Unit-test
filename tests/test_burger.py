@@ -3,6 +3,7 @@ from praktikum.bun import Bun
 from praktikum.burger import Burger
 from praktikum.ingredient import Ingredient
 from praktikum.ingredient_types import INGREDIENT_TYPE_FILLING, INGREDIENT_TYPE_SAUCE
+from unittest.mock import Mock
 
 
 class TestBurger:
@@ -46,8 +47,25 @@ class TestBurger:
             and ingredient_to_move != burger_ready.ingredients[old_index] \
             and count == len(burger_ready.ingredients)
     
+    def test_get_price_for_empty_burger(self, burger):
+        with pytest.raises(Exception): 
+            burger.get_price()
+
     def test_get_price(self, burger_ready):
         assert 15.99 == burger_ready.get_price()
+
+    # Если представить, что Bun и Ingredient объекты, которые очень сложно  
+    # создать или ввести в нужное состояние, то их следует мокать
+    # как в тесте ниже
+    def test_get_price_mock_version(self):
+        bun_mock = Mock()
+        bun_mock.get_price.return_value = 10.05
+        ingredient_mock = Mock()
+        ingredient_mock.get_price.return_value = 4.02
+        burger = Burger()
+        burger.set_buns(bun_mock)
+        burger.add_ingredient(ingredient_mock)
+        assert 24.12 == burger.get_price()
 
     def test_get_receipt(self, burger_ready):
         assert burger_ready.get_receipt() == \
