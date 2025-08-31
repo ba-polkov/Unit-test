@@ -1,20 +1,9 @@
 import pytest
 
 from unittest.mock import Mock
-from praktikum.database import Database
-from praktikum.burger import Burger
 from praktikum.ingredient_types import INGREDIENT_TYPE_FILLING
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE
 
-
-
-@pytest.fixture
-def burger():
-    return Burger()
-
-@pytest.fixture
-def db():
-    return Database
 
 @pytest.fixture
 def mock_bun():
