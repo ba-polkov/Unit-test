@@ -1,7 +1,7 @@
 import pytest
 from praktikum.bun import Bun
 
-#тест геттеров
+#тест  гетеров
 def test_bun_getters_return_values():
     bun = Bun("red bun", 450)
     assert bun.get_name() == "red bun"
