@@ -1,0 +1,13 @@
+# coverage html
+htmlcov/**        # игнорим всё внутри htmlcov
+!htmlcov/         # но позволяем спускаться в папку
+!htmlcov/index.html  # и трекаем только index.html
+
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Pytest
+.pytest_cache/
