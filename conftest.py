@@ -20,25 +20,6 @@ def ingredient_fixture(request):
     return Ingredient(ingredient_type, name, price)
 
 @pytest.fixture
-def burger_fixture():
-    """Фикстура для создания экземпляра Burger"""
-    burger = Burger()
-    return burger
-
-@pytest.fixture
-def burger_with_ingredient(burger_fixture, mock_ingredient_filling):
-    """Фикстура бургера с одним добавленным ингредиентом"""
-    burger_fixture.add_ingredient(mock_ingredient_filling)
-    return burger_fixture
-
-@pytest.fixture
-def database_fixture():
-    """Фикстура для создания экземпляра Database"""
-    database = Database()
-    return database
-
-
-@pytest.fixture
 def mock_bun():
     mock = Mock()
     mock.name = 'White'
