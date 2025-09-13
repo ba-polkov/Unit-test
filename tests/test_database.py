@@ -10,17 +10,36 @@ def db():
     return Database()
 
 
-def test_available_buns_returns_list_of_buns(db):
-    buns = db.available_buns()
-    assert isinstance(buns, list)
-    assert all(isinstance(bun, Bun) for bun in buns)
-    assert len(buns) > 0
+class TestDatabase:
 
+    # ---------- available_buns ----------
+    def test_available_buns_returns_list(self, db):
+        buns = db.available_buns()
+        assert isinstance(buns, list)
 
-def test_available_ingredients_returns_list_of_ingredients(db):
-    ingredients = db.available_ingredients()
-    assert isinstance(ingredients, list)
-    assert all(isinstance(ing, Ingredient) for ing in ingredients)
-    types = {ing.get_type() for ing in ingredients}
-    assert INGREDIENT_TYPE_SAUCE in types
-    assert INGREDIENT_TYPE_FILLING in types
+    def test_available_buns_elements_are_bun(self, db):
+        buns = db.available_buns()
+        assert all(isinstance(bun, Bun) for bun in buns)
+
+    def test_available_buns_not_empty(self, db):
+        buns = db.available_buns()
+        assert len(buns) > 0
+
+    # ---------- available_ingredients ----------
+    def test_available_ingredients_returns_list(self, db):
+        ingredients = db.available_ingredients()
+        assert isinstance(ingredients, list)
+
+    def test_available_ingredients_elements_are_ingredient(self, db):
+        ingredients = db.available_ingredients()
+        assert all(isinstance(ing, Ingredient) for ing in ingredients)
+
+    def test_available_ingredients_contains_sauce_type(self, db):
+        ingredients = db.available_ingredients()
+        types = {ing.get_type() for ing in ingredients}
+        assert INGREDIENT_TYPE_SAUCE in types
+
+    def test_available_ingredients_contains_filling_type(self, db):
+        ingredients = db.available_ingredients()
+        types = {ing.get_type() for ing in ingredients}
+        assert INGREDIENT_TYPE_FILLING in types
