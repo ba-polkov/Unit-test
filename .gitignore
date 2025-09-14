@@ -1,0 +1,23 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+
+# Test & coverage artefacts
+.coverage
+.coverage.*
+.cache/
+.pytest_cache/
+
+# Coverage HTML: игнорировать всё, кроме index.html
+htmlcov/*
+!htmlcov/index.html
+
+# IDE / tooling
+.vscode/
+.idea/
+*.iml
