@@ -1,13 +1,23 @@
-# coverage html
-htmlcov/**        # игнорим всё внутри htmlcov
-!htmlcov/         # но позволяем спускаться в папку
-!htmlcov/index.html  # и трекаем только index.html
-
-.venv/
-
-# Python cache
+# Byte-compiled / cache
 __pycache__/
 *.py[cod]
+*$py.class
 
-# Pytest
+# Virtual environments
+.venv/
+venv/
+
+# Test & coverage artefacts
+.coverage
+.coverage.*
+.cache/
 .pytest_cache/
+
+# Coverage HTML: игнорировать всё, кроме index.html
+htmlcov/*
+!htmlcov/index.html
+
+# IDE / tooling
+.vscode/
+.idea/
+*.iml
