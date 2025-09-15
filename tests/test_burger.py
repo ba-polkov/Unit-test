@@ -1,63 +1,60 @@
-from unittest.mock import Mock
-import pytest
-from practicum_burgers.bun import Bun
+from data import expected
 from practicum_burgers.burger import Burger
-from practicum_burgers.ingredient import Ingredient
 from tests.conftest import *
-from helper import *
 
 
 
 class TestBurger:
-    def test_init_burger_bun_none(self, burger):
+
+    def test_init_burger_bun_none(self):
+        burger = Burger()
         assert burger.bun is None
 
-
-    def test_init_burger_ingredients_list(self, burger):
+    def test_init_burger_ingredients_list(self):
+        burger = Burger()
         assert burger.ingredients == []
 
+    def test_set_bun(self, bun_mock):
+        burger = Burger()
+        bun = bun_mock(burger, price=60, name="Вкусная булочка")
+        assert burger.bun is bun
 
-    def test_set_bun(self, burger):
-        bun_mock = create_and_set_bun_mock(burger)
-        assert burger.bun is bun_mock
+    def test_add_ingredient_successful_addition(self, ingredient_mock):
+        burger = Burger()
+        ing = ingredient_mock(burger, ingredient_type="SAUCE", price=20, name="Чесночный")
+        assert len(burger.ingredients) == 1
+        assert burger.ingredients[0] is ing
 
+    def test_add_ingredients_multiple_successful_addition(self, ingredient_mock):
+        burger = Burger()
+        ing1 = ingredient_mock(burger)
+        ing2 = ingredient_mock(burger, name="Сыр", ingredient_type="FILLING")
+        assert len(burger.ingredients) == 2
+        assert burger.ingredients == [ing1, ing2]
 
-    def test_add_ingredient_successful_addition(self, burger):
-        ingredient_mock = create_and_add_ingredients_mock(burger)
-        assert len (burger.ingredients) == 1
-        assert burger.ingredients[0] is ingredient_mock
-
-
-    def test_add_ingredients_multiple_successful_addition(self,burger):
-        ingredient_1 = create_and_add_ingredients_mock(burger)
-        ingredient_2 = create_and_add_ingredients_mock(burger)
-        assert len (burger.ingredients) == 2
-        assert burger.ingredients == [ingredient_1, ingredient_2]
-
-
-    def test_remove_ingredient_successful_remove(self, burger):
-        ingredient_1 = create_and_add_ingredients_mock(burger)
-        ingredient_2 = create_and_add_ingredients_mock(burger)
+    def test_remove_ingredient_successful_remove(self, ingredient_mock):
+        burger = Burger()
+        ing1 = ingredient_mock(burger)
+        ing2 = ingredient_mock(burger)
         burger.remove_ingredient(0)
         assert len(burger.ingredients) == 1
-        assert burger.ingredients [0] is ingredient_2
-        assert ingredient_1 is not burger.ingredients
+        assert burger.ingredients[0] is ing2
+        assert ing1 is not burger.ingredients[0]
 
-
-    def test_remove_ingredient_invalid_index(self, burger):
-        create_and_add_ingredients_mock(burger)
+    def test_remove_ingredient_invalid_index(self, ingredient_mock):
+        burger = Burger()
+        ingredient_mock(burger)
         with pytest.raises(IndexError):
             burger.remove_ingredient(1)
 
-
-    def test_move_ingredient_successful_move(self, burger):
-        create_and_set_bun_mock(burger)
-        ingredient_1 = create_and_add_ingredients_mock(burger)
-        ingredient_2 = create_and_add_ingredients_mock(burger)
-        burger.move_ingredient(0,1)
-        assert burger.ingredients[0] is ingredient_2
-        assert burger.ingredients[1] is ingredient_1
-
+    def test_move_ingredient_successful_move(self, bun_mock, ingredient_mock):
+        burger = Burger()
+        bun_mock(burger)
+        ing1 = ingredient_mock(burger)
+        ing2 = ingredient_mock(burger)
+        burger.move_ingredient(0, 1)
+        assert burger.ingredients[0] is ing2
+        assert burger.ingredients[1] is ing1
 
     @pytest.mark.parametrize(
         "bun_price, ingredient_prices, expected_total",
@@ -67,33 +64,27 @@ class TestBurger:
             (100, [], 200),
         ]
     )
-    def test_get_price_param(self, burger, bun_price, ingredient_prices, expected_total):
-        create_and_set_bun_mock(burger, price=bun_price)
+    def test_get_price_param(self, bun_price, ingredient_prices, expected_total, bun_mock, ingredient_mock):
+        burger = Burger()
+        bun_mock(burger, price=bun_price)
         for price in ingredient_prices:
-            create_and_add_ingredients_mock(burger, price=price)
+            ingredient_mock(burger, price=price)
         result = burger.get_price()
         assert result == expected_total
 
-
-    def test_get_price_without_bun_raises_attribute_error(self, burger):
-        create_and_add_ingredients_mock(burger, price=20)
+    def test_get_price_without_bun_raises_attributeerror(self, ingredient_mock):
+        burger = Burger()
+        ingredient_mock(burger, price=20)
         with pytest.raises(AttributeError):
             burger.get_price()
 
-
-    def test_get_receipt(self, burger):
-        create_and_set_bun_mock(burger, name = 'Вкусная булочка')
-        create_and_add_ingredients_mock(burger, ingredient_type = 'SAUCE', name = 'Чесночный')
-        create_and_add_ingredients_mock(burger, ingredient_type= 'FILLING', name='Сыр')
+    def test_get_receipt(self, bun_mock, ingredient_mock):
+        burger = Burger()
+        bun_mock(burger, name='Вкусная булочка')
+        ingredient_mock(burger, ingredient_type='SAUCE', name='Чесночный')
+        ingredient_mock(burger, ingredient_type='FILLING', name='Сыр')
 
         burger.get_price = Mock(return_value=100.0)
         receipt = burger.get_receipt()
-        expected = (
-            "(==== Вкусная булочка ====)\n"
-            "= sauce Чесночный =\n"
-            "= filling Сыр =\n"
-            "(==== Вкусная булочка ====)\n"
-            "\n"
-            "Price: 100.0"
-        )
-        assert expected in receipt
+
+        assert receipt == expected
