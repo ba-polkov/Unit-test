@@ -56,5 +56,11 @@ class TestBurger:
 
         receipt = empty_burger.get_receipt()
 
-        # проверяем только наличие строки с ингредиентом
-        assert "ketchup" in receipt
+        expected_receipt = (
+            "(==== white bun ====)\n"
+            "= sauce ketchup =\n"
+            "(==== white bun ====)\n"
+            "Price: 110"
+        )
+
+        assert receipt == expected_receipt
