@@ -6,21 +6,6 @@ from praktikum.ingredient import Ingredient
 from data import Data
 
 @pytest.fixture
-def new_bun(name, price):
-    bun = Bun(name, price)
-    return bun
-
-@pytest.fixture
-def new_ingredient(type_ing, name, price):
-    ingredient = Ingredient(type_ing, name, price)
-    return ingredient
-
-@pytest.fixture
-def new_burger():
-    burger = Burger()
-    return burger
-
-@pytest.fixture
 def mock_bun():
     """Мок для Bun: имитирует булочку с фиксированным именем и ценой."""
     bun = Mock()
