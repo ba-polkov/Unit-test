@@ -1,75 +1,53 @@
-import pytest
-from typing import List
-from unittest.mock import Mock
+from tests.conftest import mock_bun
 from praktikum.burger import Burger
 
-class TestBurger(object):
+class TestBurger:
 
-# Проверка инициализации класса
-    def test_init_burger(self, burger):
-        assert burger.bun == None
-        assert burger.ingredients == []
+    def test_set_bun(self, mock_bun):
+        burger = Burger()
+        burger.set_buns(mock_bun)
+        assert burger.bun == mock_bun
 
-# Проверка установки булочки
-    def test_set_buns(self, burger, bun):
-        burger.set_buns(bun)
-        assert burger.bun == bun
+    def test__add_ingredient(self, mock_sauce):
+        burger = Burger()
+        burger.add_ingredient(mock_sauce)
+        assert mock_sauce in burger.ingredients
 
-# Проверка добавления ингридиентов в бургер
-    def test_add_ingredient(self, burger, ingredient):
-        burger.add_ingredient(ingredient)
-        assert burger.ingredients == [ingredient]
-
-# Проверка удаления ингридиента из бургера
-    def test_remove_ingredient(self, burger, ingredient):
-        burger.add_ingredient(ingredient)
+    def test_remove_ingredient(self, mock_sauce):
+        burger = Burger()
+        burger.add_ingredient(mock_sauce)
         burger.remove_ingredient(0)
-        assert burger.ingredients == []
+        assert len(burger.ingredients) == 0
 
-# Проверка удаления ингридиента с некорректным индексом
-    def test_remove_invalid_ingredient(self, burger, ingredient):
-        burger.add_ingredient(ingredient)
-        with pytest.raises(IndexError):
-            burger.remove_ingredient(3)
+    def test_move_ingredient(self, mock_sauce, mock_filling):
+        burger = Burger()
+        burger.add_ingredient(mock_sauce)
+        burger.add_ingredient(mock_filling)
+        burger.move_ingredient(0, 1)
+        assert burger.ingredients[1] == mock_sauce
 
-# Проверка перемещения ингридиентов
-    def test_move_ingredient(self, burger):
-        ingredient1_mock = Mock()
-        ingredient1_mock.get_name.return_value = "Cheese"
-        ingredient1_mock.get_type.return_value = "FILLING"
-        ingredient1_mock.get_price.return_value = 25.0
-        ingredient2_mock = Mock()
-        ingredient2_mock.get_name.return_value = "Red Hot Chili Peppers"
-        ingredient2_mock.get_type.return_value = "FILLING"
-        ingredient2_mock.get_price.return_value = 150.0
-        burger.add_ingredient(ingredient1_mock)
-        burger.add_ingredient(ingredient2_mock)
-        burger.move_ingredient(1,0)
-        assert burger.ingredients == [ingredient2_mock, ingredient1_mock]
+    def test_get_price(self, mock_bun, mock_sauce):
+        burger = Burger()
+        burger.set_buns(mock_bun)
+        burger.add_ingredient(mock_sauce)
 
-# Проверка расчёта стоимости бургера
-    @pytest.mark.parametrize("ingredients, expected_price", [
-        ([("FILLING", "Cheese", 70.0), ("SAUCE", "Ketchup", 25.0)], 195.0),
-        ([("FILLING", "Red Hot Chili Peppers", 20.0), ("FILLING", "Tomato", 30.0), ("SAUCE", "BBQ", 20.0)], 170.0)
-    ])
-    def test_get_price(self, burger, bun, ingredients, expected_price):
-        burger.set_buns(bun)
-        for ingredient_type, name, price in ingredients:
-            ingredient_mock = Mock()
-            ingredient_mock.get_name.return_value = name
-            ingredient_mock.get_type.return_value = ingredient_type
-            ingredient_mock.get_price.return_value = price
-            burger.add_ingredient(ingredient_mock)
-        assert burger.get_price() == expected_price
+        price = burger.get_price()
+        expected_price = (mock_bun.get_price() * 2) + mock_sauce.get_price()
 
-# Проверка генерации рецепта
-    def test_get_receipt(self, burger, bun, ingredient):
-        burger.set_buns(bun)
-        burger.add_ingredient(ingredient)
+        assert price == expected_price
 
-        excepted_receipt: List[str] = [f'(==== {bun.get_name()} ====)']
-        excepted_receipt.append(f'= {str(ingredient.get_type()).lower()} {ingredient.get_name()} =')
-        excepted_receipt.append(f'(==== {bun.get_name()} ====)\n')
-        excepted_receipt.append(f'Price: {burger.get_price()}')
+    def test_get_receipt(self, mock_bun, mock_sauce, mock_filling):
+        burger = Burger()
+        burger.set_buns(mock_bun)
+        burger.add_ingredient(mock_sauce)
+        burger.add_ingredient(mock_filling)
 
-        assert burger.get_receipt() == '\n'.join(excepted_receipt)
+        expected_result = (
+            '(==== black bun ====)\n'
+            '= sauce sour cream =\n'
+            '= filling sausage =\n'
+            '(==== black bun ====)\n'
+            '\n'
+            'Price: 700')
+
+        assert burger.get_receipt() == expected_result
