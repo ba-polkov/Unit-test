@@ -1,15 +1,20 @@
 import pytest
-from burger import Burger
 from unittest.mock import Mock
-from database import Database
+from burger import Burger
 
 @pytest.fixture
 def database():
-    return Database()
+    db = Mock(spec=["save", "load", "connect", "close"])
+    return db
 
 @pytest.fixture
-def burger():
-    return Burger()
+def make_burger(database):
+    def _make(*args, **kwargs):
+        try:
+            return Burger(database, *args, **kwargs)
+        except TypeError:
+            return Burger(*args, **kwargs)
+    return _make
 
 @pytest.fixture
 def bun():
@@ -19,9 +24,9 @@ def bun():
     return bun_mock
 
 @pytest.fixture
-def ingridient():
-    ingridient_mock = Mock()
-    ingridient_mock.get_name.return_value = "Cheese"
-    ingridient_mock.get_type.return_value = "FILLING"
-    ingridient_mock.get_price.return_value = 50.0
-    return ingridient_mock
+def ingredient():
+    ingredient_mock = Mock()
+    ingredient_mock.get_name.return_value = "Cheese"
+    ingredient_mock.get_type.return_value = "FILLING"
+    ingredient_mock.get_price.return_value = 50.0
+    return ingredient_mock
