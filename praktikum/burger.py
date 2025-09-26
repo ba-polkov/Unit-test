@@ -26,10 +26,15 @@ class Burger:
         del self.ingredients[index]
 
     def move_ingredient(self, index: int, new_index: int):
+        # Удаляем элемент по index, затем вставляем его на new_index
         self.ingredients.insert(new_index, self.ingredients.pop(index))
 
     def get_price(self) -> float:
-        price = self.bun.get_price() * 2
+        price = 0.0
+
+        # УЛУЧШЕНИЕ: Защита от AttributeError, если bun == None
+        if self.bun:
+            price += self.bun.get_price() * 2
 
         for ingredient in self.ingredients:
             price += ingredient.get_price()
@@ -37,10 +42,16 @@ class Burger:
         return price
 
     def get_receipt(self) -> str:
+
+        # ВАЖНО: Проверка на наличие булочек перед началом формирования чека
+        if self.bun is None:
+            raise ValueError("Булки не установлены. Невозможно создать чек.")
+
         receipt: List[str] = [f'(==== {self.bun.get_name()} ====)']
 
         for ingredient in self.ingredients:
-            receipt.append(f'= {str(ingredient.get_type()).lower()} {ingredient.get_name()} =')
+            # Используем .lower() для соответствия ожидаемому формату чека
+            receipt.append(f'= {ingredient.get_type().lower()} {ingredient.get_name()} =')
 
         receipt.append(f'(==== {self.bun.get_name()} ====)\n')
         receipt.append(f'Price: {self.get_price()}')

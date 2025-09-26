@@ -1,44 +1,9 @@
-# Python
-*.pyc
-*.pyo
-*.pyd
+# Временные файлы Python
 __pycache__/
-*.so
-*.egg
-*.egg-info/
-dist/
-build/
-*.log
-
-# Virtual environments
+*.pyc
+# Виртуальное окружение
 .venv/
-env/
-ENV/
-
-# Pytest
-.pytest_cache/
-
-# Allure reports
-allure-results/
-htmlcov/
-
-# IDEs
-.idea/
-.vscode/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# MyPy
-.mypy_cache/
-
-# Coverage
-.coverage
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Temporary files
-*.tmp
-*.swp
+venv/
+# Отчеты и логи
+/allure-results
+/test_reports

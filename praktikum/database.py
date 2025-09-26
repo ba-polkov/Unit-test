@@ -7,21 +7,24 @@ from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FI
 
 class Database:
     """
-    Класс с методами по работе с базой данных.
+    Класс с методами по работе с базой данных (заглушка).
     """
 
     def __init__(self):
         self.buns: List[Bun] = []
         self.ingredients: List[Ingredient] = []
 
+        # Булочки
         self.buns.append(Bun("black bun", 100))
         self.buns.append(Bun("white bun", 200))
         self.buns.append(Bun("red bun", 300))
 
+        # Соусы
         self.ingredients.append(Ingredient(INGREDIENT_TYPE_SAUCE, "hot sauce", 100))
         self.ingredients.append(Ingredient(INGREDIENT_TYPE_SAUCE, "sour cream", 200))
         self.ingredients.append(Ingredient(INGREDIENT_TYPE_SAUCE, "chili sauce", 300))
 
+        # Начинки
         self.ingredients.append(Ingredient(INGREDIENT_TYPE_FILLING, "cutlet", 100))
         self.ingredients.append(Ingredient(INGREDIENT_TYPE_FILLING, "dinosaur", 200))
         self.ingredients.append(Ingredient(INGREDIENT_TYPE_FILLING, "sausage", 300))
