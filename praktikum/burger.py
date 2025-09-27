@@ -1,7 +1,11 @@
-from typing import List
+import os
+import sys
 
-from praktikum.bun import Bun
-from praktikum.ingredient import Ingredient
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from typing import List
+from .bun import Bun
+from .ingredient import Ingredient
 
 
 class Burger:
