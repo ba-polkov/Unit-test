@@ -1,15 +1,8 @@
 import pytest
+
 from unittest.mock import Mock
-from burger import Burger
 from data import BurgerElements as BE
 
-
-
-# Создаем объект класса Burger
-@pytest.fixture
-def burger():
-    burger = Burger()
-    return burger
 
 # Cоздаем мок красной булочки
 @pytest.fixture()
