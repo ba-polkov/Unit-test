@@ -1,5 +1,5 @@
 import pytest
-from ..praktikum.burger import Burger
+from praktikum.burger import Burger
 from unittest.mock import Mock
 from ..data import BUNS_DATA, FILLINGS_DATA, SAUSES_DATA
 
