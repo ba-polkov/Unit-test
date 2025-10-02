@@ -7,7 +7,6 @@ from tests.data import TestData
 
 class TestBurger:
 
-    # Позитивные тесты
     def test_set_buns(self):
         """Тестирование метода выбора булки"""
         burger = Burger()
@@ -83,21 +82,17 @@ class TestBurger:
         burger = Burger()
         mock_bun = Mock()
         mock_bun.get_name.return_value = TestData.buns[1][0]
-        mock_bun.get_price.return_value = TestData.buns[1][1]  # Добавлен return_value
+        mock_bun.get_price.return_value = TestData.buns[1][1]
 
         mock_ingredient1 = Mock()
         mock_ingredient1.get_type.return_value = INGREDIENT_TYPE_FILLING
         mock_ingredient1.get_name.return_value = TestData.ingredients[0][1]
-        mock_ingredient1.get_price.return_value = TestData.ingredients[0][
-            2
-        ]  # Добавлен return_value
+        mock_ingredient1.get_price.return_value = TestData.ingredients[0][2]
 
         mock_ingredient2 = Mock()
         mock_ingredient2.get_type.return_value = INGREDIENT_TYPE_SAUCE
         mock_ingredient2.get_name.return_value = TestData.ingredients[6][1]
-        mock_ingredient2.get_price.return_value = TestData.ingredients[6][
-            2
-        ]  # Добавлен return_value
+        mock_ingredient2.get_price.return_value = TestData.ingredients[6][2]
 
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_ingredient1)
@@ -166,12 +161,12 @@ class TestBurger:
         burger = Burger()
         mock_bun = Mock()
         mock_bun.get_name.return_value = "Test Bun"
-        mock_bun.get_price.return_value = 100  
+        mock_bun.get_price.return_value = 100
 
         mock_ingredient = Mock()
         mock_ingredient.get_type.return_value = INGREDIENT_TYPE_FILLING
         mock_ingredient.get_name.return_value = "Test Filling"
-        mock_ingredient.get_price.return_value = 50  
+        mock_ingredient.get_price.return_value = 50
 
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_ingredient)
