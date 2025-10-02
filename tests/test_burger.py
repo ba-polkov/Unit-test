@@ -69,6 +69,7 @@ class TestBurger:
 
         assert actual_price == expected_price
 
+    # Проверяем, что метод get_receipt выводит чек со всеми элементами бургера и стоимостью корректно
     @pytest.mark.parametrize(
         "ingredients",
         [
