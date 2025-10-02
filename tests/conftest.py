@@ -1,8 +1,14 @@
+import sys
+import os
+
+# Добавляем корневую директорию проекта в Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import pytest
-from burger import Burger
-from bun import Bun
-from ingredient import Ingredient
-from ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
+from praktikum.burger import Burger
+from praktikum.bun import Bun
+from praktikum.ingredient import Ingredient
+from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
 
 #Фикстура создает Бургер

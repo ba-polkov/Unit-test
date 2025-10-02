@@ -8,7 +8,7 @@ class TestBurger:
     # Добавляем булочку к бургеру
     def test_sets_bun_correctly(self, burger, bun):
         burger.set_buns(bun)
-        assert burger.buns == bun
+        assert burger.bun == bun
 
     # Добавляем ингредиент в бургер (соус)
     def test_ingredient_adds_to_list(self, burger, ingredient_sauce):
@@ -29,7 +29,10 @@ class TestBurger:
     def test_move_ingredient_changes_position(self, burger):
         ingredient1 = Mock()
         ingredient2 = Mock()
-        burger.ingredients = [0, 1]
+        burger.ingredients = [ingredient1, ingredient2]
+
+        burger.move_ingredient(0, 1)
+
         assert burger.ingredients[0] == ingredient2
         assert burger.ingredients[1] == ingredient1
 
@@ -58,7 +61,8 @@ class TestBurger:
     # Проверяем формирование чека для бургера с ингредиентами
     def test_get_receipt_with_ingredients_returns_correct_format(self, burger):
         mock_bun = Mock()
-        mock_bun.get_price = Mock(return_value= 'black bun')
+        mock_bun.get_name.return_value = 'black bun'
+        mock_bun.get_price.return_value = 100
 
         mock_ingredients1 = Mock()
         mock_ingredients1.get_type.return_value = 'SAUCE'
@@ -75,10 +79,14 @@ class TestBurger:
 
         receipt = burger.get_receipt()
 
-        assert '(==== black bun ====)' in receipt
-        assert '= sauce hot sauce =' in receipt
-        assert '= filling cutlet =' in receipt
-        assert 'Price: 400' in receipt
+        expected_receipt = (
+            '(==== black bun ====)\n'
+            '= sauce hot sauce =\n'
+            '= filling cutlet =\n'
+            '(==== black bun ====)\n\n'
+            'Price: 400'
+        )
+        assert receipt == expected_receipt
 
     # Проверяем формирование чека для бургера без ингредиентов
     def test_get_receipt_without_ingredients_returns_correct_format(self, burger):
@@ -91,10 +99,12 @@ class TestBurger:
 
         receipt = burger.get_receipt()
 
-        lines = receipt.split('\n')
-        assert lines[0] == '(==== white bun ====)'
-        assert lines[1] == '(==== white bun ====)'
-        assert lines[3] == 'Price: 200'
+        expected_receipt = (
+            '(==== white bun ====)\n'
+            '(==== white bun ====)\n\n'
+            'Price: 200'
+        )
+        assert receipt == expected_receipt
 
     # Удаление несуществующего ингредиента
     def test_remove_ingredient_with_invalid_index_raises_error(self, burger):
