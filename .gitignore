@@ -1,0 +1,22 @@
+# Кэш и временные файлы Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Виртуальное окружение
+.venv/
+env/
+venv/
+
+# Pytest и coverage
+.pytest_cache/
+.coverage
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
