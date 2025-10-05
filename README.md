@@ -1,24 +1,59 @@
-## Дипломный проект. Задание 1: Юнит-тесты
+Дипломный проект. Задание 1: Юнит-тесты
 
-### Автотесты для проверки программы, которая помогает заказать бургер в Stellar Burgers
+Автотесты для проверки программы заказа бургера в Stellar Burgers
 
-### Реализованные сценарии
+Структура проекта
 
-Созданы юнит-тесты, покрывающие классы `Bun`, `Burger`, `Ingredient`, `Database`
+QA-PYTHON-DIPLOM_1/
+├── praktikum/ # Пакет с реализацией логики
+│ ├── bun.py
+│ ├── burger.py
+│ ├── database.py
+│ └── ingredient.py
+│
+├── tests/ # Пакет с тестами
+│ ├── conftest.py
+│ ├── test_bun.py
+│ ├── test_burger.py
+│ ├── test_database.py
+│ └── test_ingredient.py
+│
+├── data.py # Тестовые данные
+├── requirements.txt
+└── README.md
 
-Процент покрытия 100% (отчет: `htmlcov/index.html`)
 
-### Структура проекта
+Тестовое покрытие
 
-- `praktikum` - пакет, содержащий код программы
-- `tests` - пакет, содержащий тесты, разделенные по классам. Например, `bun_test.py`, `burger_test.py` и т.д.
+Покрытие 100% (отчёт в `htmlcov/index.html`)
 
-### Запуск автотестов
+| Класс | Тесты |
+|-----------------|-----------------------------------------------------------------------------------------|
+| `test_bun.py` | `test_get_name`, `test_get_price`, `test_invalid_price_raises_error` |
+| `test_burger.py`| `test_set_buns`, `test_add_ingredient`, `test_remove_ingredient`,`test_move_ingredient`, `test_get_price`, `test_get_receipt` |
+| `test_database.py`| `test_available_buns`, `test_available_ingredients` |
+| `test_ingredient.py`| `test_get_type`, `test_get_price`, `test_get_name`, `test_invalid_type_raises_error` |
 
-**Установка зависимостей**
+Установка и запуск
 
-> `$ pip install -r requirements.txt`
+1. Установка зависимостей
 
-**Запуск автотестов и создание HTML-отчета о покрытии**
+pip3 install -r requirements.txt
 
->  `$ pytest --cov=praktikum --cov-report=html`
+2. Запуск всех тестов с генерацией отчёта о покрытии
+
+pytest --cov=praktikum --cov-report=html
+
+3. Просмотр отчёта
+
+Откройте файл htmlcov/index.html в браузере.
+
+Особенности реализации
+
+Фикстуры вынесены в conftest.py
+
+Использованы моки для изоляции тестов
+
+Параметризация для проверки разных сценариев
+
+Проверка обработки ошибок для невалидных данных
