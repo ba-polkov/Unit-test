@@ -98,14 +98,37 @@ class TestBurger:
         burger.add_ingredient(mock_ingredient1)
         burger.add_ingredient(mock_ingredient2)
 
-        receipt = burger.get_receipt()
+        expected_receipt = (
+            f"(==== {TestData.buns[1][0]} ====)\n"
+            f"= {mock_ingredient1.get_type().lower()} {TestData.ingredients[0][1]} =\n"
+            f"= {mock_ingredient2.get_type().lower()} {TestData.ingredients[6][1]} =\n"
+            f"(==== {TestData.buns[1][0]} ====)\n\n"
+            f"Price: {burger.get_price()}"
+        )
+        assert burger.get_receipt() == expected_receipt
 
-        assert TestData.buns[1][0] in receipt
-        assert TestData.ingredients[0][1] in receipt
-        assert TestData.ingredients[6][1] in receipt
-        assert "filling" in receipt.lower()
-        assert "sauce" in receipt.lower()
-        assert "Price:" in receipt
+    def test_get_receipt_single_ingredient(self):
+        """Тест: чек бургера с одним ингредиентом"""
+        burger = Burger()
+        mock_bun = Mock()
+        mock_bun.get_name.return_value = "Test Bun"
+        mock_bun.get_price.return_value = 100
+
+        mock_ingredient = Mock()
+        mock_ingredient.get_type.return_value = INGREDIENT_TYPE_FILLING
+        mock_ingredient.get_name.return_value = "Test Filling"
+        mock_ingredient.get_price.return_value = 50
+
+        burger.set_buns(mock_bun)
+        burger.add_ingredient(mock_ingredient)
+
+        expected_receipt = (
+            f"(==== Test Bun ====)\n"
+            f"= filling Test Filling =\n"
+            f"(==== Test Bun ====)\n\n"
+            f"Price: {burger.get_price()}"
+        )
+        assert burger.get_receipt() == expected_receipt
 
     # Граничные случаи и негативные тесты
     def test_get_price_without_bun_raises_error(self):
@@ -155,24 +178,3 @@ class TestBurger:
         burger.set_buns(mock_bun)
 
         assert burger.get_price() == 200
-
-    def test_get_receipt_single_ingredient(self):
-        """Тест: чек бургера с одним ингредиентом"""
-        burger = Burger()
-        mock_bun = Mock()
-        mock_bun.get_name.return_value = "Test Bun"
-        mock_bun.get_price.return_value = 100
-
-        mock_ingredient = Mock()
-        mock_ingredient.get_type.return_value = INGREDIENT_TYPE_FILLING
-        mock_ingredient.get_name.return_value = "Test Filling"
-        mock_ingredient.get_price.return_value = 50
-
-        burger.set_buns(mock_bun)
-        burger.add_ingredient(mock_ingredient)
-
-        receipt = burger.get_receipt()
-        assert "Test Bun" in receipt
-        assert "Test Filling" in receipt
-        assert "filling" in receipt.lower()
-        assert "Price:" in receipt
