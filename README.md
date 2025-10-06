@@ -9,9 +9,25 @@
 Процент покрытия 100% (отчет: `htmlcov/index.html`)
 
 ### Структура проекта
-
-- `praktikum` - пакет, содержащий код программы
-- `tests` - пакет, содержащий тесты, разделенные по классам. Например, `bun_test.py`, `burger_test.py` и т.д.
+├── htmlcov/  
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── index.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- отчёт по покрытию юнит-тестами  
+├── praktikum/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- пакет, содержащий код программы   
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── bun.py  
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── burger.py  
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── database.py  
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── ingredient.py  
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── ingredient_types.py  
+├── src/  
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── data.py&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- данные для параметризации  
+├── tests/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- пакет, содержащий тесты, разделенные по классам.    
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── test_bun.py  
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── test_ingredient.py  
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── test_database.py  
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── test_burger.py  
+├── praktikum.py       
+├── requirements.txt  
+├── pytest.ini  
+└── README.md  
 
 ### Запуск автотестов
 
@@ -21,4 +37,4 @@
 
 **Запуск автотестов и создание HTML-отчета о покрытии**
 
->  `$ pytest --cov=praktikum --cov-report=html`
+> `$ pytest --cov=praktikum --cov-report=html`
