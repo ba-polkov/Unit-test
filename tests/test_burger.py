@@ -2,7 +2,7 @@ from unittest.mock import Mock
 from burger import Burger
 from bun import Bun
 from ingredient import Ingredient
-from ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
+from ingredient_types import INGREDIENT_TYPE_SAUCE
 
 
 class TestBurger:
@@ -21,51 +21,29 @@ class TestBurger:
 
         assert ingredient in burger.ingredients
 
-    def test_remove_ingredient_first(self):
-        burger = Burger()
-        a = Ingredient(INGREDIENT_TYPE_SAUCE, "A", 123)
-        b = Ingredient(INGREDIENT_TYPE_FILLING, "B", 345)
-        burger.add_ingredient(a)
-        burger.add_ingredient(b)
+    def test_remove_ingredient_first(self, get_burger_with_ingredients):
+        burger, a, b, c = get_burger_with_ingredients
 
         burger.remove_ingredient(0)
 
-        assert burger.ingredients == [b]
+        assert burger.ingredients == [b, c]
 
-    def test_remove_ingredient_middle(self):
-        burger = Burger()
-        a = Ingredient(INGREDIENT_TYPE_SAUCE, "A", 123)
-        b = Ingredient(INGREDIENT_TYPE_FILLING, "B", 345)
-        c = Ingredient(INGREDIENT_TYPE_FILLING, "C", 678)
-        burger.add_ingredient(a)
-        burger.add_ingredient(b)
-        burger.add_ingredient(c)
+    def test_remove_ingredient_middle(self, get_burger_with_ingredients):
+        burger, a, b, c = get_burger_with_ingredients
 
         burger.remove_ingredient(1)
 
         assert burger.ingredients == [a, c]
 
-    def test_remove_ingredient_last(self):
-        burger = Burger()
-        a = Ingredient(INGREDIENT_TYPE_SAUCE, "A", 123)
-        b = Ingredient(INGREDIENT_TYPE_FILLING, "B", 345)
-        c = Ingredient(INGREDIENT_TYPE_FILLING, "C", 678)
-        burger.add_ingredient(a)
-        burger.add_ingredient(b)
-        burger.add_ingredient(c)
+    def test_remove_ingredient_last(self, get_burger_with_ingredients):
+        burger, a, b, c = get_burger_with_ingredients
 
         burger.remove_ingredient(2)
 
         assert burger.ingredients == [a, b]
 
-    def test_move_ingredient(self):
-        burger = Burger()
-        a = Ingredient(INGREDIENT_TYPE_SAUCE, "A", 123)
-        b = Ingredient(INGREDIENT_TYPE_FILLING, "B", 345)
-        c = Ingredient(INGREDIENT_TYPE_FILLING, "C", 678)
-        burger.add_ingredient(a)
-        burger.add_ingredient(b)
-        burger.add_ingredient(c)
+    def test_move_ingredient(self, get_burger_with_ingredients):
+        burger, a, b, c = get_burger_with_ingredients
 
         burger.move_ingredient(0, 1)
 

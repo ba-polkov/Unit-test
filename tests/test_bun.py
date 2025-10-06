@@ -4,9 +4,7 @@ from bun import Bun
 
 
 class TestBun:
-    @pytest.mark.parametrize(
-        "name, price",
-        [
+    TEST_DATA = [
             ("Булчичка", 1.0),  # кириллица + float
             ("little bun", 2.5),  # латиница + дробная
             ("Bun 2", 0),  # с числом + ноль (int)
@@ -15,14 +13,20 @@ class TestBun:
             ("O'bun", 1_000_000),  # апостроф + большое число
             ("Вкуснявая-цельнозерновая", 1.25),  # дефис
             ("x" * 10, 0.99),  # очень длинное имя
-        ],
+    ]
+
+    @pytest.mark.parametrize(
+        "name, price",
+        TEST_DATA,
     )
-    def test_create_bun_with_valid_values(self, name, price):
+    def test_get_bun_name(self, name, price):
         bun = Bun(name, price)
-        assert bun.get_name() == name and bun.get_price() == price
+        assert bun.get_name() == name
 
-
-
-
-
-
+    @pytest.mark.parametrize(
+        "name, price",
+        TEST_DATA,
+    )
+    def test_get_bun_name(self, name, price):
+        bun = Bun(name, price)
+        assert bun.get_price() == price
