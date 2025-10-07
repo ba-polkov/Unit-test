@@ -1,0 +1,9 @@
+# Временные файлы Python
+__pycache__/
+*.pyc
+# Виртуальное окружение
+.venv/
+venv/
+# Отчеты и логи
+/allure-results
+/test_reports
