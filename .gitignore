@@ -27,7 +27,8 @@ allure-report/
 .DS_Store
 Thumbs.db
 # Coverage reports
+# Coverage reports
 .coverage
 htmlcov/
 *.cover
-.coverage.*
+.coverage.*.idea/
