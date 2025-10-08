@@ -24,15 +24,15 @@
 
 **Установка зависимостей**
 
-> `$ pip install -r requirements.txt`
+> `pip install -r requirements.txt`
 
 **Запуск автотестов и создание HTML-отчета о покрытии**
 
->  `$ pytest --cov=praktikum --cov-report=html`
+>  `pytest --cov=praktikum --cov-report=html`
 
 **Запуск автотестов для класса Burger и создание HTML-отчета о покрытии класса**
 
->  `$ python -m pytest --cov=praktikum.burger --cov-report=html`
+>  `python -m pytest --cov=praktikum.burger --cov-report=html`
 
 **# Открытие HTML-отчёта покрытия тестов**
 

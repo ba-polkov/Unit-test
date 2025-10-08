@@ -52,56 +52,47 @@ class TestBurger:
     def test_get_price_of_burger(
         self, burger, mock_bun, mock_filling, mock_sause, ingredients
     ):
-        burger.set_buns(mock_bun)
+        mock_map = {"filling": mock_filling, "sause": mock_sause}
 
-        if "filling" in ingredients:
-            burger.add_ingredient(mock_filling)
-        if "sause" in ingredients:
-            burger.add_ingredient(mock_sause)
+        burger.set_buns(mock_bun)
+        for ingr in ingredients:
+            burger.add_ingredient(mock_map[ingr])
 
         expected_price = mock_bun.get_price.return_value * 2
-        if "filling" in ingredients:
-            expected_price += mock_filling.get_price.return_value
-        if "sause" in ingredients:
-            expected_price += mock_sause.get_price.return_value
+        for ingr in ingredients:
+            expected_price += mock_map[ingr].get_price.return_value
 
-        actual_price = burger.get_price()
-
-        assert actual_price == expected_price
+        assert burger.get_price() == expected_price
 
     # Проверяем, что метод get_receipt выводит чек со всеми элементами бургера и стоимостью корректно
     @pytest.mark.parametrize(
         "ingredients",
         [
-            [],  # только булка
-            ["filling"],  # булка + начинка
-            ["sause"],  # булка + соус
-            ["filling", "sause"],  # булка + начинка + соус
+            [],
+            ["filling"],
+            ["sause"],
+            ["filling", "sause"],
         ],
     )
     def test_get_receipt_with_ingredients(
         self, burger, mock_bun, mock_filling, mock_sause, ingredients
     ):
+        mock_map = {"filling": mock_filling, "sause": mock_sause}
+
         burger.set_buns(mock_bun)
+        for ingr in ingredients:
+            burger.add_ingredient(mock_map[ingr])
 
-        if "filling" in ingredients:
-            burger.add_ingredient(mock_filling)
-        if "sause" in ingredients:
-            burger.add_ingredient(mock_sause)
+        receipt_lines = [f"(==== {mock_bun.get_name()} ====)"]
 
-        receipt_part = [f"(==== {mock_bun.get_name()} ====)"]
-        if "filling" in ingredients:
-            receipt_part.append(
-                f"= {str(mock_filling.get_type()).lower()} {mock_filling.get_name()} ="
+        for ingr in ingredients:
+            mock_ingr = mock_map[ingr]
+            receipt_lines.append(
+                f"= {str(mock_ingr.get_type()).lower()} {mock_ingr.get_name()} ="
             )
-        if "sause" in ingredients:
-            receipt_part.append(
-                f"= {str(mock_sause.get_type()).lower()} {mock_sause.get_name()} ="
-            )
-        receipt_part.append(f"(==== {mock_bun.get_name()} ====)\n")
-        receipt_part.append(f"Price: {burger.get_price()}")
-        expected_receipt = "\n".join(receipt_part)
 
-        actual_receipt = burger.get_receipt()
+        receipt_lines.append(f"(==== {mock_bun.get_name()} ====)\n")
+        receipt_lines.append(f"Price: {burger.get_price()}")
 
-        assert actual_receipt == expected_receipt
+        expected_receipt = "\n".join(receipt_lines)
+        assert burger.get_receipt() == expected_receipt
