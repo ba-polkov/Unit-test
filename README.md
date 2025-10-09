@@ -2,7 +2,7 @@
 
 Косач Евгений 29-я когорта
 
-Diplom/
+Diplom1/
 ├── .gitignore
 ├── requirements.txt
 ├── praktikum/
