@@ -3,7 +3,6 @@ import os
 import pytest
 from unittest.mock import Mock
 
-# Добавляем путь к корневой папке проекта
 current_dir = os.path.dirname(__file__)
 project_root = os.path.dirname(current_dir)
 sys.path.insert(0, project_root)
