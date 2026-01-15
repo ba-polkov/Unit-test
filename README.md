@@ -2,23 +2,28 @@
 
 ### Автотесты для проверки программы, которая помогает заказать бургер в Stellar Burgers
 
-### Реализованные сценарии
-
-Созданы юнит-тесты, покрывающие классы `Bun`, `Burger`, `Ingredient`, `Database`
-
 Процент покрытия 100% (отчет: `htmlcov/index.html`)
 
 ### Структура проекта
 
-- `praktikum` - пакет, содержащий код программы
-- `tests` - пакет, содержащий тесты, разделенные по классам. Например, `bun_test.py`, `burger_test.py` и т.д.
+- `praktikum` - код программы
+- `tests` - тесты
+- `allure_results` - хранит JSON-файлы с результатами выполнения тестов для генерации отчета
+- `htmlcov` — файлы с результатами оценки тестового покрытия
+- `conftest` - фикстуры для запуска тестов
+- `data` - предопределенные тестовые данные
+- `requirements.txt` - зависимости
 
 ### Запуск автотестов
 
 **Установка зависимостей**
 
-> `$ pip install -r requirements.txt`
+> `pip install -r requirements.txt`
 
 **Запуск автотестов и создание HTML-отчета о покрытии**
 
->  `$ pytest --cov=praktikum --cov-report=html`
+> `pytest --cov=praktikum --cov-report=term --cov-report=html`
+
+**Allure-отчет о тестировании**
+
+> `allure serve allure_results`
